@@ -1,0 +1,26 @@
+.editor-wrapper {
+  width: 100%;
+}
+.editors {
+  display: flex;
+  margin: 0px 15px 10px 0px;
+}
+
+.editor {
+  width: 100%;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.title {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.frame iframe {
+  background-color: white;
+  border: 0;
+  width: 98%;
+  height: 45vh;
+  margin-left: 12px;
+}
