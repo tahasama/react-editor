@@ -12,9 +12,36 @@
   overflow: hidden;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .title {
   margin-top: 10px;
   margin-bottom: 8px;
+}
+
+.format {
+  position: relative;
+  height: 100%;
+  border: 0;
+  font-size: 14px;
+  background-color: #cd3158;
+  color: white;
+  padding: 6px 20px;
+  margin: 6px;
+  opacity: 0;
+  transition: opacity ease-in 0.4s;
+  cursor: pointer;
+}
+
+.format:active {
+  background-color: #ad284a;
+  transform: translate(0.5px, 0.5px);
+}
+.editor:hover .format {
+  opacity: 1;
 }
 
 .frame iframe {

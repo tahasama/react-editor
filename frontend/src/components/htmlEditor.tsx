@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
 import Editor, { useMonaco } from "@monaco-editor/react";
+import prettier from "prettier";
+import htmlParser from "prettier/parser-html";
+
 import "../screens/fullEditor.css";
 
 interface htmlProps {
@@ -18,9 +21,22 @@ const HtmlEditor = ({ html, setHtml }: htmlProps) => {
     editorRef.current = editor;
   };
 
+  const onFormat = () => {
+    const formatted = prettier.format(editorRef.current.getValue(), {
+      parser: "html",
+      plugins: [htmlParser],
+    });
+    editorRef.current.setValue(formatted);
+  };
+
   return (
     <div>
-      <p className="title">HTML</p>
+      <div className="header">
+        <p className="title">HTML</p>
+        <button onClick={onFormat} className="format">
+          format
+        </button>
+      </div>
       <Editor
         height="45vh"
         defaultLanguage="html"
