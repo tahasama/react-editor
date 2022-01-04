@@ -1,16 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor, { useMonaco } from "@monaco-editor/react";
 import prettier from "prettier";
 import htmlParser from "prettier/parser-html";
 
 import "../screens/fullEditor.css";
+import { error } from "console";
+import axios from "axios";
 
 interface htmlProps {
   html: string;
   setHtml: any;
+  id: string | undefined;
 }
 
-const HtmlEditor = ({ html, setHtml }: htmlProps) => {
+const HtmlEditor = ({ html, setHtml, id }: htmlProps) => {
   const editorRef = useRef<any>(null);
 
   const handleEditorChange = () => {
@@ -40,7 +43,7 @@ const HtmlEditor = ({ html, setHtml }: htmlProps) => {
       <Editor
         height="45vh"
         defaultLanguage="html"
-        defaultValue={html}
+        value={html}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"

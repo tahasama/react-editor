@@ -39,8 +39,8 @@ const JsEditor = ({ js, setJs }: jsProps) => {
       </div>
       <Editor
         height="45vh"
-        defaultLanguage="javascriptx"
-        defaultValue={js}
+        defaultLanguage="javascript"
+        value={js}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"

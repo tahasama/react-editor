@@ -1,0 +1,72 @@
+.side-bar {
+  z-index: 99 !important;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  background-color: #2b2e36;
+}
+
+.side {
+  flex: 1;
+  margin: 20px 10px 5px;
+  font-size: 30px;
+  height: 40px;
+  width: 40px;
+  transition: all 1s ease-in;
+}
+.butt {
+  background-color: transparent;
+  border: transparent;
+  margin: 18px 4px;
+  cursor: pointer;
+}
+
+.a {
+  color: rgb(48, 48, 150);
+}
+
+.b {
+  color: rgb(150, 48, 145);
+}
+
+.c {
+  color: rgb(48, 130, 150);
+}
+.e {
+  color: rgb(180, 133, 133);
+}
+.d {
+  color: rgb(219, 69, 69);
+}
+.message {
+  position: absolute;
+  left: 45px;
+  padding: 8px;
+  margin-top: -40px;
+  height: 25px;
+  background-color: #2b2e36;
+  color: rgb(224, 207, 207);
+  white-space: nowrap;
+  overflow: auto;
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
+  border-radius: 0px 18px 18px 0px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

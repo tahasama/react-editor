@@ -40,7 +40,7 @@ const CssEditor = ({ css, setCss }: cssProps) => {
       <Editor
         height="45vh"
         defaultLanguage="css"
-        defaultValue={css}
+        value={css}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"
