@@ -5,7 +5,8 @@ import jsParser from "prettier/parser-babel";
 
 import "../screens/fullEditor.css";
 import { useDispatch } from "react-redux";
-import { updateJs } from "../state/reducers";
+import { getProjectData, updateJs } from "../state/reducers";
+import { useAppSelector } from "../state/hooks";
 
 interface jsProps {
   js: string;
@@ -16,6 +17,10 @@ const JsEditor = () => {
   const editorRef = useRef<any>(null);
 
   const dispatch = useDispatch();
+
+  const {
+    code: { js },
+  } = useAppSelector(getProjectData);
   const handleEditorChange = () => {
     dispatch(
       // updateCell({ myCode: editorRef.current.getValue(), myType: "js" })
@@ -46,7 +51,7 @@ const JsEditor = () => {
       <Editor
         height="45vh"
         defaultLanguage="javascript"
-        // value={js}
+        value={js}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"

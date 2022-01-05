@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import FullEditor from "../screens/fullEditor";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { createMyProject, creatProject, getMyProject } from "../state/reducers";
+import { getProjectData, creatProject } from "../state/reducers";
 import { store } from "../state/store";
 // import { create_project } from "../state/reducers";
 
@@ -15,7 +15,7 @@ const CreateProject: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const _id = useAppSelector(createMyProject);
+  const { _id } = useAppSelector(getProjectData);
   navigate("/editor/" + _id);
 
   useEffect(() => {

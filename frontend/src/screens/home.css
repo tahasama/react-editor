@@ -1,20 +1,28 @@
 .home {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 .intro {
-  position: absolute;
-  top: 10vh;
+  /* position: absolute;
+  top: 10vh; */
   font-size: 40px;
   width: 70vw;
   font-weight: 500;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-left: 5vw;
+  padding: 10px;
 }
-.button {
-  margin: 40vh 2vh;
+.buttonWrapper {
+}
+.buttona {
   font-size: 32px;
   width: 32vw;
   cursor: pointer;
   position: relative;
+  margin: 0px 20px;
+  border-radius: 10px;
+  border-style: double;
 }

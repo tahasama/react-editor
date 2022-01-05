@@ -1,76 +1,58 @@
 .modalContainer {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  justify-content: center;
 }
 
 .modal {
-  width: 30vw;
-  height: 30vh;
-  background-color: #fff;
-  padding: 25px;
+  width: 35%;
+  height: 45%;
+  padding: 5px;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgb();
+  background-color: rgba(96, 48, 150, 0.35);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.3);
 }
 
 .modalHeader {
   display: flex;
   justify-content: space-between;
+  font-size: 24px;
+  margin-left: 12px;
+  font-weight: 600;
+  margin-top: 20px;
 }
 .modalHeaderTitle {
-  font-size: 24px;
-  margin: 20px;
-  font-weight: 600;
-}
-.close {
-  height: 30px;
-  width: 30px;
-  border: 0;
-  opacity: 0.6;
-  background-color: transparent;
-  font-size: 24px;
-  border-radius: 25%;
-}
-.close:active {
-  transform: translate(1px, 1px);
-  background-color: rgb(170, 164, 164);
 }
 
 .modalFooter {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  text-align: center;
+  margin-top: 15px;
 }
 
 .createButton {
-  /* float: right; */
   padding: 10px;
   border-radius: 8px;
   border: none;
   text-decoration: none;
-  background-color: #364348;
+  background-color: #445a63;
   color: #fff;
   flex-grow: 1;
   cursor: pointer;
+  margin: 10px 0px;
 }
 .createButton:active {
   transform: translate(0.5px, 0.5px);
   background-color: #3a4950;
 }
-
 .createInput {
-  padding: 5px;
+  padding: 8px;
   margin-right: 1rem;
-  background-color: #364348;
+  background-color: #5d737c;
   color: #fff;
   flex-grow: 3;
   border: none;
   border-radius: 8px;
+  width: 60%;
 }

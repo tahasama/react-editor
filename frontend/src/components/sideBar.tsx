@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./sideBar.css";
 import { FcOpenedFolder } from "react-icons/fc";
 import {
@@ -8,14 +8,11 @@ import {
   AiFillDelete,
 } from "react-icons/ai";
 import { useReducer } from "react";
-import { creatProject } from "../state/reducers";
+import { creatProject, saveProject } from "../state/reducers";
+import { useAppSelector } from "../state/hooks";
 
-const SideBar = ({
-  handleSaveProject,
-  handleDeleteProjectClick,
-  id,
-  inputRef,
-}: any) => {
+const SideBar = ({ handleDeleteProject, save }: any) => {
+  const { id } = useParams();
   const initialState = {
     home: false,
     new: false,
@@ -23,6 +20,7 @@ const SideBar = ({
     open: false,
     delete: false,
   };
+  const { html, css, js } = useAppSelector((state) => state.projs.code);
   const [state, dispatch] = useReducer(reducer, initialState);
   function reducer(state = initialState, action: any) {
     let newState;
@@ -61,14 +59,13 @@ const SideBar = ({
         <AiFillHome />
         {state.home && <div className="message">Home</div>}
       </Link>
-
       {id && (
         <Link
           to={""}
           className="side "
           onMouseEnter={() => dispatch({ type: "Save" })}
           onMouseLeave={() => dispatch({ type: "Default" })}
-          onClick={handleSaveProject}
+          onClick={save}
         >
           <AiFillSave />
           {state.save && <div className="message">Save</div>}
@@ -101,7 +98,7 @@ const SideBar = ({
           className="side d butt"
           onMouseEnter={() => dispatch({ type: "Delete" })}
           onMouseLeave={() => dispatch({ type: "Default" })}
-          onClick={handleDeleteProjectClick}
+          onClick={handleDeleteProject}
         >
           <AiFillDelete />
           {state.delete && <div className="message">Delete</div>}

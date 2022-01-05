@@ -25,12 +25,15 @@ const Home = () => {
         Welcome to ThaCoder, got an idea? want to learn? or having fun with
         code? Start now !!!
       </h3>
-      <button className="button a" onClick={handleNewProjectClick}>
-        Start a new Project
-      </button>
-      <button className="button b" onClick={handleOpenProjectClick}>
-        Open a project
-      </button>
+      <div className="buttonWrapper">
+        <button className="buttona a" onClick={handleNewProjectClick}>
+          Start a new Project
+        </button>
+        <button className="buttona b" onClick={handleOpenProjectClick}>
+          Open a project
+        </button>
+      </div>
+
       <SideBar />
     </div>
   );

@@ -1,6 +1,6 @@
 .editor-wrapper {
-  width: 95%;
-  margin-left: 5%;
+  width: 96%;
+  margin-left: 4%;
 }
 .editors {
   display: flex;
@@ -21,6 +21,8 @@
 .title {
   margin-top: 10px;
   margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .format {
@@ -82,4 +84,11 @@
 }
 .e {
   color: rgb(180, 133, 133);
+}
+
+.projectTitle {
+  margin-left: 30px;
+  font-weight: 600;
+  font-family: serif;
+  font-size: 28px;
 }

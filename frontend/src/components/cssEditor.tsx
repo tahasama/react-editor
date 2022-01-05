@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
-import Editor, { useMonaco } from "@monaco-editor/react";
+import React, { useRef } from "react";
+import Editor from "@monaco-editor/react";
 import prettier from "prettier";
 import cssParser from "prettier/parser-postcss";
 
 import "../screens/fullEditor.css";
-import { updateCss } from "../state/reducers";
+import { getProjectData, updateCss } from "../state/reducers";
 import { useDispatch } from "react-redux";
-
-interface cssProps {
-  css: string;
-  setCss: any;
-}
+import { useAppSelector } from "../state/hooks";
 
 const CssEditor = () => {
   const editorRef = useRef<any>(null);
 
   const dispatch = useDispatch();
+
+  const {
+    code: { css },
+  } = useAppSelector(getProjectData);
   const handleEditorChange = () => {
     dispatch(
       // updateCell({ myCode: editorRef.current.getValue(), myType: "css" })
@@ -46,7 +46,7 @@ const CssEditor = () => {
       <Editor
         height="45vh"
         defaultLanguage="css"
-        // value={css}
+        value={css}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"
