@@ -33,7 +33,33 @@ export const projectSlice = createSlice({
     title: "",
     code: { html: "", css: "", js: "" },
   },
-  reducers: {},
+  reducers: {
+    // updateCell: (state, action) => {
+    //   switch (action.payload.myType) {
+    //     case "html":
+    //       state.code.html = action.payload.myCode;
+    //       break;
+    //     case "css":
+    //       state.code.css = action.payload.myCode;
+    //       break;
+    //     case "js":
+    //       state.code.js = action.payload.myCode;
+    //       break;
+    //     default:
+    //       return state;
+    //   }
+    // },
+    updateHtml: (state, action) => {
+      console.log(action.payload);
+      state.code.html = action.payload;
+    },
+    updateCss: (state, action) => {
+      state.code.css = action.payload;
+    },
+    updateJs: (state, action) => {
+      state.code.js = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
       state.title = action.payload;
@@ -48,6 +74,6 @@ export const projectSlice = createSlice({
 export const getMyProject = (state: projectProps) => state.projs.title;
 export const createMyProject = (state: projectProps) => state.projs._id;
 
-export const {} = projectSlice.actions;
+export const { updateHtml, updateCss, updateJs } = projectSlice.actions;
 
 export default projectSlice.reducer;

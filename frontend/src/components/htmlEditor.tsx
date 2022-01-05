@@ -5,20 +5,23 @@ import htmlParser from "prettier/parser-html";
 
 import "../screens/fullEditor.css";
 import { useAppSelector } from "../state/hooks";
+import { updateHtml } from "../state/reducers";
+import { useDispatch } from "react-redux";
 
 interface htmlProps {
-  html: string;
-  setHtml: any;
   id: string | undefined;
 }
 
-const HtmlEditor = ({ html, setHtml, id }: htmlProps) => {
+const HtmlEditor = ({ id }: htmlProps) => {
   // const { code } = useAppSelector((state) => state.projs);
 
   const editorRef = useRef<any>(null);
-
+  const dispatch = useDispatch();
   const handleEditorChange = () => {
-    setHtml(editorRef.current.getValue());
+    dispatch(
+      // updateCell({ myCode: editorRef.current.getValue(), myType: "html" })
+      updateHtml(editorRef.current.getValue())
+    );
   };
 
   const handleEditorDidMount = (editor: any) => {

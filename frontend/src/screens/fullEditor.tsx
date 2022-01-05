@@ -13,14 +13,13 @@ import { store } from "../state/store";
 import { fetchProject, getMyProject } from "../state/reducers";
 
 function FullEditor() {
-  const [html, setHtml] = useState<string>("");
-  const [css, setCss] = useState<string>("");
-  const [js, setJs] = useState<string>("");
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const name = useAppSelector(getMyProject);
+  const { html, css, js } = useAppSelector((state) => state.projs.code);
+  console.log("dddddddddddddddd", html);
   console.log("selecttitle", name);
   // settitles(title);
 
@@ -71,13 +70,13 @@ function FullEditor() {
       <h1>her you go : {name}</h1>
       <div className="editors">
         <div className="editor">
-          <HtmlEditor html={html} setHtml={setHtml} id={id} />
+          <HtmlEditor id={id} />
         </div>
         <div className="editor">
-          <CssEditor css={css} setCss={setCss} />
+          <CssEditor />
         </div>
         <div className="editor">
-          <JsEditor js={js} setJs={setJs} />
+          <JsEditor />
         </div>
       </div>
 

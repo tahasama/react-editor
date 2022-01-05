@@ -4,17 +4,23 @@ import prettier from "prettier";
 import jsParser from "prettier/parser-babel";
 
 import "../screens/fullEditor.css";
+import { useDispatch } from "react-redux";
+import { updateJs } from "../state/reducers";
 
 interface jsProps {
   js: string;
   setJs: any;
 }
 
-const JsEditor = ({ js, setJs }: jsProps) => {
+const JsEditor = () => {
   const editorRef = useRef<any>(null);
 
+  const dispatch = useDispatch();
   const handleEditorChange = () => {
-    setJs(editorRef.current.getValue());
+    dispatch(
+      // updateCell({ myCode: editorRef.current.getValue(), myType: "js" })
+      updateJs(editorRef.current.getValue())
+    );
   };
 
   const handleEditorDidMount = (editor: any) => {
@@ -40,7 +46,7 @@ const JsEditor = ({ js, setJs }: jsProps) => {
       <Editor
         height="45vh"
         defaultLanguage="javascript"
-        value={js}
+        // value={js}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"
