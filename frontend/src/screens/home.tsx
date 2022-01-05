@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 
 import "./home.css";
-import { FcOpenedFolder } from "react-icons/fc";
 
 const Home = () => {
-  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   const handleNewProjectClick: React.MouseEventHandler<
@@ -34,10 +31,7 @@ const Home = () => {
       <button className="button b" onClick={handleOpenProjectClick}>
         Open a project
       </button>
-      <SideBar
-        handleNewProjectClick={handleNewProjectClick}
-        handleOpenProjectClick={handleOpenProjectClick}
-      />
+      <SideBar />
     </div>
   );
 };

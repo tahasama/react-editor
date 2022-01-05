@@ -1,7 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import projectsReducer from "./reducers";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    projs: projectsReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -8,6 +8,9 @@ import { AiOutlineSave } from "react-icons/ai";
 
 import "./fullEditor.css";
 import SideBar from "../components/sideBar";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { store } from "../state/store";
+import { fetchProject, getMyProject } from "../state/reducers";
 
 function FullEditor() {
   const [html, setHtml] = useState<string>("");
@@ -15,12 +18,18 @@ function FullEditor() {
   const [js, setJs] = useState<string>("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleGetProject = async () => {
-    const { data } = await axios.get("http://localhost:5000/api/project/" + id);
-    setHtml(data.code.html);
-    setCss(data.code.css);
-    setJs(data.code.js);
+  const name = useAppSelector(getMyProject);
+  console.log("selecttitle", name);
+  // settitles(title);
+
+  const handleGetProject = () => {
+    dispatch(fetchProject(id));
+
+    // setHtml(code.html);
+    // setCss(code.css);
+    // setJs(code.js);
   };
 
   useEffect(() => {
@@ -35,18 +44,13 @@ function FullEditor() {
         js: js,
       },
     };
-    const { data } = await axios.put(
-      "http://localhost:5000/api/project/" + id,
-      saveData
-    );
-    console.log("we sent this data : ", data);
+    await axios.put("http://localhost:5000/api/project/" + id, saveData);
   };
+
   const handleDeleteProjectClick = async () => {
     const result = window.confirm("are you sure you want to delete ");
     if (result) {
-      const { data } = await axios.delete(
-        "http://localhost:5000/api/project/" + id
-      );
+      await axios.delete("http://localhost:5000/api/project/" + id);
       navigate("/");
     }
   };
@@ -64,9 +68,7 @@ function FullEditor() {
         handleDeleteProjectClick={handleDeleteProjectClick}
         id={id}
       />
-      {/* <button className="save side a" onClick={handleSaveProject}>
-        <AiOutlineSave className="saveIcon" />
-      </button> */}
+      <h1>her you go : {name}</h1>
       <div className="editors">
         <div className="editor">
           <HtmlEditor html={html} setHtml={setHtml} id={id} />

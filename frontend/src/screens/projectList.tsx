@@ -11,7 +11,6 @@ const ProjectList = () => {
   const getProjectsList = async () => {
     try {
       const { data } = await axios.get("http://localhost:5000/api/project/");
-      console.log("res", data);
       setProjects(data);
     } catch (error) {
       console.log(error);
@@ -28,7 +27,7 @@ const ProjectList = () => {
         <div key={proj._id}>
           <Link to={"/editor/" + proj._id} className="project">
             <FcOpenedFolder className="icon" />
-            <p className="name">{proj.name}</p>
+            <p className="name">{proj.title}</p>
           </Link>
         </div>
       ))}

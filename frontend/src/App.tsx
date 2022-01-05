@@ -3,7 +3,6 @@ import CssEditor from "./components/cssEditor";
 import HtmlEditor from "./components/htmlEditor";
 import JsEditor from "./components/jsEditor";
 import FullEditor from "./screens/fullEditor";
-import About from "./components/about";
 import Home from "./screens/home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProjectList from "./screens/projectList";

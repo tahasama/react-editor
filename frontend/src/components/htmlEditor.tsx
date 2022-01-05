@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import Editor, { useMonaco } from "@monaco-editor/react";
+import React, { useRef } from "react";
+import Editor from "@monaco-editor/react";
 import prettier from "prettier";
 import htmlParser from "prettier/parser-html";
 
 import "../screens/fullEditor.css";
-import { error } from "console";
-import axios from "axios";
+import { useAppSelector } from "../state/hooks";
 
 interface htmlProps {
   html: string;
@@ -14,6 +13,8 @@ interface htmlProps {
 }
 
 const HtmlEditor = ({ html, setHtml, id }: htmlProps) => {
+  // const { code } = useAppSelector((state) => state.projs);
+
   const editorRef = useRef<any>(null);
 
   const handleEditorChange = () => {
@@ -43,7 +44,7 @@ const HtmlEditor = ({ html, setHtml, id }: htmlProps) => {
       <Editor
         height="45vh"
         defaultLanguage="html"
-        value={html}
+        // value={code.html}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"
