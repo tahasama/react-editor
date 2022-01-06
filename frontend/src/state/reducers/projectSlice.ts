@@ -22,14 +22,34 @@ interface codeProps {
   newData: { code: { html: string; css: string; js: string } };
   id: string | undefined;
 }
+interface titleProps {
+  id: string | undefined;
+  newTitle: { title: string };
+}
 
 export const saveProject = createAsyncThunk(
   "saveProject",
   async ({ newData, id }: codeProps) => {
+    const res = await axios.put("http://localhost:5000/api/project/" + id, {
+      newData,
+    });
+    return res.data;
+  }
+);
+export const updateName = createAsyncThunk(
+  "saveProject",
+  async ({ newTitle, id }: titleProps) => {
+    console.log(
+      "insiiiiiide updateName goooooooooo",
+      newTitle,
+      "an also the id",
+      id
+    );
     const res = await axios.put(
       "http://localhost:5000/api/project/" + id,
-      newData
+      newTitle
     );
+    console.log("sucessssss", res.data);
     return res.data;
   }
 );
@@ -66,6 +86,9 @@ export const projectSlice = createSlice({
     updateJs: (state, action) => {
       state.code.js = action.payload;
     },
+    updateTitle: (state, action) => {
+      state.title = action.payload;
+    },
     cleanState: (state) => {
       state._id = "";
     },
@@ -89,7 +112,7 @@ export const projectSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const getProjectData = (state: projectProps) => state.projs;
 
-export const { updateHtml, updateCss, updateJs, cleanState } =
+export const { updateHtml, updateCss, updateJs, updateTitle, cleanState } =
   projectSlice.actions;
 
 export default projectSlice.reducer;

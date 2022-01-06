@@ -41,6 +41,7 @@
   flex-grow: 1;
   cursor: pointer;
   margin: 10px 0px;
+  font-size: 18px;
 }
 .createButton:active {
   transform: translate(0.5px, 0.5px);
@@ -49,10 +50,13 @@
 .createInput {
   padding: 8px;
   margin-right: 1rem;
-  background-color: #5d737c;
+  background-color: #4b5d64;
   color: #fff;
   flex-grow: 3;
   border: none;
   border-radius: 8px;
   width: 60%;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

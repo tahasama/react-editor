@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import projectsReducer from "./reducers/projectSlice";
 import projectszzReducer from "./reducers/projectsSlice";
+import sideBarReducer from "./reducers/sideBarSlice";
 
 export const store = configureStore({
   reducer: {
     projs: projectsReducer,
     projas: projectszzReducer,
+    bar: sideBarReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

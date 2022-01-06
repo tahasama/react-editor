@@ -87,8 +87,61 @@
 }
 
 .projectTitle {
-  margin-left: 30px;
+  margin-left: 10px;
   font-weight: 600;
   font-family: serif;
   font-size: 28px;
+}
+.titleContianer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.updateContainer {
+  position: relative;
+  display: flex;
+  margin-left: 15px;
+}
+
+.updateWrapper {
+  margin-left: 15px;
+}
+
+.updateButton {
+  border: none;
+  background: none;
+  color: aquamarine;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  text-decoration: underline;
+}
+.updateIcon {
+  color: aqua;
+  font-size: 24px;
+}
+.saveButton {
+  padding: 7px;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  background-color: #445a63;
+  color: #fff;
+  flex-grow: 1;
+  cursor: pointer;
+  margin: 10px 0px;
+  font-size: 18px;
+}
+.updateInput {
+  padding: 8px;
+  margin-right: 3px;
+  background-color: #4b4d64;
+  color: #fff;
+  flex-grow: 3;
+  border: none;
+  border-radius: 8px;
+  width: 60%;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

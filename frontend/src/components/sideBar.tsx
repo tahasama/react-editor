@@ -7,79 +7,51 @@ import {
   AiFillSave,
   AiFillDelete,
 } from "react-icons/ai";
+import { MdAddCircleOutline } from "react-icons/md";
 import { useReducer } from "react";
 import { useAppSelector } from "../state/hooks";
+import { useDispatch } from "react-redux";
+import { barState } from "../state/reducers/sideBarSlice";
 
 const SideBar = ({ remove, save }: any) => {
   const { id } = useParams();
-
-  const initialState = {
-    home: false,
-    new: false,
-    save: false,
-    open: false,
-    delete: false,
-  };
-  const { html, css, js } = useAppSelector((state) => state.projs.code);
-  const [state, dispatch] = useReducer(reducer, initialState);
-  function reducer(state = initialState, action: any) {
-    let newState;
-    switch (action.type) {
-      case "Home":
-        newState = { ...state, home: true };
-        break;
-      case "Save":
-        newState = { ...state, save: true };
-        break;
-      case "New":
-        newState = { ...state, new: true };
-        break;
-      case "Open":
-        newState = { ...state, open: true };
-        break;
-      case "Delete":
-        newState = { ...state, delete: true };
-        break;
-      case "Default":
-        return initialState;
-      default:
-        return state;
-    }
-    return newState;
-  }
+  const dispatch = useDispatch();
+  const bar = useAppSelector((state) => state.bar);
+  console.log("baaaaaaaaaaaar", bar.home);
 
   return (
     <nav className="side-bar">
       <Link
         className="side c"
         to="/"
-        onMouseEnter={() => dispatch({ type: "Home" })}
-        onMouseLeave={() => dispatch({ type: "Default" })}
+        onMouseEnter={() => dispatch(barState({ type: "Home" }))}
+        onMouseLeave={() => dispatch(barState({ type: "Default" }))}
       >
         <AiFillHome />
-        {state.home && <div className="message">Home</div>}
+        {bar.home && <div className="message">Home</div>}
       </Link>
       {id && (
         <Link
           to={""}
           className="side "
-          onMouseEnter={() => dispatch({ type: "Save" })}
-          onMouseLeave={() => dispatch({ type: "Default" })}
+          onMouseEnter={() => dispatch(barState({ type: "Save" }))}
+          onMouseLeave={() => dispatch(barState({ type: "Default" }))}
           onClick={save}
         >
           <AiFillSave />
-          {state.save && <div className="message">Save</div>}
+          {bar.save && <div className="message">Save</div>}
         </Link>
       )}
 
       <Link
         className="side b"
         to="/create"
-        onMouseEnter={() => dispatch({ type: "New" })}
-        onMouseLeave={() => dispatch({ type: "Default" })}
+        onMouseEnter={() => dispatch(barState({ type: "New" }))}
+        onMouseLeave={() => dispatch(barState({ type: "Default" }))}
       >
-        <AiFillEdit />
-        {state.new && (
+        <MdAddCircleOutline />
+
+        {bar.new && (
           <div className="message">Html, Css, and JavaScript Editor</div>
         )}
       </Link>
@@ -87,21 +59,21 @@ const SideBar = ({ remove, save }: any) => {
       <Link
         className="side e"
         to="/projects"
-        onMouseEnter={() => dispatch({ type: "Open" })}
-        onMouseLeave={() => dispatch({ type: "Default" })}
+        onMouseEnter={() => dispatch(barState({ type: "Open" }))}
+        onMouseLeave={() => dispatch(barState({ type: "Default" }))}
       >
         <FcOpenedFolder />
-        {state.open && <div className="message">Open Project</div>}
+        {bar.open && <div className="message">Open Project</div>}
       </Link>
       {id && (
         <button
           className="side d butt"
-          onMouseEnter={() => dispatch({ type: "Delete" })}
-          onMouseLeave={() => dispatch({ type: "Default" })}
+          onMouseEnter={() => dispatch(barState({ type: "Delete" }))}
+          onMouseLeave={() => dispatch(barState({ type: "Default" }))}
           onClick={remove}
         >
           <AiFillDelete />
-          {state.delete && <div className="message">Delete</div>}
+          {bar.delete && <div className="message">Delete</div>}
         </button>
       )}
     </nav>
