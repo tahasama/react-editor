@@ -35,6 +35,31 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/search/q=:title", async (req, res) => {
+  try {
+    const { title } = req.params;
+    console.log("naaaaaaaaa", title);
+    const project = await Project.find({
+      title: { $regex: title, $options: "i" },
+    });
+    console.log("seeeeearch sdfsdfsdfd", project);
+
+    res.status(200).json(project);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get project
+router.get("/:id", async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    res.status(200).json(project);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // update project
 router.put("/:id", async (req, res) => {
   try {

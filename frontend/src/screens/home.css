@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 70vh;
   flex-direction: column;
 }
 .intro {
@@ -22,4 +22,16 @@
   margin: 0px 20px;
   border-radius: 10px;
   border-style: double;
+}
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 32%;
+  width: 30vw;
+}
+
+.homeList {
+  margin-top: -30vw;
 }
