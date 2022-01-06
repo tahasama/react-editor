@@ -1,10 +1,11 @@
+import { cleanup } from "@testing-library/react";
 import axios from "axios";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import FullEditor from "../screens/fullEditor";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { getProjectData, creatProject } from "../state/reducers";
+import { cleanState, creatProject, getProjectData } from "../state/reducers";
 import { store } from "../state/store";
 // import { create_project } from "../state/reducers";
 
@@ -16,11 +17,16 @@ const CreateProject: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { _id } = useAppSelector(getProjectData);
-  navigate("/editor/" + _id);
 
   useEffect(() => {
     inputRef?.current?.focus();
-  }, []);
+    if (_id !== undefined && _id !== "") {
+      navigate("/editor/" + _id);
+    }
+    return () => {
+      dispatch(cleanState());
+    };
+  }, [_id]);
 
   const handleNewProjectCreate: React.MouseEventHandler<
     HTMLButtonElement

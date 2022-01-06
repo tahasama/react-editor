@@ -8,7 +8,12 @@ import JsEditor from "../components/jsEditor";
 import "./fullEditor.css";
 import SideBar from "../components/sideBar";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { fetchProject, getProjectData, saveProject } from "../state/reducers";
+import {
+  deleteProject,
+  fetchProject,
+  getProjectData,
+  saveProject,
+} from "../state/reducers";
 
 function FullEditor() {
   const { id } = useParams();
@@ -39,7 +44,7 @@ function FullEditor() {
   const handleDeleteProject = async () => {
     const result = window.confirm("are you sure you want to delete ");
     if (result) {
-      await axios.delete("http://localhost:5000/api/project/" + id);
+      dispatch(deleteProject(id));
       navigate("/");
     }
   };
@@ -52,10 +57,7 @@ function FullEditor() {
 
   return (
     <div className="editor-wrapper">
-      <SideBar
-        handleDeleteProjectClick={handleDeleteProject}
-        save={handleSaveProject}
-      />
+      <SideBar remove={handleDeleteProject} save={handleSaveProject} />
       <h2 className="projectTitle">Project : {title}</h2>
       <div className="editors">
         <div className="editor">

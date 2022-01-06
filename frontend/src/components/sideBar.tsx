@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./sideBar.css";
 import { FcOpenedFolder } from "react-icons/fc";
 import {
@@ -8,11 +8,12 @@ import {
   AiFillDelete,
 } from "react-icons/ai";
 import { useReducer } from "react";
-import { creatProject, saveProject } from "../state/reducers";
+import { creatProject, deleteProject, saveProject } from "../state/reducers";
 import { useAppSelector } from "../state/hooks";
 
-const SideBar = ({ handleDeleteProject, save }: any) => {
+const SideBar = ({ remove, save }: any) => {
   const { id } = useParams();
+
   const initialState = {
     home: false,
     new: false,
@@ -98,7 +99,7 @@ const SideBar = ({ handleDeleteProject, save }: any) => {
           className="side d butt"
           onMouseEnter={() => dispatch({ type: "Delete" })}
           onMouseLeave={() => dispatch({ type: "Default" })}
-          onClick={handleDeleteProject}
+          onClick={remove}
         >
           <AiFillDelete />
           {state.delete && <div className="message">Delete</div>}

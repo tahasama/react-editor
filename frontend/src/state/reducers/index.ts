@@ -26,15 +26,18 @@ interface codeProps {
 export const saveProject = createAsyncThunk(
   "saveProject",
   async ({ newData, id }: codeProps) => {
-    console.log("her we are in the reducer");
-    console.log("here is the id", id, "and here is the code", newData);
-
     const res = await axios.put(
       "http://localhost:5000/api/project/" + id,
       newData
     );
-    console.log("saveProject saveProject saveProject", res.data);
     return res.data;
+  }
+);
+
+export const deleteProject = createAsyncThunk(
+  "creatProject",
+  async (id: string | undefined) => {
+    await axios.delete("http://localhost:5000/api/project/" + id);
   }
 );
 
@@ -54,21 +57,6 @@ export const projectSlice = createSlice({
     code: { html: "", css: "", js: "" },
   },
   reducers: {
-    // updateCell: (state, action) => {
-    //   switch (action.payload.myType) {
-    //     case "html":
-    //       state.code.html = action.payload.myCode;
-    //       break;
-    //     case "css":
-    //       state.code.css = action.payload.myCode;
-    //       break;
-    //     case "js":
-    //       state.code.js = action.payload.myCode;
-    //       break;
-    //     default:
-    //       return state;
-    //   }
-    // },
     updateHtml: (state, action) => {
       state.code.html = action.payload;
     },
@@ -77,6 +65,10 @@ export const projectSlice = createSlice({
     },
     updateJs: (state, action) => {
       state.code.js = action.payload;
+    },
+    cleanState: (state) => {
+      state._id = "";
+      console.log("reducer", state._id);
     },
   },
   extraReducers: (builder) => {
@@ -88,10 +80,6 @@ export const projectSlice = createSlice({
       state._id = action.payload;
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
-      console.log("extraReducers saveProject state", state);
-      console.log("extraReducers saveProject action", action);
-      console.log("new payload", action.payload.code.html);
-      console.log("new state", state.code.html);
       state.code.html = action.payload.code.html;
       state.code.css = action.payload.code.css;
       state.code.js = action.payload.code.js;
@@ -102,6 +90,7 @@ export const projectSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const getProjectData = (state: projectProps) => state.projs;
 
-export const { updateHtml, updateCss, updateJs } = projectSlice.actions;
+export const { updateHtml, updateCss, updateJs, cleanState } =
+  projectSlice.actions;
 
 export default projectSlice.reducer;

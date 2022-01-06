@@ -6,8 +6,6 @@
   flex-direction: column;
 }
 .intro {
-  /* position: absolute;
-  top: 10vh; */
   font-size: 40px;
   width: 70vw;
   font-weight: 500;
@@ -15,8 +13,7 @@
   margin-left: 5vw;
   padding: 10px;
 }
-.buttonWrapper {
-}
+
 .buttona {
   font-size: 32px;
   width: 32vw;
