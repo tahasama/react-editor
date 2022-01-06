@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CssEditor from "../components/cssEditor";
@@ -13,7 +12,7 @@ import {
   fetchProject,
   getProjectData,
   saveProject,
-} from "../state/reducers";
+} from "../state/";
 
 function FullEditor() {
   const { id } = useParams();
@@ -24,7 +23,6 @@ function FullEditor() {
     title,
     code: { html, css, js },
   } = useAppSelector(getProjectData);
-  // const name = useAppSelector(getMyProjectTitle);
 
   const handleGetProject = () => {
     dispatch(fetchProject(id));

@@ -1,13 +1,8 @@
-import { cleanup } from "@testing-library/react";
-import axios from "axios";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
-import FullEditor from "../screens/fullEditor";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { cleanState, creatProject, getProjectData } from "../state/reducers";
-import { store } from "../state/store";
-// import { create_project } from "../state/reducers";
+import { cleanState, creatProject, getProjectData } from "../state/";
 
 import "./createProject.css";
 

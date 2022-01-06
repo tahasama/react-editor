@@ -1,20 +1,21 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FcOpenedFolder } from "react-icons/fc";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import SideBar from "../components/sideBar";
+import { useAppSelector } from "../state/hooks";
+import { fetchAllProject } from "../state/";
+
 import "./projectsList.css";
+import { getProjectsData } from "../state/";
 
 const ProjectList = () => {
-  const [projects, setProjects] = useState([]);
+  const dispatch = useDispatch();
+  const data = useAppSelector(getProjectsData);
+  const projects = data.flat();
 
   const getProjectsList = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:5000/api/project/");
-      setProjects(data);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(fetchAllProject());
   };
   useEffect(() => {
     getProjectsList();

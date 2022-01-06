@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./sideBar.css";
 import { FcOpenedFolder } from "react-icons/fc";
 import {
@@ -8,7 +8,6 @@ import {
   AiFillDelete,
 } from "react-icons/ai";
 import { useReducer } from "react";
-import { creatProject, deleteProject, saveProject } from "../state/reducers";
 import { useAppSelector } from "../state/hooks";
 
 const SideBar = ({ remove, save }: any) => {

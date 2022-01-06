@@ -41,7 +41,7 @@ export const deleteProject = createAsyncThunk(
   }
 );
 
-interface projectProps {
+export interface projectProps {
   projs: {
     _id: string;
     title: string;
@@ -68,7 +68,6 @@ export const projectSlice = createSlice({
     },
     cleanState: (state) => {
       state._id = "";
-      console.log("reducer", state._id);
     },
   },
   extraReducers: (builder) => {
