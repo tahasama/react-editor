@@ -12,12 +12,12 @@ import {
   fetchProject,
   getProjectData,
   saveProject,
-  updateName,
   updateTitle,
 } from "../state/";
 
 import { AiFillEdit } from "react-icons/ai";
 import { barState } from "../state/reducers/sideBarSlice";
+import TopBar from "../components/topBar";
 
 function FullEditor() {
   const [openInput, setOpenInput] = useState(false);
@@ -26,7 +26,6 @@ function FullEditor() {
   const dispatch = useAppDispatch();
   const titleRef = useRef<any>(null);
   const bar = useAppSelector((state) => state.bar);
-
   const {
     title,
     code: { html, css, js },
@@ -40,19 +39,13 @@ function FullEditor() {
     handleGetProject();
   }, []);
 
-  const handleSaveProject = () => {
+  const handleUpdateTitle = () => {
     const newData = {
+      id: id,
+      title: title,
       code: { html: html, css: css, js: js },
     };
-    dispatch(saveProject({ newData, id }));
-  };
-
-  const handleUpdateTitle = () => {
-    console.log("maaaaaaaaaaaaaaaaaaa98765432", title);
-    const newTitle = {
-      title: title,
-    };
-    dispatch(updateName({ newTitle, id }));
+    dispatch(saveProject({ newData }));
     setOpenInput(false);
   };
 
@@ -72,12 +65,14 @@ function FullEditor() {
 
   return (
     <div className="editor-wrapper">
+      <TopBar />
       <SideBar
         remove={handleDeleteProject}
-        save={handleSaveProject}
+        save={handleUpdateTitle}
         // update={handleUpdateTitle}
       />
       <div className="titleContianer">
+        <h2 className="projectTitle">Project : {title}</h2>
         <div className="updateContainer">
           {!openInput && (
             <button
@@ -104,7 +99,6 @@ function FullEditor() {
             </div>
           )}
         </div>
-        <h2 className="projectTitle">Project : {title}</h2>
       </div>
 
       <div className="editors">

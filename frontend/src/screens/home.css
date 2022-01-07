@@ -27,9 +27,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-left: 32%;
-  width: 30vw;
+  position: relative;
+  margin-top: 5px;
+  margin-left: 40vw;
+  width: 20vw;
+  left: 20vw;
 }
 
 .homeList {

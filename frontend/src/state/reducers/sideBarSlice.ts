@@ -12,8 +12,6 @@ export const sideBarSlice = createSlice({
   },
   reducers: {
     barState: (state, action) => {
-      console.log("state eeeeeee", state.home);
-      console.log("action nnnnnn", action.payload.type);
       switch (action.payload.type) {
         case "Home":
           state.home = true;

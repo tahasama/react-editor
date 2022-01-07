@@ -8,6 +8,7 @@ import { fetchAllProject } from "../state/";
 
 import "./projectsList.css";
 import { getProjectsData } from "../state/";
+import TopBar from "../components/topBar";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const ProjectList = () => {
 
   return (
     <div className="projectsList">
+      <TopBar />
       <SideBar />
       {projects.map((proj: any) => (
         <div key={proj._id}>

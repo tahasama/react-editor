@@ -5,6 +5,7 @@ export const fetchProject = createAsyncThunk(
   "fetchProject",
   async (id: string | undefined) => {
     const res = await axios.get("http://localhost:5000/api/project/" + id);
+
     return res.data;
   }
 );
@@ -14,48 +15,32 @@ export const creatProject = createAsyncThunk(
   async (value: string | undefined) => {
     const object: any = { title: value, code: { html: "", css: "", js: "" } };
     const res = await axios.post("http://localhost:5000/api/project/", object);
-    return res.data._id;
+    console.log(res.data.message);
+    return res.data;
   }
 );
 
-interface codeProps {
-  newData: { code: { html: string; css: string; js: string } };
-  id: string | undefined;
-}
 interface titleProps {
-  id: string | undefined;
-  newTitle: { title: string };
+  newData: {
+    id: string | undefined;
+    title: string;
+    code: { html: string; css: string; js: string };
+  };
 }
 
 export const saveProject = createAsyncThunk(
   "saveProject",
-  async ({ newData, id }: codeProps) => {
-    const res = await axios.put("http://localhost:5000/api/project/" + id, {
-      newData,
-    });
-    return res.data;
-  }
-);
-export const updateName = createAsyncThunk(
-  "saveProject",
-  async ({ newTitle, id }: titleProps) => {
-    console.log(
-      "insiiiiiide updateName goooooooooo",
-      newTitle,
-      "an also the id",
-      id
-    );
+  async ({ newData }: titleProps) => {
     const res = await axios.put(
-      "http://localhost:5000/api/project/" + id,
-      newTitle
+      "http://localhost:5000/api/project/" + newData.id,
+      newData
     );
-    console.log("sucessssss", res.data);
     return res.data;
   }
 );
 
 export const deleteProject = createAsyncThunk(
-  "creatProject",
+  "deleteProject",
   async (id: string | undefined) => {
     await axios.delete("http://localhost:5000/api/project/" + id);
   }
@@ -66,6 +51,7 @@ export interface projectProps {
     _id: string;
     title: string;
     code: { html: string; css: string; js: string };
+    err: string;
   };
 }
 
@@ -75,6 +61,7 @@ export const projectSlice = createSlice({
     _id: "",
     title: "",
     code: { html: "", css: "", js: "" },
+    err: "",
   },
   reducers: {
     updateHtml: (state, action) => {
@@ -99,7 +86,8 @@ export const projectSlice = createSlice({
       state.code = action.payload.code;
     });
     builder.addCase(creatProject.fulfilled, (state, action) => {
-      state._id = action.payload;
+      state._id = action.payload._id;
+      state.err = action.payload.message;
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
       state.code.html = action.payload.code.html;

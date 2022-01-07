@@ -14,14 +14,14 @@ router.get("/", async (req, res) => {
 
 // create a project
 router.post("/", async (req, res) => {
-  console.log("sssssssssssss", req.body);
   const newProject = new Project(req.body);
   console.log("newProject", newProject);
   try {
     const saveProject = await newProject.save();
     res.status(200).json(saveProject);
   } catch (err) {
-    res.status(500).json(err);
+    // res.status(500).json(err);
+    res.send({ message: "project's name can't be more than 50 caratcters" });
   }
 });
 
@@ -62,6 +62,8 @@ router.get("/:id", async (req, res) => {
 
 // update project
 router.put("/:id", async (req, res) => {
+  console.log("aaaaaaaaaaaaaaaaaaaaa", req.params.id);
+  console.log("xxxxxxxxxxxxxxxxxx", req.body);
   try {
     const updateProject = await Project.findByIdAndUpdate(
       req.params.id,
@@ -71,6 +73,7 @@ router.put("/:id", async (req, res) => {
       { new: true }
     );
     res.status(200).json(updateProject);
+    console.log("vvvvvvvvvvvvvvvvvvvvvvvv", updateProject);
   } catch (err) {
     res.status(500).json(err);
   }

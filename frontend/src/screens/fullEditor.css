@@ -87,24 +87,29 @@
 }
 
 .projectTitle {
-  margin-left: 10px;
+  margin-left: 1x0px;
   font-weight: 600;
   font-family: serif;
   font-size: 28px;
+  margin-top: 13px;
 }
 .titleContianer {
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 .updateContainer {
   position: relative;
   display: flex;
   margin-left: 15px;
+  flex-direction: column;
 }
 
 .updateWrapper {
-  margin-left: 15px;
+  position: fixed;
+  top: 7vh;
+  left: 25vh;
 }
 
 .updateButton {
@@ -115,6 +120,7 @@
   cursor: pointer;
   display: flex;
   text-decoration: underline;
+  margin-top: -10px;
 }
 .updateIcon {
   color: aqua;
@@ -140,7 +146,7 @@
   flex-grow: 3;
   border: none;
   border-radius: 8px;
-  width: 60%;
+  width: 70%;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 1px;

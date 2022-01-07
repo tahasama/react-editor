@@ -60,3 +60,8 @@
   font-weight: 500;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.error {
+  color: red;
+  margin: 10px;
+}

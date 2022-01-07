@@ -17,7 +17,6 @@ const SideBar = ({ remove, save }: any) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const bar = useAppSelector((state) => state.bar);
-  console.log("baaaaaaaaaaaar", bar.home);
 
   return (
     <nav className="side-bar">

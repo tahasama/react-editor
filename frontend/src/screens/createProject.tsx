@@ -5,13 +5,14 @@ import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { cleanState, creatProject, getProjectData } from "../state/";
 
 import "./createProject.css";
+import TopBar from "../components/topBar";
 
 const CreateProject: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { _id } = useAppSelector(getProjectData);
+  const { _id, err } = useAppSelector(getProjectData);
 
   useEffect(() => {
     inputRef?.current?.focus();
@@ -32,6 +33,7 @@ const CreateProject: React.FC = () => {
 
   return (
     <div className="container">
+      <TopBar />
       <SideBar inputRef={inputRef} />
       <div className="modalContainer">
         <div className="modal">
@@ -44,6 +46,7 @@ const CreateProject: React.FC = () => {
               Create project
             </button>
           </footer>
+          {err && <p className="error"> {err}</p>}
         </div>
       </div>
     </div>
