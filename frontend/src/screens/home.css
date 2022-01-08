@@ -4,6 +4,8 @@
   align-items: center;
   height: 70vh;
   flex-direction: column;
+  /* background-color: red; */
+  margin-left: 34px;
 }
 .intro {
   font-size: 40px;
@@ -16,22 +18,26 @@
 
 .buttona {
   font-size: 32px;
-  width: 32vw;
+  width: 188px;
   cursor: pointer;
   position: relative;
   margin: 0px 20px;
   border-radius: 10px;
   border-style: double;
+  margin-left: 20px;
+  background-color: rgb(67, 69, 92);
 }
+
 .search {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-top: 5px;
-  margin-left: 40vw;
-  width: 20vw;
-  left: 20vw;
+
+  width: 40vw;
+  height: 52px;
+  /* left: 20vw; */
+  background-color: #363842;
 }
 
 .homeList {

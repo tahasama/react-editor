@@ -2,29 +2,34 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./sideBar.css";
 
 import { useDispatch } from "react-redux";
-import { searchProject } from "../state";
+import { fetchAllProject, searchProject } from "../state";
 import { useEffect, useRef } from "react";
 
 const TopBar = () => {
   const { title } = useParams();
-  console.log("useparams yo", title);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchRef = useRef<any>(null);
 
   useEffect(() => {
-    searchRef.current.focus();
-    dispatch(searchProject(title));
+    // searchRef.current.focus();
+    setTimeout(() => {
+      dispatch(searchProject(title));
+    }, 50);
   }, [title]);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    console.log("top baaar", searchRef.current?.value);
+
     dispatch(searchProject(searchRef.current?.value));
     navigate("/search/q=" + searchRef.current?.value);
   };
   return (
-    <nav className="side-bar">
+    <nav className="top-bar ">
+      <div className="logo">
+        <p>Logo</p>
+      </div>
+
       <div className="search">
         <form onSubmit={handleSearch}>
           <input
@@ -37,6 +42,9 @@ const TopBar = () => {
             Go
           </button>
         </form>
+      </div>
+      <div className="user">
+        <p>User</p>
       </div>
     </nav>
   );

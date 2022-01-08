@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const initialState = {
+  home: false,
+  new: false,
+  save: false,
+  open: false,
+  delete: false,
+  edit: false,
+};
 export const sideBarSlice = createSlice({
   name: "bar-redux",
   initialState: {
@@ -28,22 +35,15 @@ export const sideBarSlice = createSlice({
         case "Delete":
           state.delete = true;
           break;
-        case "edit":
+        case "Edit":
           state.edit = true;
           break;
         case "Default":
-          state.delete = false;
-          state.home = false;
-          state.save = false;
-          state.new = false;
-          state.open = false;
-          state.delete = false;
-          state.edit = false;
-          break;
+          return initialState;
+
         default:
           return state;
       }
-      console.log("uyuyuyuyuyuyuyuyu", state.home);
     },
   },
 });

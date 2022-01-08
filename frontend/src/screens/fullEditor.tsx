@@ -28,7 +28,9 @@ function FullEditor() {
   const bar = useAppSelector((state) => state.bar);
   const {
     title,
+    description,
     code: { html, css, js },
+    updatedAt,
   } = useAppSelector(getProjectData);
 
   const handleGetProject = () => {
@@ -40,12 +42,14 @@ function FullEditor() {
   }, []);
 
   const handleUpdateTitle = () => {
-    const newData = {
-      id: id,
-      title: title,
-      code: { html: html, css: css, js: js },
-    };
-    dispatch(saveProject({ newData }));
+    dispatch(
+      saveProject({
+        _id: id,
+        title: title,
+        description: description,
+        code: { html: html, css: css, js: js },
+      })
+    );
     setOpenInput(false);
   };
 
@@ -64,57 +68,36 @@ function FullEditor() {
                   </html>`;
 
   return (
-    <div className="editor-wrapper">
+    <div>
       <TopBar />
       <SideBar
         remove={handleDeleteProject}
         save={handleUpdateTitle}
-        // update={handleUpdateTitle}
+        update={handleUpdateTitle}
       />
-      <div className="titleContianer">
-        <h2 className="projectTitle">Project : {title}</h2>
-        <div className="updateContainer">
-          {!openInput && (
-            <button
-              className="updateButton"
-              onClick={() => setOpenInput(true)}
-              onMouseEnter={() => dispatch(barState({ type: "edit" }))}
-              onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-            >
-              <AiFillEdit className="updateIcon" /> {bar.edit && "edit name ?"}
-            </button>
-          )}
-          {openInput && (
-            <div className="updateWrapper">
-              <input
-                className="updateInput"
-                type="text"
-                value={title}
-                ref={titleRef}
-                onChange={() => dispatch(updateTitle(titleRef.current.value))}
-              />
-              <button className="saveButton" onClick={handleUpdateTitle}>
-                save
-              </button>
-            </div>
-          )}
+      <div className="editor-wrapper">
+        <div className="titleContianer">
+          <h2 className="projectTitle">Project : {title} </h2>
+          <p className="date full">
+            Updated on {new Date(updatedAt).toString().slice(0, 24)}
+          </p>
         </div>
-      </div>
 
-      <div className="editors">
-        <div className="editor">
-          <HtmlEditor />
+        <div className="editors">
+          <div className="editor">
+            <HtmlEditor />
+          </div>
+          <div className="editor">
+            <CssEditor />
+          </div>
+          <div className="editor">
+            <JsEditor />
+          </div>
         </div>
-        <div className="editor">
-          <CssEditor />
-        </div>
-        <div className="editor">
-          <JsEditor />
-        </div>
-      </div>
 
-      <div className="frame">
-        <iframe srcDoc={srcDoc} width="100%"></iframe>
+        <div className="frame">
+          <iframe srcDoc={srcDoc} width="100%"></iframe>
+        </div>
       </div>
     </div>
   );

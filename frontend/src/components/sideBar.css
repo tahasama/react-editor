@@ -1,22 +1,47 @@
-.side-bar {
+.sideBarContainer {
+  position: fixed;
+  height: 100%;
+  width: 50px;
+  background-color: #363842;
   z-index: 99 !important;
+  top: 50px;
+}
+.side-bar {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
   width: 50px;
+}
+.top-bar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: #363842;
+  width: 100%;
+  justify-content: space-between;
+  z-index: 99;
+}
+
+.logo {
+  margin-left: 15px;
+}
+.user {
+  margin-right: 15px;
 }
 
 .side {
   flex: 1;
-  margin: 20px 10px 5px;
+  margin: 10px 10px 15px;
   font-size: 30px;
   height: 40px;
   width: 40px;
   transition: all 1s ease-in;
 }
+
 .butt {
   background-color: transparent;
   border: transparent;
@@ -25,18 +50,18 @@
 }
 
 .a {
-  color: rgb(48, 48, 150);
+  color: rgb(68, 163, 163);
 }
 
 .b {
-  color: rgb(150, 48, 145);
+  color: rgb(182, 56, 176);
 }
 
 .c {
-  color: rgb(48, 130, 150);
+  color: rgb(75, 48, 150);
 }
 .e {
-  color: rgb(180, 133, 133);
+  color: rgb(173, 87, 16);
 }
 .d {
   color: rgb(219, 69, 69);

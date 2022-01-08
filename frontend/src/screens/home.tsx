@@ -29,27 +29,25 @@ const Home = () => {
 
   return (
     <div>
+      <TopBar />
+      <SideBar />
+
       <div className="home">
-        <div>
-          <h3 className="intro">
-            Welcome to ThaCoder, got an idea? want to learn? or having fun with
-            code? Start now !!!
-          </h3>
-          <div className="buttonWrapper">
-            <button className="buttona a" onClick={handleNewProjectClick}>
-              Start a new Project
-            </button>
-            <button className="buttona b" onClick={handleOpenProjectClick}>
-              Open a project
-            </button>
-          </div>
+        <h3 className="intro">
+          Welcome to ThaCoder, got an idea? want to learn? or having fun with
+          code? Start now !!!
+        </h3>
+        <div className="buttonWrapper">
+          <button className="buttona a" onClick={handleNewProjectClick}>
+            New Project
+          </button>
+          <button className="buttona b" onClick={handleOpenProjectClick}>
+            Open project
+          </button>
         </div>
-
-        <TopBar />
-        <SideBar />
-
-        {message && <h3>Sorry, we couldnt find any results..</h3>}
       </div>
+
+      {message && <h3>Sorry, we couldnt find any results..</h3>}
     </div>
   );
 };

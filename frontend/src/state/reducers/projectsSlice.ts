@@ -12,7 +12,6 @@ export const searchProject = createAsyncThunk(
     const res = await axios.get(
       "http://localhost:5000/api/project/search/q=" + projectTitle
     );
-    console.log("top baaar slice", res.data);
 
     return res.data;
   }
@@ -22,6 +21,8 @@ interface projectsProps {
     _id: string;
     title: string;
     code: { html: string; css: string; js: string };
+    createdAt: string;
+    updatedAt: string;
   }[];
 }
 
@@ -32,6 +33,8 @@ export const projectsSlice = createSlice({
       _id: "",
       title: "",
       code: { html: "", css: "", js: "" },
+      createdAt: "",
+      updatedAt: "",
     },
   ],
 
@@ -45,7 +48,6 @@ export const projectsSlice = createSlice({
     builder.addCase(searchProject.fulfilled, (state, action) => {
       state.push(action.payload);
       state.splice(0, 1);
-      console.log("top baaar slice extra", state);
     });
   },
 });

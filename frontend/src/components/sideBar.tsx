@@ -12,70 +12,84 @@ import { useReducer } from "react";
 import { useAppSelector } from "../state/hooks";
 import { useDispatch } from "react-redux";
 import { barState } from "../state/reducers/sideBarSlice";
+import { cleanState } from "../state";
 
-const SideBar = ({ remove, save }: any) => {
+const SideBar = ({ remove, save, update }: any) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const bar = useAppSelector((state) => state.bar);
 
   return (
-    <nav className="side-bar">
-      <Link
-        className="side c"
-        to="/"
-        onMouseEnter={() => dispatch(barState({ type: "Home" }))}
-        onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-      >
-        <AiFillHome />
-        {bar.home && <div className="message">Home</div>}
-      </Link>
-      {id && (
+    <div className="sideBarContainer">
+      <nav className="side-bar">
         <Link
-          to={""}
-          className="side "
-          onMouseEnter={() => dispatch(barState({ type: "Save" }))}
+          className="side c"
+          to="/"
+          onMouseEnter={() => dispatch(barState({ type: "Home" }))}
           onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-          onClick={save}
         >
-          <AiFillSave />
-          {bar.save && <div className="message">Save</div>}
+          <AiFillHome />
+          {bar.home && <div className="message">Home</div>}
         </Link>
-      )}
-
-      <Link
-        className="side b"
-        to="/create"
-        onMouseEnter={() => dispatch(barState({ type: "New" }))}
-        onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-      >
-        <MdAddCircleOutline />
-
-        {bar.new && (
-          <div className="message">Html, Css, and JavaScript Editor</div>
+        {id && (
+          <Link
+            to={""}
+            className="side a"
+            onMouseEnter={() => dispatch(barState({ type: "Save" }))}
+            onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+            onClick={save}
+          >
+            <AiFillSave />
+            {bar.save && <div className="message">Save</div>}
+          </Link>
         )}
-      </Link>
+        {id && (
+          <Link
+            to={"/create"}
+            className="side e"
+            onMouseEnter={() => dispatch(barState({ type: "Edit" }))}
+            onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+            onClick={update}
+          >
+            <AiFillEdit />
+            {bar.edit && <div className="message">Edit info</div>}
+          </Link>
+        )}
 
-      <Link
-        className="side e"
-        to="/projects"
-        onMouseEnter={() => dispatch(barState({ type: "Open" }))}
-        onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-      >
-        <FcOpenedFolder />
-        {bar.open && <div className="message">Open Project</div>}
-      </Link>
-      {id && (
-        <button
-          className="side d butt"
-          onMouseEnter={() => dispatch(barState({ type: "Delete" }))}
+        <Link
+          className="side b"
+          to="/create"
+          onMouseEnter={() => dispatch(barState({ type: "New" }))}
           onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-          onClick={remove}
+          onClick={dispatch(cleanState)}
         >
-          <AiFillDelete />
-          {bar.delete && <div className="message">Delete</div>}
-        </button>
-      )}
-    </nav>
+          <MdAddCircleOutline />
+
+          {bar.new && <div className="message">New Project</div>}
+        </Link>
+
+        <Link
+          className="side e"
+          to="/projects"
+          onMouseEnter={() => dispatch(barState({ type: "Open" }))}
+          onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+        >
+          <FcOpenedFolder />
+          {bar.open && <div className="message">Open Project</div>}
+        </Link>
+        {id && (
+          <button
+            className="side d butt"
+            onMouseEnter={() => dispatch(barState({ type: "Delete" }))}
+            onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+            onClick={remove}
+          >
+            <AiFillDelete />
+            {bar.delete && <div className="message">Delete</div>}
+          </button>
+        )}
+      </nav>
+    </div>
   );
 };
 
