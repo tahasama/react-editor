@@ -18,7 +18,6 @@ import TopBar from "../components/topBar";
 const ProjectList = () => {
   const dispatch = useDispatch();
   const { all, loading } = useAppSelector(getProjectsData);
-  console.log("wat's good", loading);
   const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();

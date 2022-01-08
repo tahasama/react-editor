@@ -6,6 +6,7 @@ import {
   AiFillHome,
   AiFillSave,
   AiFillDelete,
+  AiOutlineFolderOpen,
 } from "react-icons/ai";
 import { MdAddCircleOutline } from "react-icons/md";
 import { useReducer } from "react";
@@ -28,7 +29,9 @@ const SideBar = ({ remove, save, update }: any) => {
           onMouseEnter={() => dispatch(barState({ type: "Home" }))}
           onMouseLeave={() => dispatch(barState({ type: "Default" }))}
         >
-          <AiFillHome />
+          <div className="iconSide">
+            <AiFillHome />
+          </div>
           {bar.home && <div className="message">Home</div>}
         </Link>
         {id && (
@@ -39,7 +42,10 @@ const SideBar = ({ remove, save, update }: any) => {
             onMouseLeave={() => dispatch(barState({ type: "Default" }))}
             onClick={save}
           >
-            <AiFillSave />
+            {" "}
+            <div className="iconSide">
+              <AiFillSave />{" "}
+            </div>
             {bar.save && <div className="message">Save</div>}
           </Link>
         )}
@@ -51,7 +57,10 @@ const SideBar = ({ remove, save, update }: any) => {
             onMouseLeave={() => dispatch(barState({ type: "Default" }))}
             onClick={update}
           >
-            <AiFillEdit />
+            {" "}
+            <div className="iconSide">
+              <AiFillEdit />{" "}
+            </div>
             {bar.edit && <div className="message">Edit info</div>}
           </Link>
         )}
@@ -63,18 +72,21 @@ const SideBar = ({ remove, save, update }: any) => {
           onMouseLeave={() => dispatch(barState({ type: "Default" }))}
           onClick={dispatch(cleanState)}
         >
-          <MdAddCircleOutline />
-
+          <div className="iconSide">
+            <MdAddCircleOutline />
+          </div>
           {bar.new && <div className="message">New Project</div>}
         </Link>
 
         <Link
-          className="side e"
+          className="side f"
           to="/projects"
           onMouseEnter={() => dispatch(barState({ type: "Open" }))}
           onMouseLeave={() => dispatch(barState({ type: "Default" }))}
         >
-          <FcOpenedFolder />
+          <div className="iconSide">
+            <AiOutlineFolderOpen />
+          </div>
           {bar.open && <div className="message">Open Project</div>}
         </Link>
         {id && (
@@ -84,7 +96,9 @@ const SideBar = ({ remove, save, update }: any) => {
             onMouseLeave={() => dispatch(barState({ type: "Default" }))}
             onClick={remove}
           >
-            <AiFillDelete />
+            <div className="iconSide">
+              <AiFillDelete />
+            </div>
             {bar.delete && <div className="message">Delete</div>}
           </button>
         )}

@@ -9,6 +9,7 @@ import {
   saveProject,
   updateDate,
   updateDescription,
+  updateId,
   updateTitle,
 } from "../state/";
 
@@ -19,8 +20,7 @@ import { idText } from "typescript";
 const CreateProject: React.FC = () => {
   const nameRef = useRef<any>(null);
   const descriptionRef = useRef<any>(null);
-  const [name, setName] = useState("");
-
+  const [toUpdate, setToUpdate] = useState<boolean>(true);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -29,44 +29,43 @@ const CreateProject: React.FC = () => {
     title,
     description,
     code: { html, css, js },
-    updatedAt,
   } = useAppSelector(getProjectData);
 
-  console.log(" 'my id, ", _id);
-  console.log(" 'my description, ", description);
+  console.log("here is the id", _id);
 
-  useEffect(() => {
-    nameRef?.current?.focus();
-    // if (_id !== undefined && _id !== "") {
-    //   navigate("/editor/" + _id);
-    // }
-    // return () => {
-    //   dispatch(cleanState());
-    // };
-    // }, [_id]);
-  }, []);
+  setTimeout(() => {
+    if (!toUpdate) {
+      navigate("/editor/" + _id);
+    }
+  }, 3000);
+
+  // return () => {
+  //   cleanup
+  // }
 
   const handleNewProjectCreate: FormEventHandler<HTMLFormElement> = async (
     e
   ) => {
     e.preventDefault();
-
-    {
-      _id
-        ? dispatch(
-            saveProject({
-              _id: _id,
-              title: nameRef.current?.value,
-              description: descriptionRef.current?.value,
-              code: { html: html, css: css, js: js },
-            })
-          )
-        : dispatch(
-            creatProject({
-              name: nameRef.current?.value,
-              description: descriptionRef.current?.value,
-            })
-          );
+    if (_id) {
+      setToUpdate(true);
+      dispatch(
+        saveProject({
+          _id: _id,
+          title: nameRef.current?.value,
+          description: descriptionRef.current?.value,
+          code: { html: html, css: css, js: js },
+        })
+      );
+      navigate("/editor/" + _id);
+    } else {
+      setToUpdate(false);
+      dispatch(
+        creatProject({
+          name: nameRef.current?.value,
+          description: descriptionRef.current?.value,
+        })
+      );
     }
   };
 
@@ -111,7 +110,7 @@ const CreateProject: React.FC = () => {
               </button>
             </footer>
           </form>
-          {/* {err && <p className="error"> {err}</p>} */}
+          {!toUpdate && <p className="creating">Creating project ...</p>}
         </div>
       </div>
     </div>

@@ -39,7 +39,14 @@
   font-size: 30px;
   height: 40px;
   width: 40px;
-  transition: all 1s ease-in;
+  /* transition: all 1s ease-in; */
+  animation: fadeIn 0.5s ease-out;
+}
+
+.side:hover {
+  transition: color 1s ease-in;
+
+  color: #baccd4;
 }
 
 .butt {
@@ -60,12 +67,17 @@
 .c {
   color: rgb(75, 48, 150);
 }
-.e {
-  color: rgb(173, 87, 16);
-}
+
 .d {
   color: rgb(219, 69, 69);
 }
+.e {
+  color: rgb(173, 87, 16);
+}
+.f {
+  color: rgb(144, 146, 15);
+}
+
 .message {
   position: absolute;
   left: 45px;
@@ -94,4 +106,30 @@
   100% {
     opacity: 1;
   }
+}
+
+.iconSide:active {
+  animation: minShake 0.2s linear;
+}
+
+@keyframes minShake {
+  0% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.thacoder {
+  margin: 4px 10px;
+  font-size: 34px;
+  text-decoration: none;
+  color: rgb(245, 219, 180);
+  /* font-family: cursive; */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 3px;
 }

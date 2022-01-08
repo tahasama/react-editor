@@ -7,7 +7,7 @@
 
 .modal {
   width: 35%;
-  height: 50%;
+  height: 56vh;
   padding: 5px;
   border-radius: 20px;
   background-color: rgba(96, 48, 150, 0.35);
@@ -33,7 +33,7 @@
   color: #fff;
   flex-grow: 1;
   cursor: pointer;
-  margin: 10px 0px;
+  margin: 12px 0px;
   font-size: 18px;
   width: 90%;
 }
@@ -59,7 +59,30 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.error {
-  color: red;
-  margin: 10px;
+.creating {
+  margin-top: 35px;
+  margin-left: 5vw;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  clip-path: inset(0 3ch 0 0);
+  animation: create 1.5s linear infinite;
+}
+
+@keyframes create {
+  0% {
+    opacity: 0.2;
+  }
+  25% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }

@@ -37,7 +37,6 @@ interface saveProps {
 export const saveProject = createAsyncThunk(
   "saveProject",
   async (value: saveProps) => {
-    console.log("before", value);
     const object: any = {
       _id: value._id,
       title: value.title,
@@ -48,7 +47,6 @@ export const saveProject = createAsyncThunk(
       "http://localhost:5000/api/project/" + object._id,
       object
     );
-    console.log("after", res.data);
     return res.data;
   }
 );
@@ -59,7 +57,6 @@ export const deleteProject = createAsyncThunk(
     await axios.delete("http://localhost:5000/api/project/" + id);
   }
 );
-
 export interface projectProps {
   projs: {
     _id: string;
@@ -102,6 +99,10 @@ export const projectSlice = createSlice({
     updateDate: (state, action) => {
       state.updatedAt = action.payload;
     },
+    updateId: (state, action) => {
+      state._id = action.payload;
+    },
+
     cleanState: (state) => {
       state._id = "";
     },
@@ -141,6 +142,7 @@ export const {
   updateDescription,
   cleanState,
   updateDate,
+  updateId,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

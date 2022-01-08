@@ -20,10 +20,9 @@ const TopBar = () => {
   };
   return (
     <nav className="top-bar ">
-      <div className="logo">
-        <p>Logo</p>
-      </div>
-
+      <Link className="thacoder" to="/home">
+        ThaCoder
+      </Link>{" "}
       <div className="search">
         <form onSubmit={handleSearch}>
           <input

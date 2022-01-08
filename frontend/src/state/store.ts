@@ -14,7 +14,6 @@ export const store = configureStore({
       serializableCheck: false,
     }),
 });
-console.log("my store", store.getState());
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
