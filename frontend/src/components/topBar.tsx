@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./sideBar.css";
 
 import { useDispatch } from "react-redux";
-import { fetchAllProject, searchProject } from "../state";
+import { fetchAllProject, searchProject, updateLoading } from "../state";
 import { useEffect, useRef } from "react";
 
 const TopBar = () => {
@@ -11,18 +11,12 @@ const TopBar = () => {
   const navigate = useNavigate();
   const searchRef = useRef<any>(null);
 
-  useEffect(() => {
-    // searchRef.current.focus();
-    setTimeout(() => {
-      dispatch(searchProject(title));
-    }, 50);
-  }, [title]);
-
   const handleSearch = async (e: any) => {
     e.preventDefault();
-
-    dispatch(searchProject(searchRef.current?.value));
-    navigate("/search/q=" + searchRef.current?.value);
+    if (title !== undefined) {
+      dispatch(searchProject(searchRef.current?.value));
+      navigate("/search/q=" + searchRef.current?.value);
+    }
   };
   return (
     <nav className="top-bar ">

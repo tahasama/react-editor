@@ -27,6 +27,26 @@
   margin-left: 20px;
   background-color: rgb(67, 69, 92);
 }
+.buttona:hover {
+  animation: shake 1s linear;
+}
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 
 .search {
   display: flex;

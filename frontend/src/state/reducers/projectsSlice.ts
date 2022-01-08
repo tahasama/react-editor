@@ -17,18 +17,11 @@ export const searchProject = createAsyncThunk(
   }
 );
 interface projectsProps {
-  projas: {
-    _id: string;
-    title: string;
-    code: { html: string; css: string; js: string };
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  projas: { all: {}[]; loading: boolean };
 }
 
-export const projectsSlice = createSlice({
-  name: "projects-redux",
-  initialState: [
+const initialState = {
+  all: [
     {
       _id: "",
       title: "",
@@ -37,17 +30,27 @@ export const projectsSlice = createSlice({
       updatedAt: "",
     },
   ],
+  loading: true,
+};
 
-  reducers: {},
+export const projectsSlice = createSlice({
+  name: "projects-redux",
+  initialState: initialState,
+  reducers: {
+    updateLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAllProject.fulfilled, (state, action) => {
-      state.push(action.payload);
-
-      state.splice(0, 1);
+      state.all.push(action.payload);
+      state.all.splice(0, 1);
+      state.loading = false;
     });
     builder.addCase(searchProject.fulfilled, (state, action) => {
-      state.push(action.payload);
-      state.splice(0, 1);
+      state.all.push(action.payload);
+      state.all.splice(0, 1);
+      state.loading = false;
     });
   },
 });
@@ -55,6 +58,6 @@ export const projectsSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const getProjectsData = (state: projectsProps) => state.projas;
 
-export const {} = projectsSlice.actions;
+export const { updateLoading } = projectsSlice.actions;
 
 export default projectsSlice.reducer;

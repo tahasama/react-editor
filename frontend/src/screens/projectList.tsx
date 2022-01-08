@@ -4,7 +4,12 @@ import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppSelector } from "../state/hooks";
-import { fetchAllProject, getProjectData, searchProject } from "../state/";
+import {
+  fetchAllProject,
+  getProjectData,
+  searchProject,
+  updateLoading,
+} from "../state/";
 
 import "./projectsList.css";
 import { getProjectsData } from "../state/";
@@ -12,15 +17,18 @@ import TopBar from "../components/topBar";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
-  const data = useAppSelector(getProjectsData);
-  const projects = data.flat();
+  const { all, loading } = useAppSelector(getProjectsData);
+  console.log("wat's good", loading);
+  const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();
 
   const getProjectsList = async () => {
     dispatch(fetchAllProject());
   };
+
   useEffect(() => {
+    dispatch(updateLoading(true));
     setTimeout(() => {
       if (query === undefined) {
         getProjectsList();
@@ -32,8 +40,8 @@ const ProjectList = () => {
     <div>
       <SideBar />
       <TopBar />
-      <div className="lisContainer">
-        {projects.length !== 0 ? (
+      {!loading ? (
+        <div className="lisContainer">
           <div className="projectsList">
             {projects.map((proj: any) => (
               <div key={proj._id}>
@@ -59,13 +67,16 @@ const ProjectList = () => {
                 <div className="hr"></div>
               </div>
             ))}
+            {query !== undefined && projects.length === 0 && (
+              <h2 className="noResult">
+                No project with this name has been found..
+              </h2>
+            )}
           </div>
-        ) : (
-          <h2 className="noResult">
-            No project with this name has been found..
-          </h2>
-        )}
-      </div>
+        </div>
+      ) : (
+        <span className="loader"></span>
+      )}
     </div>
   );
 };
