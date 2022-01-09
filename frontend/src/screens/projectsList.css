@@ -56,10 +56,14 @@
   font-size: 25px;
   color: rgb(204, 203, 203);
 }
-.date {
+.dateList {
   color: rgb(109, 109, 221);
+  position: relative;
+  left: 1vw;
+  top: 2vh;
+  margin: 0;
+  width: 30vw;
 }
-
 .projectfooter {
   font-size: 20px;
   color: rgb(203, 203, 204);

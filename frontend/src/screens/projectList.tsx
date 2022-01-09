@@ -49,12 +49,10 @@ const ProjectList = () => {
                     <div className="projectHeader">
                       <FcOpenedFolder className="icon" />
                       <p className="name">{proj.title}</p>
-
-                      <p className="date">
-                        {new Date(proj.createdAt).toString().slice(0, 16)}
-                      </p>
                     </div>
-
+                    <p className="dateList">
+                      {new Date(proj.createdAt).toString().slice(0, 16)}
+                    </p>
                     <div className="projectfooter">
                       <p>
                         Description :

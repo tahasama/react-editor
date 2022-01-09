@@ -34,8 +34,10 @@ const Home = () => {
 
       <div className="home">
         <h3 className="intro">
-          Welcome to ThaCoder, got an idea? want to learn? or having fun with
-          code? Start now !!!
+          Welcome to ThaCoder,
+          <h5 className="intro2">
+            got an idea? want to learn? or having fun with code? Start now !!!
+          </h5>
         </h3>
         <div className="buttonWrapper">
           <button className="buttona a" onClick={handleNewProjectClick}>

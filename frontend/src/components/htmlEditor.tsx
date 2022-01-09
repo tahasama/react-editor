@@ -54,7 +54,7 @@ const HtmlEditor = () => {
           showUnused: false,
           folding: false,
           lineNumbersMinChars: 3,
-          fontSize: 14,
+          fontSize: 16,
           scrollBeyondLastLine: false,
           automaticLayout: true,
         }}

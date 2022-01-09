@@ -78,7 +78,7 @@ function FullEditor() {
       <div className="editor-wrapper">
         <div className="titleContianer">
           <h2 className="projectTitle">Project : {title} </h2>
-          <p className="date full">
+          <p className="date ">
             Updated on {new Date(updatedAt).toString().slice(0, 24)}
           </p>
         </div>

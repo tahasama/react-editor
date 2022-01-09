@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./sideBar.css";
-
 import { useDispatch } from "react-redux";
 import { fetchAllProject, searchProject, updateLoading } from "../state";
 import { useEffect, useRef } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const TopBar = () => {
   const { title } = useParams();
@@ -14,7 +14,7 @@ const TopBar = () => {
   const handleSearch = async (e: any) => {
     e.preventDefault();
     console.log("search", searchRef.current.value);
-    if (searchRef.current.value !== undefined) {
+    if (searchRef.current.value !== "") {
       dispatch(searchProject(searchRef.current?.value));
       navigate("/search/q=" + searchRef.current?.value);
     }
@@ -28,13 +28,13 @@ const TopBar = () => {
       <div className="search">
         <form onSubmit={handleSearch}>
           <input
-            className="updateInput"
+            className="searchInput"
             type="text"
             placeholder="Search..."
             ref={searchRef}
           />
-          <button className="saveButton" type="submit">
-            Go
+          <button className="searchButton" type="submit">
+            <AiOutlineSearch className="searchIcon" />
           </button>
         </form>
       </div>

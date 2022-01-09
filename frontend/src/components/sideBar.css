@@ -1,10 +1,10 @@
 .sideBarContainer {
   position: fixed;
   height: 100%;
-  width: 50px;
+  width: 44px;
   background-color: #363842;
   z-index: 99 !important;
-  top: 50px;
+  top: 44px;
 }
 .side-bar {
   margin-top: 50px;
@@ -12,7 +12,7 @@
   flex-direction: column;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -4px;
   width: 50px;
 }
 .top-bar {
@@ -24,38 +24,7 @@
   width: 100%;
   justify-content: flex-end;
   z-index: 99;
-}
-
-.user {
-  margin-right: 15px;
-  display: flex;
-  margin: 0px 5px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.userlink {
-  padding-top: 8px;
-  margin-right: 10px;
-  text-decoration: none;
-  color: #e0eaee;
-  height: 35px;
-  width: 80px;
-  border-radius: 5px;
-  font-weight: 700;
-  font-size: 18px;
-}
-.userlink:active {
-  transform: translate(0.5px, 0.5px);
-  background-color: rgb(52, 194, 128);
-}
-
-.signUp {
-  background-color: rgb(71, 196, 21);
-}
-.logIn {
-  background-color: rgb(43, 194, 194);
+  height: 44px;
 }
 
 .side {
@@ -150,8 +119,8 @@
 }
 
 .thacoder {
-  margin: 4px 10px;
-  font-size: 34px;
+  margin: 1px 10px;
+  font-size: 32px;
   text-decoration: none;
   color: rgb(245, 219, 180);
   /* font-family: cursive; */
@@ -159,23 +128,96 @@
   letter-spacing: 3px;
 }
 
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 2px 0;
+  padding: 0;
+  width: 100vw;
+  height: 36px;
+  background-color: #363842;
+}
+
+.searchButton {
+  border-radius: 0 8px 8px 0;
+  border: none;
+  text-decoration: none;
+  background-color: transparent;
+  color: #fff;
+  flex-grow: 1;
+  cursor: pointer;
+  font-size: 22px;
+  position: relative;
+  top: 6px;
+}
+.searchIcon {
+}
+.searchInput {
+  padding: 8px;
+  background-color: #4b4d64;
+  color: #fff;
+  flex-grow: 3;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  width: 26vw;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  height: 15px;
+}
+
+.user {
+  margin-right: 15px;
+  display: flex;
+  margin: 0px 5px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.userlink {
+  /* padding-top: 8px; */
+  margin-right: 10px;
+  text-decoration: none;
+  color: #e0eaee;
+  height: 30px;
+  width: 80px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 18px;
+  padding-top: 2px;
+}
+.userlink:active {
+  transform: translate(0.5px, 0.5px);
+  background-color: rgb(52, 194, 128);
+}
+
+.signUp {
+  background-color: rgb(71, 196, 21);
+}
+.logIn {
+  background-color: rgb(43, 194, 194);
+}
+
 @media only screen and (max-width: 640px) {
   .search {
     margin: 0;
   }
   .thacoder {
-    margin: 8px 0;
-    font-size: 28px;
+    margin: 4px 3px;
+    font-size: 26px;
   }
   .user {
     margin: 0;
   }
-  .updateInput {
-    margin: 0;
+  .searchInput {
+    margin: 4px 0 0;
   }
-  .saveButton {
+  .searchButton {
     margin: 0;
-    opacity: 1;
+    opacity: 0;
   }
   .signUp {
     margin: 1px;

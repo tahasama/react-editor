@@ -7,7 +7,7 @@
 
 .modal {
   width: 35%;
-  height: 56vh;
+  height: 56.7vh;
   padding: 5px;
   border-radius: 20px;
   background-color: rgba(96, 48, 150, 0.35);
@@ -60,7 +60,7 @@
 }
 
 .creating {
-  margin-top: 35px;
+  margin-top: 2px;
   margin-left: 5vw;
   font-weight: bold;
   font-family: monospace;
