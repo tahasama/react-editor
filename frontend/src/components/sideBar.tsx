@@ -57,11 +57,10 @@ const SideBar = ({ remove, save, update }: any) => {
             onMouseLeave={() => dispatch(barState({ type: "Default" }))}
             onClick={update}
           >
-            {" "}
             <div className="iconSide">
               <AiFillEdit />{" "}
             </div>
-            {bar.edit && <div className="message">Edit info</div>}
+            {bar.edit && <div className="message">Edit project's infos</div>}
           </Link>
         )}
 

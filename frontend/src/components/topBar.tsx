@@ -13,16 +13,18 @@ const TopBar = () => {
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    if (title !== undefined) {
+    console.log("search", searchRef.current.value);
+    if (searchRef.current.value !== undefined) {
       dispatch(searchProject(searchRef.current?.value));
       navigate("/search/q=" + searchRef.current?.value);
     }
   };
   return (
     <nav className="top-bar ">
-      <Link className="thacoder" to="/home">
+      <Link className="thacoder" to="/">
         ThaCoder
-      </Link>{" "}
+      </Link>
+
       <div className="search">
         <form onSubmit={handleSearch}>
           <input
