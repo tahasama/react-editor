@@ -39,7 +39,12 @@ const TopBar = () => {
         </form>
       </div>
       <div className="user">
-        <p>User</p>
+        <Link to={""} className="userlink signUp">
+          Sign Up
+        </Link>
+        <Link to={""} className="userlink logIn">
+          Log In
+        </Link>
       </div>
     </nav>
   );

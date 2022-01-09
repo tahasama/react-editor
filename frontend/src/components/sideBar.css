@@ -22,15 +22,40 @@
   left: 0;
   background-color: #363842;
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   z-index: 99;
 }
 
-.logo {
-  margin-left: 15px;
-}
 .user {
   margin-right: 15px;
+  display: flex;
+  margin: 0px 5px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.userlink {
+  padding-top: 8px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #e0eaee;
+  height: 35px;
+  width: 80px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 18px;
+}
+.userlink:active {
+  transform: translate(0.5px, 0.5px);
+  background-color: rgb(52, 194, 128);
+}
+
+.signUp {
+  background-color: rgb(71, 196, 21);
+}
+.logIn {
+  background-color: rgb(43, 194, 194);
 }
 
 .side {
@@ -132,4 +157,30 @@
   /* font-family: cursive; */
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   letter-spacing: 3px;
+}
+
+@media only screen and (max-width: 640px) {
+  .search {
+    margin: 0;
+  }
+  .thacoder {
+    margin: 8px 0;
+    font-size: 28px;
+  }
+  .user {
+    margin: 0;
+  }
+  .updateInput {
+    margin: 0;
+  }
+  .saveButton {
+    margin: 0;
+    opacity: 1;
+  }
+  .signUp {
+    margin: 1px;
+  }
+  .logIn {
+    margin: 1px;
+  }
 }
