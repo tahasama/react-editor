@@ -7,14 +7,6 @@
   position: relative;
   left: 13vw;
   top: 13vh;
-
-  /* margin-left: 50px; */
-  /* margin-right: 50px;
-  margin-left: 80px;
-  margin-top: 30px; */
-  /* display: grid;
-  grid-template-columns: auto auto auto auto; */
-  /* padding: 20px; */
 }
 .projectLink {
   text-decoration: none;
@@ -23,13 +15,6 @@
   padding: 10px;
   margin-bottom: 10px;
   width: 70vw;
-
-  /* margin: 20px 5px;
-  font-size: 24px;
-  /* text-align: center; */
-  /* 
-  padding: 0;
-  width: 60px; */
 }
 .hr {
   margin: 20px;
@@ -44,15 +29,9 @@
   font-size: 35px;
   margin-right: 5px;
   margin: 5px 10px 0px 5px;
-
-  /*margin: 0 auto; */
 }
 .name {
   margin: 5px 10px 5px 5px;
-
-  /* margin: 0;
- 
-  height: auto; */
   font-size: 25px;
   color: rgb(204, 203, 203);
 }
@@ -85,6 +64,7 @@
 .project:hover {
   animation: float 1s ease-in-out 2;
 }
+
 @keyframes float {
   0% {
     box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);

@@ -1,3 +1,5 @@
+/* Side bar */
+
 .sideBarContainer {
   position: fixed;
   height: 100%;
@@ -6,7 +8,7 @@
   z-index: 99 !important;
   top: 44px;
 }
-.side-bar {
+.sideBar {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -15,18 +17,6 @@
   left: -4px;
   width: 50px;
 }
-.top-bar {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #363842;
-  width: 100%;
-  justify-content: flex-end;
-  z-index: 99;
-  height: 44px;
-}
-
 .side {
   flex: 1;
   margin: 10px 10px 15px;
@@ -36,32 +26,19 @@
   /* transition: all 1s ease-in; */
   animation: fadeIn 0.5s ease-out;
 }
-
 .side:hover {
   transition: color 1s ease-in;
-
   color: #baccd4;
 }
-
-.butt {
-  background-color: transparent;
-  border: transparent;
-  margin: 18px 4px;
-  cursor: pointer;
-}
-
 .a {
   color: rgb(68, 163, 163);
 }
-
 .b {
   color: rgb(182, 56, 176);
 }
-
 .c {
   color: rgb(75, 48, 150);
 }
-
 .d {
   color: rgb(219, 69, 69);
 }
@@ -71,7 +48,6 @@
 .f {
   color: rgb(144, 146, 15);
 }
-
 .message {
   position: absolute;
   left: 45px;
@@ -101,7 +77,6 @@
     opacity: 1;
   }
 }
-
 .iconSide:active {
   animation: minShake 0.2s linear;
 }
@@ -118,16 +93,27 @@
   }
 }
 
+/* Top bar */
+
+.topBar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #363842;
+  width: 100%;
+  justify-content: flex-end;
+  z-index: 99;
+  height: 44px;
+}
 .thacoder {
   margin: 1px 10px;
   font-size: 32px;
   text-decoration: none;
   color: rgb(245, 219, 180);
-  /* font-family: cursive; */
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   letter-spacing: 3px;
 }
-
 .search {
   display: flex;
   justify-content: center;
@@ -139,7 +125,6 @@
   height: 36px;
   background-color: #363842;
 }
-
 .searchButton {
   border-radius: 0 8px 8px 0;
   border: none;
@@ -152,7 +137,6 @@
   position: relative;
   top: 6px;
 }
-
 .searchInput {
   padding: 8px;
   background-color: #4b4d64;
@@ -166,7 +150,6 @@
   letter-spacing: 1px;
   height: 15px;
 }
-
 .user {
   margin-right: 15px;
   display: flex;
@@ -175,9 +158,7 @@
   align-items: center;
   text-align: center;
 }
-
 .userlink {
-  /* padding-top: 8px; */
   margin-right: 10px;
   text-decoration: none;
   color: #e0eaee;
@@ -192,7 +173,6 @@
   transform: translate(0.5px, 0.5px);
   background-color: rgb(52, 194, 128);
 }
-
 .signUp {
   background-color: rgb(14, 98, 124);
 }

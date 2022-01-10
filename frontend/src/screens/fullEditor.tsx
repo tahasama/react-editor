@@ -62,8 +62,8 @@ function FullEditor() {
     <div>
       <TopBar />
       <SideBar remove={handleDeleteProject} save={handleUpdateTitle} />
-      <div className="editor-wrapper">
-        <div className="titleContianer">
+      <div className="editorWrapper">
+        <div className="titleContainer">
           <h2 className="projectTitle">Project : {title} </h2>
           <p className="date ">
             Updated on &#160;

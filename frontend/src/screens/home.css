@@ -34,11 +34,9 @@
   cursor: pointer;
   margin: 0px 20px;
   border-radius: 10px;
-  /* border-style: double; */
   border: none;
   margin-left: 20px;
   background-color: rgb(67, 69, 92, 0.1);
-  /* background-color: transparent; */
   box-shadow: 10px 5px 15px rgb(100, 90, 0);
 }
 .buttona:hover {
@@ -62,8 +60,4 @@
   100% {
     transform: rotate(0deg);
   }
-}
-
-.homeList {
-  margin-top: -30vw;
 }

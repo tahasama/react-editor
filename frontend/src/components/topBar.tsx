@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./sideBar.css";
+import "./navBar.css";
 import { useDispatch } from "react-redux";
 import { fetchAllProject, searchProject, updateLoading } from "../state";
 import { useEffect, useRef } from "react";
@@ -19,7 +19,7 @@ const TopBar = () => {
     }
   };
   return (
-    <nav className="top-bar ">
+    <nav className="topBar ">
       <Link className="thacoder" to="/">
         ThaCoder
       </Link>

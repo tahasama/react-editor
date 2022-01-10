@@ -3,15 +3,18 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
+import { cleanState, projectInitialState } from "../state";
 
 import "./home.css";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNewProjectClick: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
+    dispatch(cleanState(projectInitialState));
     navigate("/create");
   };
 

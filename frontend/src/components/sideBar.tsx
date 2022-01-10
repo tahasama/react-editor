@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import "./sideBar.css";
+import "./navBar.css";
 import {
   AiFillEdit,
   AiFillHome,
@@ -20,7 +20,7 @@ const SideBar = ({ remove, save }: any) => {
 
   return (
     <div className="sideBarContainer">
-      <nav className="side-bar">
+      <nav className="sideBar">
         <Link
           className="side c"
           to="/"
@@ -86,8 +86,9 @@ const SideBar = ({ remove, save }: any) => {
           {bar.open && <div className="message">Open Project</div>}
         </Link>
         {id && (
-          <button
-            className="side d butt"
+          <Link
+            to=""
+            className="side d "
             onMouseEnter={() => dispatch(barState({ delete: true }))}
             onMouseLeave={() => dispatch(barState(sideBArInitialState))}
             onClick={remove}
@@ -96,7 +97,7 @@ const SideBar = ({ remove, save }: any) => {
               <AiFillDelete />
             </div>
             {bar.delete && <div className="message">Delete</div>}
-          </button>
+          </Link>
         )}
       </nav>
     </div>
@@ -104,6 +105,3 @@ const SideBar = ({ remove, save }: any) => {
 };
 
 export default SideBar;
-function resetBarState(resetBarState: any): void {
-  throw new Error("Function not implemented.");
-}
