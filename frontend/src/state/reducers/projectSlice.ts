@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchProject = createAsyncThunk(
@@ -10,7 +10,7 @@ export const fetchProject = createAsyncThunk(
 );
 
 interface valueProps {
-  name: string | undefined;
+  title: string | undefined;
   description: string | undefined;
 }
 
@@ -18,7 +18,7 @@ export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
     const object: any = {
-      title: value.name,
+      title: value.title,
       description: value.description,
       code: { html: "", css: "", js: "" },
     };
@@ -37,15 +37,12 @@ interface saveProps {
 export const saveProject = createAsyncThunk(
   "saveProject",
   async (value: saveProps) => {
-    const object: any = {
+    const object = {
       _id: value._id,
-      title: value.title,
-      description: value.description,
-      code: { html: value.code.html, css: value.code.css, js: value.code.js },
     };
     const res = await axios.put(
       "http://localhost:5000/api/project/" + object._id,
-      object
+      value
     );
     return res.data;
   }
@@ -69,63 +66,48 @@ export interface projectProps {
   };
 }
 
+export const projectInitialState = {
+  _id: "",
+  title: "",
+  description: "",
+  code: { html: "", css: "", js: "" },
+  err: "",
+  createdAt: "",
+  updatedAt: "",
+};
+
 export const projectSlice = createSlice({
   name: "project-redux",
-  initialState: {
-    _id: "",
-    title: "",
-    description: "",
-    code: { html: "", css: "", js: "" },
-    err: "",
-    createdAt: "",
-    updatedAt: "",
-  },
+  initialState: projectInitialState,
   reducers: {
-    updateHtml: (state, action) => {
-      state.code.html = action.payload;
+    updateCode: (state, action) => {
+      Object.assign(state.code, action.payload.code);
     },
-    updateCss: (state, action) => {
-      state.code.css = action.payload;
-    },
-    updateJs: (state, action) => {
-      state.code.js = action.payload;
-    },
-    updateTitle: (state, action) => {
-      state.title = action.payload;
-    },
-    updateDescription: (state, action) => {
-      state.description = action.payload;
+
+    updateProjectInfos: (state, action) => {
+      Object.assign(state, action.payload);
     },
     updateDate: (state, action) => {
       state.updatedAt = action.payload;
     },
     updateId: (state, action) => {
-      state._id = action.payload;
+      state._id = action.payload._id;
     },
-
-    cleanState: (state) => {
-      state._id = "";
+    cleanState: (state, action) => {
+      const { _id, title, description } = action.payload;
+      Object.assign(state, { _id, title, description });
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
-      state.title = action.payload.title;
-      state.code = action.payload.code;
-      state.description = action.payload.description;
-      state.createdAt = action.payload.createdAt;
-      state.updatedAt = action.payload.updatedAt;
-    });
-    builder.addCase(creatProject.fulfilled, (state, action) => {
-      state._id = action.payload._id;
-      state.err = action.payload.message;
+      Object.assign(state, action.payload);
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
-      state.code.html = action.payload.code.html;
-      state.code.css = action.payload.code.css;
-      state.code.js = action.payload.code.js;
+      console.log("hiiii", action.payload.updatedAt);
       state.updatedAt = action.payload.updatedAt;
-      state.description = action.payload.description;
-      state.title = action.payload.title;
+    });
+
+    builder.addCase(creatProject.fulfilled, (state, action) => {
       state._id = action.payload._id;
     });
   },
@@ -135,11 +117,8 @@ export const projectSlice = createSlice({
 export const getProjectData = (state: projectProps) => state.projs;
 
 export const {
-  updateHtml,
-  updateCss,
-  updateJs,
-  updateTitle,
-  updateDescription,
+  updateCode,
+  updateProjectInfos,
   cleanState,
   updateDate,
   updateId,

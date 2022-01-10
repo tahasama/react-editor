@@ -3,19 +3,14 @@ import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import {
-  cleanState,
   creatProject,
   getProjectData,
   saveProject,
-  updateDate,
-  updateDescription,
-  updateId,
-  updateTitle,
+  updateProjectInfos,
 } from "../state/";
 
 import "./createProject.css";
 import TopBar from "../components/topBar";
-import { idText } from "typescript";
 
 const CreateProject: React.FC = () => {
   const nameRef = useRef<any>(null);
@@ -31,17 +26,11 @@ const CreateProject: React.FC = () => {
     code: { html, css, js },
   } = useAppSelector(getProjectData);
 
-  console.log("here is the id", _id);
-
   setTimeout(() => {
     if (!toUpdate) {
       navigate("/editor/" + _id);
     }
   }, 3000);
-
-  // return () => {
-  //   cleanup
-  // }
 
   const handleNewProjectCreate: FormEventHandler<HTMLFormElement> = async (
     e
@@ -62,7 +51,7 @@ const CreateProject: React.FC = () => {
       setToUpdate(false);
       dispatch(
         creatProject({
-          name: nameRef.current?.value,
+          title: nameRef.current?.value,
           description: descriptionRef.current?.value,
         })
       );
@@ -85,7 +74,11 @@ const CreateProject: React.FC = () => {
                 type="text"
                 ref={nameRef}
                 value={title}
-                onChange={() => dispatch(updateTitle(nameRef.current?.value))}
+                onChange={() =>
+                  dispatch(
+                    updateProjectInfos({ title: nameRef.current?.value })
+                  )
+                }
               />
             </footer>
             <header className="modalHeader">
@@ -98,7 +91,11 @@ const CreateProject: React.FC = () => {
                 ref={descriptionRef}
                 value={description}
                 onChange={() =>
-                  dispatch(updateDescription(descriptionRef.current?.value))
+                  dispatch(
+                    updateProjectInfos({
+                      description: descriptionRef.current?.value,
+                    })
+                  )
                 }
               />
               <button className="createButton" type="submit">

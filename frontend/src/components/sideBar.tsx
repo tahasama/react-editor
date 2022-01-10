@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom";
 import "./sideBar.css";
-import { FcOpenedFolder } from "react-icons/fc";
 import {
   AiFillEdit,
   AiFillHome,
@@ -9,13 +8,12 @@ import {
   AiOutlineFolderOpen,
 } from "react-icons/ai";
 import { MdAddCircleOutline } from "react-icons/md";
-import { useReducer } from "react";
 import { useAppSelector } from "../state/hooks";
 import { useDispatch } from "react-redux";
-import { barState } from "../state/reducers/sideBarSlice";
-import { cleanState } from "../state";
+import { barState, sideBArInitialState } from "../state/reducers/sideBarSlice";
+import { cleanState, projectInitialState } from "../state";
 
-const SideBar = ({ remove, save, update }: any) => {
+const SideBar = ({ remove, save }: any) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const bar = useAppSelector((state) => state.bar);
@@ -26,8 +24,8 @@ const SideBar = ({ remove, save, update }: any) => {
         <Link
           className="side c"
           to="/"
-          onMouseEnter={() => dispatch(barState({ type: "Home" }))}
-          onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+          onMouseEnter={() => dispatch(barState({ home: true }))}
+          onMouseLeave={() => dispatch(barState(sideBArInitialState))}
         >
           <div className="iconSide">
             <AiFillHome />
@@ -38,13 +36,12 @@ const SideBar = ({ remove, save, update }: any) => {
           <Link
             to={""}
             className="side a"
-            onMouseEnter={() => dispatch(barState({ type: "Save" }))}
-            onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+            onMouseEnter={() => dispatch(barState({ save: true }))}
+            onMouseLeave={() => dispatch(barState(sideBArInitialState))}
             onClick={save}
           >
-            {" "}
             <div className="iconSide">
-              <AiFillSave />{" "}
+              <AiFillSave />
             </div>
             {bar.save && <div className="message">Save</div>}
           </Link>
@@ -53,9 +50,9 @@ const SideBar = ({ remove, save, update }: any) => {
           <Link
             to={"/create"}
             className="side e"
-            onMouseEnter={() => dispatch(barState({ type: "Edit" }))}
-            onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-            onClick={update}
+            onMouseEnter={() => dispatch(barState({ edit: true }))}
+            onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+            onClick={save}
           >
             <div className="iconSide">
               <AiFillEdit />{" "}
@@ -67,9 +64,9 @@ const SideBar = ({ remove, save, update }: any) => {
         <Link
           className="side b"
           to="/create"
-          onMouseEnter={() => dispatch(barState({ type: "New" }))}
-          onMouseLeave={() => dispatch(barState({ type: "Default" }))}
-          onClick={dispatch(cleanState)}
+          onMouseEnter={() => dispatch(barState({ new: true }))}
+          onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+          onClick={() => dispatch(cleanState(projectInitialState))}
         >
           <div className="iconSide">
             <MdAddCircleOutline />
@@ -80,8 +77,8 @@ const SideBar = ({ remove, save, update }: any) => {
         <Link
           className="side f"
           to="/projects"
-          onMouseEnter={() => dispatch(barState({ type: "Open" }))}
-          onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+          onMouseEnter={() => dispatch(barState({ open: true }))}
+          onMouseLeave={() => dispatch(barState(sideBArInitialState))}
         >
           <div className="iconSide">
             <AiOutlineFolderOpen />
@@ -91,8 +88,8 @@ const SideBar = ({ remove, save, update }: any) => {
         {id && (
           <button
             className="side d butt"
-            onMouseEnter={() => dispatch(barState({ type: "Delete" }))}
-            onMouseLeave={() => dispatch(barState({ type: "Default" }))}
+            onMouseEnter={() => dispatch(barState({ delete: true }))}
+            onMouseLeave={() => dispatch(barState(sideBArInitialState))}
             onClick={remove}
           >
             <div className="iconSide">
@@ -107,3 +104,6 @@ const SideBar = ({ remove, save, update }: any) => {
 };
 
 export default SideBar;
+function resetBarState(resetBarState: any): void {
+  throw new Error("Function not implemented.");
+}

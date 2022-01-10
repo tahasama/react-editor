@@ -4,12 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppSelector } from "../state/hooks";
-import {
-  fetchAllProject,
-  getProjectData,
-  searchProject,
-  updateLoading,
-} from "../state/";
+import { fetchAllProject, updateLoading } from "../state/";
 
 import "./projectsList.css";
 import { getProjectsData } from "../state/";
@@ -22,10 +17,6 @@ const ProjectList = () => {
   const { title } = useParams();
   const query = title?.toString();
 
-  const getProjectsList = async () => {
-    dispatch(fetchAllProject());
-  };
-
   useEffect(() => {
     dispatch(updateLoading(true));
     setTimeout(() => {
@@ -34,6 +25,10 @@ const ProjectList = () => {
       }
     }, 100);
   }, [query]);
+
+  const getProjectsList = async () => {
+    dispatch(fetchAllProject());
+  };
 
   return (
     <div>

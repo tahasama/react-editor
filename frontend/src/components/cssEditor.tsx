@@ -4,7 +4,11 @@ import prettier from "prettier";
 import cssParser from "prettier/parser-postcss";
 
 import "../screens/fullEditor.css";
-import { getProjectData, updateCss } from "../state/reducers/projectSlice";
+import {
+  getProjectData,
+  updateCode,
+  // updateCss,
+} from "../state/reducers/projectSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
 
@@ -16,8 +20,9 @@ const CssEditor = () => {
   const {
     code: { css },
   } = useAppSelector(getProjectData);
+
   const handleEditorChange = () => {
-    dispatch(updateCss(editorRef.current.getValue()));
+    dispatch(updateCode({ code: { css: editorRef.current.getValue() || "" } }));
   };
 
   const handleEditorDidMount = (editor: any) => {

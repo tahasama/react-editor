@@ -13,7 +13,6 @@ const TopBar = () => {
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    console.log("search", searchRef.current.value);
     if (searchRef.current.value !== "") {
       dispatch(searchProject(searchRef.current?.value));
       navigate("/search/q=" + searchRef.current?.value);

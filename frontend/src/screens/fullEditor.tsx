@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CssEditor from "../components/cssEditor";
 import HtmlEditor from "../components/htmlEditor";
@@ -12,20 +12,15 @@ import {
   fetchProject,
   getProjectData,
   saveProject,
-  updateTitle,
 } from "../state/";
 
-import { AiFillEdit } from "react-icons/ai";
-import { barState } from "../state/reducers/sideBarSlice";
 import TopBar from "../components/topBar";
 
 function FullEditor() {
-  const [openInput, setOpenInput] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const titleRef = useRef<any>(null);
-  const bar = useAppSelector((state) => state.bar);
+
   const {
     title,
     description,
@@ -33,12 +28,9 @@ function FullEditor() {
     updatedAt,
   } = useAppSelector(getProjectData);
 
-  const handleGetProject = () => {
-    dispatch(fetchProject(id));
-  };
-
   useEffect(() => {
-    handleGetProject();
+    dispatch(fetchProject(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUpdateTitle = () => {
@@ -50,7 +42,6 @@ function FullEditor() {
         code: { html: html, css: css, js: js },
       })
     );
-    setOpenInput(false);
   };
 
   const handleDeleteProject = async () => {
@@ -70,16 +61,22 @@ function FullEditor() {
   return (
     <div>
       <TopBar />
-      <SideBar
-        remove={handleDeleteProject}
-        save={handleUpdateTitle}
-        update={handleUpdateTitle}
-      />
+      <SideBar remove={handleDeleteProject} save={handleUpdateTitle} />
       <div className="editor-wrapper">
         <div className="titleContianer">
           <h2 className="projectTitle">Project : {title} </h2>
           <p className="date ">
-            Updated on {new Date(updatedAt).toString().slice(0, 24)}
+            Updated on &#160;
+            {new Date(updatedAt).toLocaleDateString(navigator.language, {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+            &#160; at &#160;
+            {new Date(updatedAt).toLocaleTimeString(navigator.language, {
+              hour: "numeric",
+              minute: "numeric",
+            })}
           </p>
         </div>
 
@@ -96,7 +93,7 @@ function FullEditor() {
         </div>
 
         <div className="frame">
-          <iframe srcDoc={srcDoc} width="100%"></iframe>
+          <iframe srcDoc={srcDoc} width="100%" title="codeFrame"></iframe>
         </div>
       </div>
     </div>

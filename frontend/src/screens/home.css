@@ -13,12 +13,12 @@
   font-weight: 500;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-left: 0vw;
+  margin-bottom: 3vh;
   padding: 10px;
   letter-spacing: 3px;
 }
 .intro2 {
-  margin-left: 2vw;
-  margin-bottom: -3vh;
+  margin: 0 0 4vh 3vw;
   font-weight: 500;
   font-size: 34px;
 }

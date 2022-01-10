@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
+import { createSlice, current } from "@reduxjs/toolkit";
+export const sideBArInitialState = {
   home: false,
   new: false,
   save: false,
@@ -9,41 +9,10 @@ const initialState = {
 };
 export const sideBarSlice = createSlice({
   name: "bar-redux",
-  initialState: {
-    home: false,
-    new: false,
-    save: false,
-    open: false,
-    delete: false,
-    edit: false,
-  },
+  initialState: sideBArInitialState,
   reducers: {
     barState: (state, action) => {
-      switch (action.payload.type) {
-        case "Home":
-          state.home = true;
-          break;
-        case "Save":
-          state.save = true;
-          break;
-        case "New":
-          state.new = true;
-          break;
-        case "Open":
-          state.open = true;
-          break;
-        case "Delete":
-          state.delete = true;
-          break;
-        case "Edit":
-          state.edit = true;
-          break;
-        case "Default":
-          return initialState;
-
-        default:
-          return state;
-      }
+      Object.assign(state, action.payload);
     },
   },
 });
