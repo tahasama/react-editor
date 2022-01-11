@@ -40,7 +40,7 @@ const JsEditor = () => {
   return (
     <div>
       <div className="header">
-        <p className="title">Js</p>
+        <p className="title">JavaScript</p>
         <button onClick={onFormat} className="format">
           format
         </button>

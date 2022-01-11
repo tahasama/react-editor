@@ -2,6 +2,7 @@
   width: 96%;
   margin-left: 50px;
 }
+
 .editors {
   display: flex;
   margin: 0px 15px 10px 0px;
@@ -43,12 +44,15 @@
   background-color: #ad284a;
   transform: translate(0.5px, 0.5px);
 }
+
 .editor:hover .format {
   opacity: 1;
 }
+
 iframe body {
   font-size: 30px;
 }
+
 .frame iframe {
   background-color: white;
   border: 0;
@@ -56,16 +60,19 @@ iframe body {
   height: 45vh;
   margin-left: 12px;
   margin-top: 2px;
+  margin-bottom: 5px;
 }
+
 .projectTitle {
   margin-left: 0px;
   font-weight: 400;
   font-size: 26px;
   margin-top: 13px;
-  width: 200vw;
+  width: 90vw;
   letter-spacing: 1px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
+
 .titleContainer {
   position: relative;
   display: flex;
@@ -73,13 +80,15 @@ iframe body {
   margin-left: 10px;
   margin-top: 47px;
 }
+
 .date {
   color: rgb(109, 109, 221);
   position: relative;
-  left: 10vw;
+  /* left: 10vw; */
   top: 4vh;
-  margin: 0;
-  width: 180vw;
+  margin: 0 10px;
+  width: 100%;
+  text-align: end;
 }
 
 @media only screen and (max-width: 820px) {
