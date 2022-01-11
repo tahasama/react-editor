@@ -97,6 +97,7 @@ export const projectSlice = createSlice({
     updateSaved: (state, action) => {
       state.saved = action.payload;
     },
+
     cleanState: (state, action) => {
       const { _id, title, description } = action.payload;
       Object.assign(state, { _id, title, description });

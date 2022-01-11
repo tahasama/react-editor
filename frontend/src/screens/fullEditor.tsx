@@ -30,6 +30,7 @@ function FullEditor() {
     saved,
   } = useAppSelector(getProjectData);
 
+  console.log("saved in editor", saved);
   useEffect(() => {
     dispatch(fetchProject(id));
     window.onbeforeunload = function (e: any) {

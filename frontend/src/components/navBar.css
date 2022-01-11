@@ -30,6 +30,11 @@
   transition: color 1s ease-in;
   color: #baccd4;
 }
+.but {
+  background-color: transparent;
+  border: none;
+  margin-left: 3px;
+}
 .a {
   color: rgb(68, 163, 163);
 }

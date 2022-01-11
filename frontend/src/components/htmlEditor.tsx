@@ -4,7 +4,11 @@ import prettier from "prettier";
 import htmlParser from "prettier/parser-html";
 
 import "../screens/fullEditor.css";
-import { updateCode, getProjectData } from "../state/reducers/projectSlice";
+import {
+  updateCode,
+  getProjectData,
+  updateSaved,
+} from "../state/reducers/projectSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
 
@@ -20,6 +24,7 @@ const HtmlEditor = () => {
     dispatch(
       updateCode({ code: { html: editorRef.current.getValue() || "" } })
     );
+    dispatch(updateSaved(false));
   };
 
   const handleEditorDidMount = (editor: any) => {

@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./navBar.css";
 import {
   AiFillEdit,
@@ -11,27 +11,47 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { useAppSelector } from "../state/hooks";
 import { useDispatch } from "react-redux";
 import { barState, sideBArInitialState } from "../state/reducers/sideBarSlice";
-import { cleanState, projectInitialState } from "../state";
+import {
+  cleanState,
+  getProjectData,
+  projectInitialState,
+  updateSaved,
+} from "../state";
+import { useEffect, useState } from "react";
 
 const SideBar = ({ remove, save }: any) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
+  const { saved } = useAppSelector(getProjectData);
+
+  const alerted = (destination: string) => {
+    if (!saved) {
+      const result = window.confirm("are you sure you want to leave? ");
+      if (result) {
+        navigate(destination);
+      }
+    } else {
+      navigate(destination);
+    }
+    dispatch(updateSaved(true));
+  };
 
   return (
     <div className="sideBarContainer">
       <nav className="sideBar">
-        <Link
-          className="side c"
-          to="/"
+        <button
+          className="side c but"
           onMouseEnter={() => dispatch(barState({ home: true }))}
           onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+          onClick={() => alerted("/")}
         >
           <div className="iconSide">
             <AiFillHome />
           </div>
           {bar.home && <div className="message">Home</div>}
-        </Link>
+        </button>
         {id && (
           <Link
             to={""}
@@ -47,18 +67,18 @@ const SideBar = ({ remove, save }: any) => {
           </Link>
         )}
         {id && (
-          <Link
-            to={"/create"}
-            className="side e"
+          <button
+            // to={"/create"}
+            className="side e but"
             onMouseEnter={() => dispatch(barState({ edit: true }))}
             onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-            onClick={save}
+            onClick={() => alerted("/create")}
           >
             <div className="iconSide">
               <AiFillEdit />{" "}
             </div>
             {bar.edit && <div className="message">Edit project's infos</div>}
-          </Link>
+          </button>
         )}
 
         <Link
@@ -66,7 +86,9 @@ const SideBar = ({ remove, save }: any) => {
           to="/create"
           onMouseEnter={() => dispatch(barState({ new: true }))}
           onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-          onClick={() => dispatch(cleanState(projectInitialState))}
+          onClick={() => (
+            dispatch(cleanState(projectInitialState)), alerted("/create")
+          )}
         >
           <div className="iconSide">
             <MdAddCircleOutline />
@@ -74,17 +96,18 @@ const SideBar = ({ remove, save }: any) => {
           {bar.new && <div className="message">New Project</div>}
         </Link>
 
-        <Link
-          className="side f"
-          to="/projects"
+        <button
+          className="side f but"
+          // to="/projects"
           onMouseEnter={() => dispatch(barState({ open: true }))}
           onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+          onClick={() => alerted("/projects")}
         >
           <div className="iconSide">
             <AiOutlineFolderOpen />
           </div>
           {bar.open && <div className="message">Open Project</div>}
-        </Link>
+        </button>
         {id && (
           <Link
             to=""
