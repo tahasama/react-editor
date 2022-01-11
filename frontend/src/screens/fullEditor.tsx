@@ -12,6 +12,7 @@ import {
   fetchProject,
   getProjectData,
   saveProject,
+  updateSaved,
 } from "../state/";
 
 import TopBar from "../components/topBar";
@@ -26,12 +27,23 @@ function FullEditor() {
     description,
     code: { html, css, js },
     updatedAt,
+    saved,
   } = useAppSelector(getProjectData);
 
   useEffect(() => {
     dispatch(fetchProject(id));
+    window.onbeforeunload = function (e: any) {
+      var e = e || window.event;
+      if (e && !saved) {
+        e.returnValue = "Any string";
+      }
+    };
+    return () => {
+      window.onbeforeunload = null;
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [saved]);
 
   const handleUpdateTitle = () => {
     dispatch(
@@ -42,6 +54,7 @@ function FullEditor() {
         code: { html: html, css: css, js: js },
       })
     );
+    dispatch(updateSaved(true));
   };
 
   const handleDeleteProject = async () => {

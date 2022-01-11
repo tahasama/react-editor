@@ -63,6 +63,7 @@ export interface projectProps {
     err: string;
     createdAt: string;
     updatedAt: string;
+    saved: boolean;
   };
 }
 
@@ -74,6 +75,7 @@ export const projectInitialState = {
   err: "",
   createdAt: "",
   updatedAt: "",
+  saved: false,
 };
 
 export const projectSlice = createSlice({
@@ -83,7 +85,6 @@ export const projectSlice = createSlice({
     updateCode: (state, action) => {
       Object.assign(state.code, action.payload.code);
     },
-
     updateProjectInfos: (state, action) => {
       Object.assign(state, action.payload);
     },
@@ -92,6 +93,9 @@ export const projectSlice = createSlice({
     },
     updateId: (state, action) => {
       state._id = action.payload._id;
+    },
+    updateSaved: (state, action) => {
+      state.saved = action.payload;
     },
     cleanState: (state, action) => {
       const { _id, title, description } = action.payload;
@@ -122,6 +126,7 @@ export const {
   cleanState,
   updateDate,
   updateId,
+  updateSaved,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;
