@@ -34,6 +34,7 @@
   background-color: transparent;
   border: none;
   margin-left: 3px;
+  cursor: pointer;
 }
 .a {
   color: rgb(68, 163, 163);
@@ -173,10 +174,11 @@
   font-weight: 700;
   font-size: 18px;
   padding-top: 2px;
+  border: none;
 }
 .userlink:active {
   transform: translate(0.5px, 0.5px);
-  background-color: rgb(52, 194, 128);
+  opacity: 0.8;
 }
 .signUp {
   background-color: rgb(14, 98, 124);

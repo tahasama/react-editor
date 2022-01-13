@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
-import { cleanState, projectInitialState } from "../state";
+import { cleanState, projectInitialState, updateSaved } from "../state";
+import { useAppSelector } from "../state/hooks";
+import { getUserData } from "../state/reducers/userSlice";
 
 import "./home.css";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { email } = useAppSelector(getUserData);
+
+  useEffect(() => {
+    dispatch(updateSaved(true));
+  }, []);
 
   const handleNewProjectClick: React.MouseEventHandler<
     HTMLButtonElement
@@ -21,7 +28,11 @@ const Home = () => {
   const handleOpenProjectClick: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
-    navigate("/projects");
+    if (email) {
+      navigate("/projects");
+    } else {
+      navigate("login");
+    }
   };
 
   return (

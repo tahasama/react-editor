@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchProject = createAsyncThunk(
@@ -26,6 +26,26 @@ export const creatProject = createAsyncThunk(
     return res.data;
   }
 );
+interface cloneProps {
+  title: string | undefined;
+  description: string | undefined;
+  html: string;
+  css: string;
+  js: string;
+}
+
+// export const cloneProject = createAsyncThunk(
+//   "cloneProject",
+//   async (val: cloneProps) => {
+//     const object: any = {
+//       title: val.title,
+//       description: val.description,
+//       code: { html: val.html, css: val.css, js: val.js },
+//     };
+//     const res = await axios.post("http://localhost:5000/api/project/", object);
+//     return res.data;
+//   }
+// );
 
 interface saveProps {
   _id: string | undefined;

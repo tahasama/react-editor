@@ -1,0 +1,34 @@
+.logingForm {
+  width: 36vw;
+  height: 52vh;
+  padding: 5px;
+  border-radius: 20px;
+  background-color: rgba(96, 48, 150, 0.35);
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.3);
+}
+
+.labelInputLogin {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 10px 0px 10px;
+}
+
+.loginButton {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  background-color: #445a63;
+  color: #fff;
+  cursor: pointer;
+  margin: 12px 0px;
+  font-size: 18px;
+  width: 30.7vw;
+  margin-left: 12px;
+  margin-top: 3.5vh;
+}
+
+.loginQuestion {
+  margin-left: 2vw;
+  margin-top: 8px;
+}
