@@ -144,7 +144,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               </div>
               {bar.delete && <div className="message">Code and Run</div>}
             </Link>
-            {/* {_id && (
+            {_id && (
               <button
                 className="side d but"
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
@@ -152,11 +152,11 @@ const SideBar = ({ remove, save, clone }: any) => {
                 onClick={clone}
               >
                 <div className="iconSide">
-                  <FaRegClone />
+                  <FaRegClone style={{ color: "whitesmoke", fontSize: 28 }} />
                 </div>
                 {bar.delete && <div className="message">Clone Project</div>}
               </button>
-            )} */}
+            )}
           </>
         )}
       </nav>

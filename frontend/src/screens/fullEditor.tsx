@@ -8,6 +8,7 @@ import "./fullEditor.css";
 import SideBar from "../components/sideBar";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import {
+  cloneProject,
   deleteProject,
   fetchProject,
   getProjectData,
@@ -61,9 +62,16 @@ function FullEditor() {
     dispatch(updateSaved(true));
   };
 
-  // const handleClone =()=>{
-
-  // }
+  const handleClone = () => {
+    console.log("let's clone");
+    dispatch(
+      cloneProject({
+        title: title,
+        description: description,
+        code: { html: html, css: css, js: js },
+      })
+    );
+  };
 
   const handleDeleteProject = async () => {
     const result = window.confirm("are you sure you want to delete ");
@@ -82,7 +90,11 @@ function FullEditor() {
   return (
     <div>
       <TopBar />
-      <SideBar remove={handleDeleteProject} save={handleUpdateTitle} />
+      <SideBar
+        remove={handleDeleteProject}
+        save={handleUpdateTitle}
+        clone={handleClone}
+      />
       <div className="editorWrapper">
         <div className="titleContainer">
           {!email && (

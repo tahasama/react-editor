@@ -29,23 +29,21 @@ export const creatProject = createAsyncThunk(
 interface cloneProps {
   title: string | undefined;
   description: string | undefined;
-  html: string;
-  css: string;
-  js: string;
+  code: { html: string; css: string; js: string };
 }
 
-// export const cloneProject = createAsyncThunk(
-//   "cloneProject",
-//   async (val: cloneProps) => {
-//     const object: any = {
-//       title: val.title,
-//       description: val.description,
-//       code: { html: val.html, css: val.css, js: val.js },
-//     };
-//     const res = await axios.post("http://localhost:5000/api/project/", object);
-//     return res.data;
-//   }
-// );
+export const cloneProject = createAsyncThunk(
+  "cloneProject",
+  async (val: cloneProps) => {
+    const object: any = {
+      title: val.title + " clone",
+      description: val.description,
+      code: { html: val.code.html, css: val.code.css, js: val.code.js },
+    };
+    const res = await axios.post("http://localhost:5000/api/project/", object);
+    return res.data;
+  }
+);
 
 interface saveProps {
   _id: string | undefined;
