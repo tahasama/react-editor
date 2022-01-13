@@ -1,31 +1,27 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
-import { updateSaved } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
   getUserData,
-  loginUser,
+  resetPassword,
   updateError,
 } from "../state/reducers/userSlice";
-import "./login.css";
 
-const Login = () => {
+const ResetPassword = () => {
   const emailRef = useRef<any>(null);
-  const passwordRef = useRef<any>(null);
   const dispatch = useDispatch();
-  const { error, email } = useAppSelector(getUserData);
-  const location = useLocation();
   const navigate = useNavigate();
+  const { error, email } = useAppSelector(getUserData);
 
   useEffect(() => {
-    if (error.code === "auth/user-not-found") {
-      dispatch(updateError("wrong email, please try again"));
+    if (error.code === "auth/missing-email") {
+      dispatch(updateError("please add an email."));
     }
-    if (error.code === "auth/wrong-password") {
-      dispatch(updateError("Wrong password, please try again"));
+    if (error.code === "auth/user-not-found") {
+      dispatch(updateError("Wrong email, please try again"));
     }
     return () => {
       // setErrors("");
@@ -38,16 +34,14 @@ const Login = () => {
     try {
       dispatch(updateError(""));
       // setLoading(true);
-      dispatch(
-        loginUser({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        })
-      );
-      navigate(-1);
+      dispatch(resetPassword(emailRef.current.value));
+
+      {
+        !error && navigate(-1);
+      }
       // setLoading(false);
     } catch (err) {
-      dispatch(updateError("failed to login, please try again"));
+      dispatch(updateError("failed to reset password, please try again"));
     }
   };
   return (
@@ -55,7 +49,7 @@ const Login = () => {
       <SideBar />
       <TopBar />
       <div className="registerContainer">
-        <form className="logingForm" onSubmit={handleSubmit}>
+        <form className="logingForm reset" onSubmit={handleSubmit}>
           <div className="labelInputLogin">
             <label htmlFor="email" className="formlabel">
               Email
@@ -67,23 +61,13 @@ const Login = () => {
               ref={emailRef}
             />{" "}
           </div>
-          <div className="labelInput">
-            <label htmlFor="password" className="formlabel">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              className="formInput"
-              ref={passwordRef}
-            />{" "}
-          </div>
+
           <button type="submit" className="loginButton">
-            Login
+            Reset
           </button>
           <p className="linktoForgot">
             <Link to="/reset-password" className="linkto">
-              Forgot password?
+              Login
             </Link>
           </p>
           <p className="loginQuestion">
@@ -98,5 +82,4 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
+export default ResetPassword;

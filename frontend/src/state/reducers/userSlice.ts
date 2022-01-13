@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -29,6 +30,17 @@ export const loginUser = createAsyncThunk(
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
       return res.user;
+    } catch (error: any) {
+      return error;
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "loginUser",
+  async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
     } catch (error: any) {
       console.log(error);
       return error;
@@ -67,7 +79,6 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action: any) => {
-      console.log("full action", action.payload);
       state.email = action.payload.email;
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;

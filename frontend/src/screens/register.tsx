@@ -107,8 +107,7 @@ const Register: React.FC = () => {
               Login
             </Link>
           </p>
-          {error && <p>{error.message}</p>}
-          <h6>{email}</h6>
+          {error && <p className="errorMessage">{error.message}</p>}
         </form>
       </div>
     </div>

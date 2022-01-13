@@ -9,8 +9,13 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
-import { getUserData, saveUser } from "./state/reducers/userSlice";
+import {
+  getUserData,
+  resetPassword,
+  saveUser,
+} from "./state/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "./state/hooks";
+import ResetPassword from "./screens/resetPassword";
 
 function App() {
   const { email } = useAppSelector(getUserData);
@@ -37,6 +42,7 @@ function App() {
         <Route path="/projects" element={<ProjectList />} />
         <Route path="/create" element={<CreateProject />} />
         <Route path="/editor/:id" element={<FullEditor />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );
