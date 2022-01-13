@@ -22,14 +22,9 @@ const ProjectList = () => {
     setTimeout(() => {
       if (query === undefined) {
         dispatch(fetchAllProject());
-        // getProjectsList();
       }
     }, 100);
   }, [query]);
-
-  // const getProjectsList = async () => {
-  //   dispatch(fetchAllProject());
-  // };
 
   return (
     <div>

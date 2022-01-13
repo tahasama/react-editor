@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ProjectSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true, unique: true },
+    title: { type: String },
     description: { type: String, maxlength: 300 },
     code: {
       html: { type: String },

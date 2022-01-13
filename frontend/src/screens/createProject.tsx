@@ -26,6 +26,7 @@ const CreateProject: React.FC = () => {
     code: { html, css, js },
   } = useAppSelector(getProjectData);
 
+  //useeffect
   setTimeout(() => {
     if (!toUpdate) {
       navigate("/editor/" + _id);
@@ -53,6 +54,7 @@ const CreateProject: React.FC = () => {
         creatProject({
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
+          // code: { html: html, css: css, js: js },
         })
       );
     }

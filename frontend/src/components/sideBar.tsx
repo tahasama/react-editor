@@ -25,6 +25,7 @@ import { getUserData } from "../state/reducers/userSlice";
 const SideBar = ({ remove, save, clone }: any) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const params = useParams();
   const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
   const { saved, _id } = useAppSelector(getProjectData);
@@ -56,38 +57,57 @@ const SideBar = ({ remove, save, clone }: any) => {
           </div>
           {bar.home && <div className="message">Home</div>}
         </button>
+        {!email && (
+          <>
+            <button
+              // to="/editor/code-and-run"
+              className="side d "
+              onMouseEnter={() => dispatch(barState({ code: true }))}
+              onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+              onClick={() => (
+                navigate("/editor/code-and-run"),
+                dispatch(cleanState(projectInitialState)),
+                window.location.reload()
+              )}
+            >
+              <div className="iconSide">
+                <HiOutlineCode />
+              </div>
+              {bar.code && <div className="message">Code and Run</div>}
+            </button>
+          </>
+        )}
         {email && (
           <>
-            {" "}
             {id && (
-              <Link
-                to={""}
-                className="side a"
-                onMouseEnter={() => dispatch(barState({ save: true }))}
-                onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                onClick={save}
-              >
-                <div className="iconSide">
-                  <AiFillSave />
-                </div>
-                {bar.save && <div className="message">Save</div>}
-              </Link>
-            )}{" "}
-            {id && (
-              <button
-                // to={"/create"}
-                className="side e but"
-                onMouseEnter={() => dispatch(barState({ edit: true }))}
-                onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                onClick={() => alerted("/create")}
-              >
-                <div className="iconSide">
-                  <AiFillEdit />{" "}
-                </div>
-                {bar.edit && (
-                  <div className="message">Edit project's infos</div>
-                )}
-              </button>
+              <>
+                <Link
+                  to={""}
+                  className="side a"
+                  onMouseEnter={() => dispatch(barState({ save: true }))}
+                  onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+                  onClick={save}
+                >
+                  <div className="iconSide">
+                    <AiFillSave />
+                  </div>
+                  {bar.save && <div className="message">Save</div>}
+                </Link>
+                <button
+                  // to={"/create"}
+                  className="side e but"
+                  onMouseEnter={() => dispatch(barState({ edit: true }))}
+                  onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+                  onClick={() => alerted("/create")}
+                >
+                  <div className="iconSide">
+                    <AiFillEdit />{" "}
+                  </div>
+                  {bar.edit && (
+                    <div className="message">Edit project's infos</div>
+                  )}
+                </button>
+              </>
             )}
             <Link
               className="side b"
@@ -117,7 +137,7 @@ const SideBar = ({ remove, save, clone }: any) => {
             </button>
             {id && (
               <Link
-                to=""
+                to="/projects"
                 className="side d "
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
                 onMouseLeave={() => dispatch(barState(sideBArInitialState))}
@@ -128,23 +148,8 @@ const SideBar = ({ remove, save, clone }: any) => {
                 </div>
                 {bar.delete && <div className="message">Delete</div>}
               </Link>
-            )}{" "}
-          </>
-        )}
-        {!email && (
-          <>
-            <Link
-              to="/editor/code-and-run"
-              className="side d "
-              onMouseEnter={() => dispatch(barState({ delete: true }))}
-              onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-            >
-              <div className="iconSide">
-                <HiOutlineCode />
-              </div>
-              {bar.delete && <div className="message">Code and Run</div>}
-            </Link>
-            {_id && (
+            )}
+            {/* {params.id && (
               <button
                 className="side d but"
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
@@ -156,7 +161,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                 </div>
                 {bar.delete && <div className="message">Clone Project</div>}
               </button>
-            )}
+            )} */}
           </>
         )}
       </nav>

@@ -15,12 +15,15 @@ router.get("/", async (req, res) => {
 // create a project
 router.post("/", async (req, res) => {
   const newProject = new Project(req.body);
+  console.log("newProject", newProject);
   try {
     const saveProject = await newProject.save();
+    console.log("saveProject", saveProject);
 
     res.status(200).json(saveProject);
   } catch (err) {
     res.status(500).json(err);
+    console.log(err);
   }
 });
 

@@ -22,7 +22,10 @@ export const creatProject = createAsyncThunk(
       description: value.description,
       code: { html: "", css: "", js: "" },
     };
+    console.log("creatProject", object);
     const res = await axios.post("http://localhost:5000/api/project/", object);
+    console.log("creatProject result", res.data);
+
     return res.data;
   }
 );
@@ -117,8 +120,7 @@ export const projectSlice = createSlice({
     },
 
     cleanState: (state, action) => {
-      const { _id, title, description } = action.payload;
-      Object.assign(state, { _id, title, description });
+      Object.assign(state, action.payload);
     },
   },
   extraReducers: (builder) => {

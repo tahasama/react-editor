@@ -44,7 +44,7 @@ const Login = () => {
           password: passwordRef.current.value,
         })
       );
-      navigate(-1);
+      navigate("/");
       // setLoading(false);
     } catch (err) {
       dispatch(updateError("failed to login, please try again"));

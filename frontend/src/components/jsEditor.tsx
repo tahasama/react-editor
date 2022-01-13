@@ -49,6 +49,7 @@ const JsEditor = () => {
         height="45vh"
         defaultLanguage="javascript"
         value={js}
+        // defaultValue={js}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"

@@ -8,10 +8,13 @@ import "./fullEditor.css";
 import SideBar from "../components/sideBar";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import {
+  cleanState,
   cloneProject,
+  // cloneProject,
   deleteProject,
   fetchProject,
   getProjectData,
+  projectInitialState,
   saveProject,
   updateSaved,
 } from "../state/";
@@ -34,9 +37,9 @@ function FullEditor() {
   } = useAppSelector(getProjectData);
   const { email } = useAppSelector(getUserData);
 
-  console.log("saved in editor", saved);
   useEffect(() => {
     dispatch(fetchProject(id));
+
     window.onbeforeunload = function (e: any) {
       var e = e || window.event;
       if (e && !saved) {
@@ -46,9 +49,12 @@ function FullEditor() {
     return () => {
       window.onbeforeunload = null;
     };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saved]);
+
+  // useEffect(() => {
+  //   window.location.reload();
+  // }, []);
 
   const handleUpdateTitle = () => {
     dispatch(
@@ -59,25 +65,28 @@ function FullEditor() {
         code: { html: html, css: css, js: js },
       })
     );
-    dispatch(updateSaved(true));
+    // dispatch(updateSaved(true));
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 200);
   };
 
-  const handleClone = () => {
-    console.log("let's clone");
-    dispatch(
-      cloneProject({
-        title: title,
-        description: description,
-        code: { html: html, css: css, js: js },
-      })
-    );
-  };
+  // const handleClone = () => {
+  //   console.log("let's clone");
+  //   dispatch(
+  //     cloneProject({
+  //       title: title,
+  //       description: description,
+  //       code: { html: html, css: css, js: js },
+  //     })
+  //   );
+  // };
 
   const handleDeleteProject = async () => {
     const result = window.confirm("are you sure you want to delete ");
     if (result) {
       dispatch(deleteProject(id));
-      navigate("/");
+      dispatch(cleanState(projectInitialState));
     }
   };
 
@@ -93,7 +102,7 @@ function FullEditor() {
       <SideBar
         remove={handleDeleteProject}
         save={handleUpdateTitle}
-        clone={handleClone}
+        // clone={handleClone}
       />
       <div className="editorWrapper">
         <div className="titleContainer">
@@ -102,22 +111,24 @@ function FullEditor() {
               ! This work can't be saved, Log in and create/save your projects.
             </p>
           )}
-          {(email || id) && (
+          {id && (
             <>
               <h2 className="projectTitle">Project: {title} </h2>
-              <p className="date ">
-                Updated on &#160;
-                {new Date(updatedAt).toLocaleDateString(navigator.language, {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-                &#160; at &#160;
-                {new Date(updatedAt).toLocaleTimeString(navigator.language, {
-                  hour: "numeric",
-                  minute: "numeric",
-                })}
-              </p>
+              {email && (
+                <p className="date ">
+                  Updated on &#160;
+                  {new Date(updatedAt).toLocaleDateString(navigator.language, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                  &#160; at &#160;
+                  {new Date(updatedAt).toLocaleTimeString(navigator.language, {
+                    hour: "numeric",
+                    minute: "numeric",
+                  })}
+                </p>
+              )}
             </>
           )}
         </div>

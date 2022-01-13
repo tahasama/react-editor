@@ -51,6 +51,7 @@ const HtmlEditor = () => {
         height="45vh"
         defaultLanguage="html"
         value={html}
+        // defaultValue={hml}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         theme="vs-dark"
