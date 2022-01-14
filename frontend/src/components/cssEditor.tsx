@@ -7,6 +7,7 @@ import "../screens/fullEditor.css";
 import {
   getProjectData,
   updateCode,
+  updateSaved,
   // updateCss,
 } from "../state/reducers/projectSlice";
 import { useDispatch } from "react-redux";
@@ -45,26 +46,28 @@ const CssEditor = () => {
           format
         </button>
       </div>
-      <Editor
-        height="45vh"
-        defaultLanguage="css"
-        value={css}
-        // defaultValue={css}
-        onChange={handleEditorChange}
-        onMount={handleEditorDidMount}
-        theme="vs-dark"
-        width="100%"
-        options={{
-          wordWrap: "on",
-          minimap: { enabled: false },
-          showUnused: false,
-          folding: false,
-          lineNumbersMinChars: 3,
-          fontSize: 16,
-          scrollBeyondLastLine: false,
-          automaticLayout: true,
-        }}
-      />
+      <span onClick={() => dispatch(updateSaved(false))}>
+        <Editor
+          height="45vh"
+          defaultLanguage="css"
+          value={css}
+          // defaultValue={css}
+          onChange={handleEditorChange}
+          onMount={handleEditorDidMount}
+          theme="vs-dark"
+          width="100%"
+          options={{
+            wordWrap: "on",
+            minimap: { enabled: false },
+            showUnused: false,
+            folding: false,
+            lineNumbersMinChars: 3,
+            fontSize: 16,
+            scrollBeyondLastLine: false,
+            automaticLayout: true,
+          }}
+        />
+      </span>
     </div>
   );
 };

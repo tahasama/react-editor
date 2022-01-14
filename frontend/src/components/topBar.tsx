@@ -40,7 +40,6 @@ const TopBar = () => {
     } else {
       navigate(destination);
     }
-    dispatch(updateSaved(true));
   };
   return (
     <nav className="topBar ">

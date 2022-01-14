@@ -6,7 +6,6 @@ import { getUserData } from "./userSlice";
 export const fetchAllProject = createAsyncThunk(
   "fetchAllProject",
   async (user: string | undefined) => {
-    console.log(user);
     const res = await axios.get(
       "http://localhost:5000/api/project/all/" + user
     );

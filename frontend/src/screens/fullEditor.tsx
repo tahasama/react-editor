@@ -16,6 +16,7 @@ import {
   getProjectData,
   projectInitialState,
   saveProject,
+  updateCode,
   updateSaved,
 } from "../state/";
 
@@ -52,7 +53,8 @@ function FullEditor() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saved]);
 
-  const handleUpdateTitle = () => {
+  const handleUpdateTitle = (e: any) => {
+    e.preventDefault();
     dispatch(
       saveProject({
         _id: id,
@@ -61,14 +63,12 @@ function FullEditor() {
         code: { html: html, css: css, js: js },
       })
     );
-    // dispatch(updateSaved(true));
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 200);
+
+    dispatch(updateCode({ code: { html: html, css: css, js: js } }));
+    dispatch(updateSaved(true));
   };
 
   const handleClone = () => {
-    console.log("let's clone");
     dispatch(
       cloneProject({
         user: email,
@@ -84,7 +84,9 @@ function FullEditor() {
     if (result) {
       dispatch(deleteProject(id));
       dispatch(cleanState(projectInitialState));
-      dispatch(updateSaved(true));
+      navigate("/projects");
+    } else {
+      navigate("");
     }
   };
 

@@ -13,12 +13,7 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { useAppSelector } from "../state/hooks";
 import { useDispatch } from "react-redux";
 import { barState, sideBArInitialState } from "../state/reducers/sideBarSlice";
-import {
-  cleanState,
-  getProjectData,
-  projectInitialState,
-  updateSaved,
-} from "../state";
+import { cleanState, getProjectData, projectInitialState } from "../state";
 import { useEffect, useState } from "react";
 import { getUserData } from "../state/reducers/userSlice";
 
@@ -33,15 +28,19 @@ const SideBar = ({ remove, save, clone }: any) => {
 
   const alerted = (destination: string) => {
     if (!saved) {
+      console.log("not saved");
       const result = window.confirm("are you sure you want to leave? ");
       if (result) {
+        console.log("result is true");
         navigate(destination);
+      } else {
+        navigate("");
+        console.log("result is false");
       }
     } else {
+      console.log("it is saved");
       navigate(destination);
     }
-    console.log("it happended");
-    dispatch(updateSaved(true));
   };
 
   return (
@@ -73,18 +72,30 @@ const SideBar = ({ remove, save, clone }: any) => {
             >
               <div className="iconSide">
                 <HiOutlineCode />
-              </div>
+              </div>{" "}
               {bar.code && <div className="message">Code and Run</div>}
             </button>
           </>
         )}
         {email && (
           <>
+            <button
+              className="side b but"
+              onMouseEnter={() => dispatch(barState({ new: true }))}
+              onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+              onClick={() => (
+                dispatch(cleanState(projectInitialState)), alerted("/create")
+              )}
+            >
+              <div className="iconSide">
+                <MdAddCircleOutline />
+              </div>
+              {bar.new && <div className="message">New Project</div>}
+            </button>
             {id && email === user && (
               <>
-                <Link
-                  to={""}
-                  className="side a"
+                <button
+                  className="side a but"
                   onMouseEnter={() => dispatch(barState({ save: true }))}
                   onMouseLeave={() => dispatch(barState(sideBArInitialState))}
                   onClick={save}
@@ -92,8 +103,8 @@ const SideBar = ({ remove, save, clone }: any) => {
                   <div className="iconSide">
                     <AiFillSave />
                   </div>
-                  {bar.save && <div className="message">Save</div>}
-                </Link>
+                  {bar.save && <div className="message in">Save</div>}
+                </button>
                 <button
                   // to={"/create"}
                   className="side e but"
@@ -110,20 +121,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                 </button>
               </>
             )}
-            <Link
-              className="side b"
-              to="/create"
-              onMouseEnter={() => dispatch(barState({ new: true }))}
-              onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-              onClick={() => (
-                dispatch(cleanState(projectInitialState)), alerted("/create")
-              )}
-            >
-              <div className="iconSide">
-                <MdAddCircleOutline />
-              </div>
-              {bar.new && <div className="message">New Project</div>}
-            </Link>
+
             <button
               className="side f but"
               // to="/projects"
@@ -137,8 +135,8 @@ const SideBar = ({ remove, save, clone }: any) => {
               {bar.open && <div className="message">Open Project</div>}
             </button>
             {id && email === user && (
-              <Link
-                to="/projects"
+              <button
+                // to="/projects"
                 className="side d "
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
                 onMouseLeave={() => dispatch(barState(sideBArInitialState))}
@@ -148,7 +146,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                   <AiFillDelete />
                 </div>
                 {bar.delete && <div className="message">Delete</div>}
-              </Link>
+              </button>
             )}
             {/* {params.id && ( */}
             {email !== user && params.id && (

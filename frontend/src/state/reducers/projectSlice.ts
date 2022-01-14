@@ -25,9 +25,7 @@ export const creatProject = createAsyncThunk(
       description: value.description,
       code: { html: "", css: "", js: "" },
     };
-    console.log("creatProject", object);
     const res = await axios.post("http://localhost:5000/api/project/", object);
-    console.log("creatProject result", res.data);
 
     return res.data;
   }
@@ -103,7 +101,7 @@ export const projectInitialState = {
   err: "",
   createdAt: "",
   updatedAt: "",
-  saved: false,
+  saved: true,
 };
 
 export const projectSlice = createSlice({
@@ -123,6 +121,7 @@ export const projectSlice = createSlice({
       state._id = action.payload._id;
     },
     updateSaved: (state, action) => {
+      console.log("reducer saved", action.payload.saved);
       state.saved = action.payload;
     },
 
@@ -135,7 +134,6 @@ export const projectSlice = createSlice({
       Object.assign(state, action.payload);
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
-      console.log("hiiii", action.payload.updatedAt);
       state.updatedAt = action.payload.updatedAt;
     });
 

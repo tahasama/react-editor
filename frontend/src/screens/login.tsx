@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
-import { updateSaved } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
   getUserData,
@@ -21,10 +20,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginSucess, setloginSucess] = useState(false);
 
-  console.log("errorrroororoor", error);
-
   useEffect(() => {
-    console.log("got the email", email);
     if (email) {
       navigate("/");
     }

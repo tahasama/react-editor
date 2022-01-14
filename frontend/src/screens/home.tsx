@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
-import { cleanState, projectInitialState, updateSaved } from "../state";
+import { cleanState, projectInitialState } from "../state";
 import { useAppSelector } from "../state/hooks";
 import { getUserData } from "../state/reducers/userSlice";
 
@@ -14,9 +14,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { email } = useAppSelector(getUserData);
 
-  useEffect(() => {
-    dispatch(updateSaved(true));
-  }, []);
+  useEffect(() => {}, []);
 
   const handleNewProjectClick: React.MouseEventHandler<
     HTMLButtonElement

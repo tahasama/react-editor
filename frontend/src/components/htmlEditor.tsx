@@ -8,6 +8,7 @@ import {
   updateCode,
   getProjectData,
   updateSaved,
+  updateId,
 } from "../state/reducers/projectSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
@@ -24,7 +25,6 @@ const HtmlEditor = () => {
     dispatch(
       updateCode({ code: { html: editorRef.current.getValue() || "" } })
     );
-    dispatch(updateSaved(false));
   };
 
   const handleEditorDidMount = (editor: any) => {
@@ -47,26 +47,28 @@ const HtmlEditor = () => {
           format
         </button>
       </div>
-      <Editor
-        height="45vh"
-        defaultLanguage="html"
-        value={html}
-        // defaultValue={hml}
-        onChange={handleEditorChange}
-        onMount={handleEditorDidMount}
-        theme="vs-dark"
-        width="100%"
-        options={{
-          wordWrap: "on",
-          minimap: { enabled: false },
-          showUnused: false,
-          folding: false,
-          lineNumbersMinChars: 3,
-          fontSize: 16,
-          scrollBeyondLastLine: false,
-          automaticLayout: true,
-        }}
-      />
+      <span onClick={() => dispatch(updateSaved(false))}>
+        <Editor
+          height="45vh"
+          defaultLanguage="html"
+          value={html}
+          // defaultValue={html}
+          onChange={handleEditorChange}
+          onMount={handleEditorDidMount}
+          theme="vs-dark"
+          width="100%"
+          options={{
+            wordWrap: "on",
+            minimap: { enabled: false },
+            showUnused: false,
+            folding: false,
+            lineNumbersMinChars: 3,
+            fontSize: 16,
+            scrollBeyondLastLine: false,
+            automaticLayout: true,
+          }}
+        />
+      </span>
     </div>
   );
 };
