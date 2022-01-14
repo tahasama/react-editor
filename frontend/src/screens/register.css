@@ -3,11 +3,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* margin-top: -45px; */
+  flex-direction: column;
 }
 
 .registerForm {
   width: 36vw;
-  height: 80vh;
+  /* height: 80vh; */
+  height: 480px;
   padding: 5px;
   border-radius: 20px;
   background-color: rgba(96, 48, 150, 0.35);
@@ -64,11 +67,12 @@
   color: rgba(0, 255, 255, 0.842);
 }
 
-.reset {
+/* .reset {
   height: 50vh;
-}
+} */
 
 .errorMessage {
-  margin-left: 2vw;
+  /* margin-top: 35px; */
+  /* margin-right: 80px; */
   color: rgb(196, 170, 55);
 }

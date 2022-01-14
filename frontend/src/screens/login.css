@@ -1,6 +1,7 @@
 .logingForm {
   width: 36vw;
-  height: 64vh;
+  /* height: 70vh; */
+  height: 380px;
   padding: 5px;
   border-radius: 20px;
   background-color: rgba(96, 48, 150, 0.35);
@@ -12,9 +13,11 @@
   flex-direction: column;
   margin: 15px 10px 10px 10px;
 }
-
+.loginButtons {
+  margin: 1.7vh 0 15px 12px;
+}
 .loginButton {
-  padding: 10px;
+  padding: 9px;
   border-radius: 8px;
   border: none;
   text-decoration: none;
@@ -23,7 +26,11 @@
   cursor: pointer;
   font-size: 18px;
   width: 30.7vw;
-  margin: 4vh 0 15px 12px;
+  margin: 2vh 0 1.3vh 0;
+}
+
+.google {
+  background-color: #165e7a;
 }
 
 .loginQuestion {

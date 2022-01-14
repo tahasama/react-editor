@@ -1,11 +1,14 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
+import { provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
 import {
   getUserData,
+  googleLoginUser,
   loginUser,
   updateError,
 } from "../state/reducers/userSlice";
@@ -30,6 +33,10 @@ const Login = () => {
       dispatch(updateError("wrong email, please try again"));
     } else if (error.code === "auth/wrong-password") {
       dispatch(updateError("Wrong password, please try again"));
+    } else if (error.code === "auth/invalid-email") {
+      dispatch(updateError("Please provide a valid email"));
+    } else if (error.code === "auth/internal-error") {
+      dispatch(updateError("Please provide a valid password"));
     } else if (error.code === "auth/network-request-failed") {
       dispatch(updateError("Failed to login, please try again"));
     }
@@ -55,6 +62,10 @@ const Login = () => {
     } catch (err) {
       dispatch(updateError("failed to login, please try again"));
     }
+  };
+
+  const LoginGoogle = () => {
+    dispatch(googleLoginUser(provider));
   };
   return (
     <div>
@@ -84,9 +95,19 @@ const Login = () => {
               ref={passwordRef}
             />{" "}
           </div>
-          <button type="submit" className="loginButton">
-            Login
-          </button>
+          <div className="loginButtons">
+            <button type="submit" className="loginButton">
+              Login
+            </button>
+            <button
+              type="button"
+              className="loginButton google"
+              onClick={LoginGoogle}
+            >
+              Login with Google
+            </button>
+          </div>
+
           <p className="linktoForgot">
             <Link to="/reset-password" className="linkto">
               Forgot password?
@@ -98,8 +119,8 @@ const Login = () => {
               SignUp
             </Link>
           </p>
-          {error && <p className="errorMessage">{error.message}</p>}
-        </form>
+        </form>{" "}
+        {error && <p className="errorMessage">{error.message}</p>}
       </div>
     </div>
   );

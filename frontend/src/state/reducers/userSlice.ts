@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase";
@@ -29,6 +31,20 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }: valueProps) => {
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
+      return res.user;
+    } catch (error: any) {
+      return error;
+    }
+  }
+);
+
+export const googleLoginUser = createAsyncThunk(
+  "loginUser",
+  async (provider: GoogleAuthProvider) => {
+    console.log("provider is : ", provider);
+    try {
+      const res = await signInWithPopup(auth, provider);
+      console.log("result of google auth: ", res.user);
       return res.user;
     } catch (error: any) {
       return error;

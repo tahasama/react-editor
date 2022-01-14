@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
-import { auth } from "../firebase";
+import { auth, provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
 import {
   // getUser,
   getUserData,
+  googleLoginUser,
   registerUser,
   updateError,
 } from "../state/reducers/userSlice";
@@ -25,17 +26,22 @@ const Register: React.FC = () => {
   const { error, email } = useAppSelector(getUserData);
 
   useEffect(() => {
+    console.log("ithser an email?", email);
+    if (email) {
+      navigate("/");
+    }
     if (error.code === "auth/weak-password") {
       dispatch(updateError("Password should be at least 6 characters"));
-    }
-    if (error.code === "auth/email-already-in-use") {
+    } else if (error.code === "auth/email-already-in-use") {
       dispatch(updateError("Email already taken, please add a different one"));
-    }
-    return () => {
-      // setErrors("");
-      dispatch(updateError(""));
-    };
-  }, [error.code]);
+    } else if (error.code === "auth/invalid-email") {
+      dispatch(updateError("Please provide a valid email"));
+    } else
+      return () => {
+        // setErrors("");
+        dispatch(updateError(""));
+      };
+  }, [error.code, email]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -52,12 +58,16 @@ const Register: React.FC = () => {
             password: passwordRef.current.value,
           })
         );
-        navigate("/");
+
         setLoading(false);
       } catch (err) {
         dispatch(updateError("failed to create account, please try again"));
       }
     }
+  };
+
+  const LoginGoogle = () => {
+    dispatch(googleLoginUser(provider));
   };
   return (
     <div>
@@ -98,17 +108,28 @@ const Register: React.FC = () => {
               ref={passwordConfirmRef}
             />
           </div>
-          <button disabled={loading} type="submit" className="formButton">
-            Register
-          </button>
+
+          <div className="loginButtons">
+            <button disabled={loading} type="submit" className="loginButton">
+              Register
+            </button>
+            <button
+              type="button"
+              className="loginButton google"
+              onClick={LoginGoogle}
+            >
+              Sign Up with Google
+            </button>
+          </div>
+
           <p className="question">
             Already have an account?{" "}
             <Link to="/login" className="linkto">
               Login
             </Link>
           </p>
-          {error && <p className="errorMessage">{error.message}</p>}
         </form>
+        {error && <p className="errorMessage">{error.message}</p>}
       </div>
     </div>
   );
