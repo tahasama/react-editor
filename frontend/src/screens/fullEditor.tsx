@@ -52,10 +52,6 @@ function FullEditor() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saved]);
 
-  // useEffect(() => {
-  //   window.location.reload();
-  // }, []);
-
   const handleUpdateTitle = () => {
     dispatch(
       saveProject({
@@ -71,22 +67,24 @@ function FullEditor() {
     // }, 200);
   };
 
-  // const handleClone = () => {
-  //   console.log("let's clone");
-  //   dispatch(
-  //     cloneProject({
-  //       title: title,
-  //       description: description,
-  //       code: { html: html, css: css, js: js },
-  //     })
-  //   );
-  // };
+  const handleClone = () => {
+    console.log("let's clone");
+    dispatch(
+      cloneProject({
+        user: email,
+        title: title,
+        description: description,
+        code: { html: html, css: css, js: js },
+      })
+    );
+  };
 
   const handleDeleteProject = async () => {
     const result = window.confirm("are you sure you want to delete ");
     if (result) {
       dispatch(deleteProject(id));
       dispatch(cleanState(projectInitialState));
+      dispatch(updateSaved(true));
     }
   };
 
@@ -102,7 +100,7 @@ function FullEditor() {
       <SideBar
         remove={handleDeleteProject}
         save={handleUpdateTitle}
-        // clone={handleClone}
+        clone={handleClone}
       />
       <div className="editorWrapper">
         <div className="titleContainer">

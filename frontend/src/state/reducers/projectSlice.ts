@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import userSlice from "./userSlice";
 
 export const fetchProject = createAsyncThunk(
   "fetchProject",
@@ -10,14 +11,16 @@ export const fetchProject = createAsyncThunk(
 );
 
 interface valueProps {
-  title: string | undefined;
-  description: string | undefined;
+  user: string; //| undefined;
+  title: string; //| undefined;
+  description: string; //| undefined;
 }
 
 export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
     const object: any = {
+      user: value.user,
       title: value.title,
       description: value.description,
       code: { html: "", css: "", js: "" },
@@ -30,6 +33,7 @@ export const creatProject = createAsyncThunk(
   }
 );
 interface cloneProps {
+  user: string; //| undefined;
   title: string | undefined;
   description: string | undefined;
   code: { html: string; css: string; js: string };
@@ -39,6 +43,7 @@ export const cloneProject = createAsyncThunk(
   "cloneProject",
   async (val: cloneProps) => {
     const object: any = {
+      user: val.user,
       title: val.title + " clone",
       description: val.description,
       code: { html: val.code.html, css: val.code.css, js: val.code.js },
@@ -78,6 +83,7 @@ export const deleteProject = createAsyncThunk(
 export interface projectProps {
   projs: {
     _id: string;
+    user: string;
     title: string;
     description: string;
     code: { html: string; css: string; js: string };
@@ -90,6 +96,7 @@ export interface projectProps {
 
 export const projectInitialState = {
   _id: "",
+  user: "",
   title: "",
   description: "",
   code: { html: "", css: "", js: "" },

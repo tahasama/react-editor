@@ -9,6 +9,7 @@ import { fetchAllProject, updateLoading } from "../state/";
 import "./projectsList.css";
 import { getProjectsData } from "../state/";
 import TopBar from "../components/topBar";
+import { getUserData } from "../state/reducers/userSlice";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,13 @@ const ProjectList = () => {
   const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();
+  const { email } = useAppSelector(getUserData);
 
   useEffect(() => {
     dispatch(updateLoading(true));
     setTimeout(() => {
       if (query === undefined) {
-        dispatch(fetchAllProject());
+        dispatch(fetchAllProject(email));
       }
     }, 100);
   }, [query]);

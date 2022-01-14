@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
@@ -19,8 +19,17 @@ const Login = () => {
   const { error, email } = useAppSelector(getUserData);
   const location = useLocation();
   const navigate = useNavigate();
+  const [loginSucess, setloginSucess] = useState(false);
+
+  console.log("errorrroororoor", error);
 
   useEffect(() => {
+    console.log("got the email", email);
+    if (email) {
+      navigate("/");
+    }
+
+    setloginSucess(true);
     if (error.code === "auth/user-not-found") {
       dispatch(updateError("wrong email, please try again"));
     }
@@ -31,7 +40,7 @@ const Login = () => {
       // setErrors("");
       dispatch(updateError(""));
     };
-  }, [error.code]);
+  }, [error.code, email]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -44,7 +53,7 @@ const Login = () => {
           password: passwordRef.current.value,
         })
       );
-      navigate("/");
+
       // setLoading(false);
     } catch (err) {
       dispatch(updateError("failed to login, please try again"));

@@ -28,7 +28,7 @@ const SideBar = ({ remove, save, clone }: any) => {
   const params = useParams();
   const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
-  const { saved, _id } = useAppSelector(getProjectData);
+  const { saved, _id, user } = useAppSelector(getProjectData);
   const { email } = useAppSelector(getUserData);
 
   const alerted = (destination: string) => {
@@ -40,6 +40,7 @@ const SideBar = ({ remove, save, clone }: any) => {
     } else {
       navigate(destination);
     }
+    console.log("it happended");
     dispatch(updateSaved(true));
   };
 
@@ -61,7 +62,7 @@ const SideBar = ({ remove, save, clone }: any) => {
           <>
             <button
               // to="/editor/code-and-run"
-              className="side d "
+              className="side d but"
               onMouseEnter={() => dispatch(barState({ code: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
               onClick={() => (
@@ -79,7 +80,7 @@ const SideBar = ({ remove, save, clone }: any) => {
         )}
         {email && (
           <>
-            {id && (
+            {id && email === user && (
               <>
                 <Link
                   to={""}
@@ -135,7 +136,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               </div>
               {bar.open && <div className="message">Open Project</div>}
             </button>
-            {id && (
+            {id && email === user && (
               <Link
                 to="/projects"
                 className="side d "
@@ -149,7 +150,8 @@ const SideBar = ({ remove, save, clone }: any) => {
                 {bar.delete && <div className="message">Delete</div>}
               </Link>
             )}
-            {/* {params.id && (
+            {/* {params.id && ( */}
+            {email !== user && params.id && (
               <button
                 className="side d but"
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
@@ -161,7 +163,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                 </div>
                 {bar.delete && <div className="message">Clone Project</div>}
               </button>
-            )} */}
+            )}
           </>
         )}
       </nav>

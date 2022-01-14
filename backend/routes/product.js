@@ -2,10 +2,12 @@ const Project = require("../models/Project");
 const router = require("express").Router();
 
 // get all projects
-router.get("/", async (req, res) => {
+router.get("/all/:userp", async (req, res) => {
   try {
+    const { userp } = req.params;
+    console.log("userp", req.params);
     let projects;
-    projects = await Project.find({});
+    projects = await Project.find({ user: { $regex: userp, $options: "i" } });
     res.status(200).json(projects);
   } catch (err) {
     res.status(500).json(err);
@@ -37,7 +39,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//get projects search by title
+//get projects search by title and desription
 router.get("/search/q=:value", async (req, res) => {
   try {
     const { value } = req.params;

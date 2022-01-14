@@ -11,6 +11,7 @@ import {
 
 import "./createProject.css";
 import TopBar from "../components/topBar";
+import { getUserData } from "../state/reducers/userSlice";
 
 const CreateProject: React.FC = () => {
   const nameRef = useRef<any>(null);
@@ -25,6 +26,8 @@ const CreateProject: React.FC = () => {
     description,
     code: { html, css, js },
   } = useAppSelector(getProjectData);
+
+  const { email } = useAppSelector(getUserData);
 
   //useeffect
   setTimeout(() => {
@@ -52,6 +55,7 @@ const CreateProject: React.FC = () => {
       setToUpdate(false);
       dispatch(
         creatProject({
+          user: email,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
           // code: { html: html, css: css, js: js },
