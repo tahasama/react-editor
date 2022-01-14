@@ -12,6 +12,7 @@ import { auth } from "../../firebase";
 interface valueProps {
   email: string;
   password: string;
+  provider?: GoogleAuthProvider;
 }
 
 export const registerUser = createAsyncThunk(
@@ -28,26 +29,22 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "loginUser",
-  async ({ email, password }: valueProps) => {
-    try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      return res.user;
-    } catch (error: any) {
-      return error;
-    }
-  }
-);
-
-export const googleLoginUser = createAsyncThunk(
-  "loginUser",
-  async (provider: GoogleAuthProvider) => {
-    console.log("provider is : ", provider);
-    try {
-      const res = await signInWithPopup(auth, provider);
-      console.log("result of google auth: ", res.user);
-      return res.user;
-    } catch (error: any) {
-      return error;
+  async ({ email, password, provider }: valueProps) => {
+    if (provider) {
+      try {
+        const res = await signInWithPopup(auth, provider);
+        console.log("result of google auth: ", res.user);
+        return res.user;
+      } catch (error: any) {
+        return error;
+      }
+    } else {
+      try {
+        const res = await signInWithEmailAndPassword(auth, email, password);
+        return res.user;
+      } catch (error: any) {
+        return error;
+      }
     }
   }
 );

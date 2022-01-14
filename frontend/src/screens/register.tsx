@@ -9,7 +9,8 @@ import { useAppSelector } from "../state/hooks";
 import {
   // getUser,
   getUserData,
-  googleLoginUser,
+  loginUser,
+  // googleLoginUser,
   registerUser,
   updateError,
 } from "../state/reducers/userSlice";
@@ -67,7 +68,7 @@ const Register: React.FC = () => {
   };
 
   const LoginGoogle = () => {
-    dispatch(googleLoginUser(provider));
+    dispatch(loginUser({ email: "", password: "", provider: provider }));
   };
   return (
     <div>

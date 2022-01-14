@@ -8,7 +8,7 @@ import { provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
 import {
   getUserData,
-  googleLoginUser,
+  // googleLoginUser,
   loginUser,
   updateError,
 } from "../state/reducers/userSlice";
@@ -65,7 +65,13 @@ const Login = () => {
   };
 
   const LoginGoogle = () => {
-    dispatch(googleLoginUser(provider));
+    dispatch(
+      loginUser({
+        email: "",
+        password: "",
+        provider: provider,
+      })
+    );
   };
   return (
     <div>
@@ -127,3 +133,6 @@ const Login = () => {
 };
 
 export default Login;
+function googleLoginUser(provider: GoogleAuthProvider): any {
+  throw new Error("Function not implemented.");
+}
