@@ -66,8 +66,8 @@ const SideBar = ({ remove, save, clone }: any) => {
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
               onClick={() => (
                 navigate("/editor/code-and-run"),
-                dispatch(cleanState(projectInitialState)),
-                window.location.reload()
+                dispatch(cleanState(projectInitialState))
+                // window.location.reload() // in case data persists from search
               )}
             >
               <div className="iconSide">
@@ -137,7 +137,7 @@ const SideBar = ({ remove, save, clone }: any) => {
             {id && email === user && (
               <button
                 // to="/projects"
-                className="side d "
+                className="side d but"
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
                 onMouseLeave={() => dispatch(barState(sideBArInitialState))}
                 onClick={remove}
@@ -151,13 +151,13 @@ const SideBar = ({ remove, save, clone }: any) => {
             {/* {params.id && ( */}
             {email !== user && params.id && (
               <button
-                className="side d but"
+                className="side g but"
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
                 onMouseLeave={() => dispatch(barState(sideBArInitialState))}
                 onClick={clone}
               >
                 <div className="iconSide">
-                  <FaRegClone style={{ color: "whitesmoke", fontSize: 28 }} />
+                  <FaRegClone />
                 </div>
                 {bar.delete && <div className="message">Clone Project</div>}
               </button>

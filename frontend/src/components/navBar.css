@@ -54,6 +54,10 @@
 .f {
   color: rgb(144, 146, 15);
 }
+.g {
+  color: rgb(15, 131, 87);
+}
+
 .message {
   position: absolute;
   left: 45px;
@@ -110,10 +114,11 @@
   width: 100%;
   justify-content: flex-end;
   z-index: 99;
-  height: 44px;
+  height: 45px;
 }
 .thacoder {
-  margin: 1px 10px;
+  /* margin: 1px 10px; */
+  margin: 3px 0px 0px 9px;
   font-size: 32px;
   text-decoration: none;
   color: rgb(245, 219, 180);
@@ -125,7 +130,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 2px 0;
+  margin: 3px 0;
   padding: 0;
   width: 100vw;
   height: 36px;
@@ -192,7 +197,7 @@
     margin: 0;
   }
   .thacoder {
-    margin: 4px 3px;
+    margin: 4px 7px;
     font-size: 26px;
   }
   .user {

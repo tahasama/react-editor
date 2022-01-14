@@ -22,7 +22,6 @@ import {
 
 import TopBar from "../components/topBar";
 import { getUserData } from "../state/reducers/userSlice";
-import { AiOutlineWarning } from "react-icons/ai";
 
 function FullEditor() {
   const { id } = useParams();
@@ -106,14 +105,16 @@ function FullEditor() {
       />
       <div className="editorWrapper">
         <div className="titleContainer">
-          {!email && (
-            <p className="projectWarning">
-              ! This work can't be saved, Log in and create/save your projects.
-            </p>
-          )}
           {id && (
             <>
-              <h2 className="projectTitle">Project: {title} </h2>
+              {email ? (
+                <h2 className="projectTitle">Project: {title} </h2>
+              ) : (
+                <p className="projectWarning">
+                  This work can't be saved, Log in and create/save or clone
+                  projects.
+                </p>
+              )}
               {email && (
                 <p className="date ">
                   Updated on &#160;

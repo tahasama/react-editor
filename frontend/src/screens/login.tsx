@@ -28,9 +28,10 @@ const Login = () => {
     setloginSucess(true);
     if (error.code === "auth/user-not-found") {
       dispatch(updateError("wrong email, please try again"));
-    }
-    if (error.code === "auth/wrong-password") {
+    } else if (error.code === "auth/wrong-password") {
       dispatch(updateError("Wrong password, please try again"));
+    } else if (error.code === "auth/network-request-failed") {
+      dispatch(updateError("Failed to login, please try again"));
     }
     return () => {
       // setErrors("");
