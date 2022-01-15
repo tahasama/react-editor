@@ -192,18 +192,19 @@
 .logIn {
   background-color: rgb(143, 2, 101);
 }
-.imageContainer {
-  height: 25px;
-  width: 25px;
-}
+
 .imageContainerbar {
   display: flex;
   cursor: pointer;
   margin-right: -10px;
 }
+
 .userIconBar {
-  font-size: 22px;
-  margin: 12px;
+  font-size: 32px;
+  /* margin: 12px; */
+  margin-top: 7px;
+  margin-right: 10px;
+  color: #5229c2;
 }
 .userImageBar {
   border-radius: 10px;
@@ -213,18 +214,14 @@
   z-index: 99;
   color: #2936c2;
 }
-.userImage {
-  border-radius: 25px;
-  height: 40vh;
-  object-fit: contain;
-}
+
 .threeBars {
   position: relative;
   font-size: 36px;
   margin: 0;
   top: 2px;
   right: 12px;
-  color: rgb(118, 60, 172);
+  color: #592ed1;
 }
 
 .profileWrapper {
@@ -235,18 +232,41 @@
   border-radius: 5px;
   padding: 6px 10px;
   width: 100px;
+  animation-duration: 0.14s;
+  animation-name: dropDown;
 }
+@keyframes dropDown {
+  from {
+    height: 10%;
+    background-color: rgb(103, 116, 134);
+  }
+  to {
+    height: 100%;
+    background-color: rgb(70, 84, 102);
+  }
+}
+
 .barbar {
   background-color: transparent;
   border: transparent;
   border-bottom: 1px solid rgb(0, 153, 153);
   color: rgb(228, 203, 203);
   font-size: 16px;
-  margin-bottom: 5px;
+  margin: 6px;
   cursor: pointer;
+  animation-duration: 0.6s;
+  animation-name: dropDownShow;
+}
+@keyframes dropDownShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .barbar:hover {
-  color: rgb(228, 203, 203, 0.7);
+  color: rgba(148, 179, 172, 0.7);
 }
 
 @media only screen and (max-width: 640px) {
@@ -263,10 +283,10 @@
   .searchInput {
     margin: 4px 0 0;
   }
-  .searchButton {
+  /* .searchButton {
     margin: 0;
     opacity: 0;
-  }
+  } */
   .signUp {
     margin: 1px;
   }

@@ -7,6 +7,7 @@
   position: relative;
   left: 13vw;
   top: 13vh;
+  padding-bottom: 25px;
 }
 .projectLink {
   text-decoration: none;
@@ -15,12 +16,9 @@
   padding: 10px;
   margin-bottom: 10px;
   width: 70vw;
-}
-.hr {
-  margin: 20px;
-  padding: 5px;
   border-bottom: 3px solid rgb(90, 32, 145);
 }
+
 .projectHeader {
   display: flex;
   margin-bottom: 5px;

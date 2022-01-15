@@ -10,6 +10,8 @@ import {
 } from "../state";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch, AiOutlineBars } from "react-icons/ai";
+import { BiUserCircle } from "react-icons/bi";
+
 import { FaUserAlt } from "react-icons/fa";
 
 // import { IoMdArrowDropdown } from "react-icons/io";
@@ -104,7 +106,10 @@ const TopBar = () => {
               {!image.toString().startsWith("FirebaseError") ? (
                 <img src={image} alt="" className="userImageBar" />
               ) : (
-                <FaUserAlt className="userIconBar" />
+                <>
+                  <BiUserCircle className="userIconBar" />
+                  {/* <FaUserAlt className="userIconBar" /> */}
+                </>
               )}
               <span className="threeBars">
                 <AiOutlineBars />

@@ -1,0 +1,111 @@
+.profileContainer {
+  margin: 70px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.user {
+  position: relative;
+  display: flex;
+}
+.imageProfileContainer {
+  position: absolute;
+  width: 27em;
+  height: 16em;
+  border: 2px solid rgba(92, 28, 28);
+  overflow: hidden;
+  border-radius: 25px;
+  top: 0em;
+  left: 4em;
+}
+
+.userProfileImage {
+  height: 16em;
+  object-fit: contain;
+}
+.editingImage {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  bottom: 40px;
+  right: 25px;
+  color: rgb(194, 109, 211);
+}
+.editImage {
+  margin: 18px 4px;
+  padding: 0;
+}
+.uploadImage {
+  position: absolute;
+  top: 18em;
+  left: 7em;
+}
+
+.userInfo {
+  position: absolute;
+  text-align: start;
+  top: -6px;
+  left: 33em;
+  /* margin-right: 0px; */
+}
+
+.projects {
+  position: relative;
+  top: 21em;
+  margin-left: 5em;
+}
+.profileProjectsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around !important;
+  margin: 0 5em;
+}
+.profileProjects {
+  display: inline-block;
+  width: 30vw;
+  overflow: hidden;
+  margin: 0 10px;
+}
+.seeAllProjects {
+  position: relative;
+  top: 12em;
+  left: 28em;
+  margin: 12px;
+  border: none;
+  background-color: rgb(160, 134, 86);
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 20vw;
+}
+
+@media only screen and (max-width: 840px) {
+  .profileContainer {
+    background-color: lawngreen;
+  }
+  .userInfo {
+    top: 20em;
+    left: 5em;
+  }
+  .projects {
+    position: relative;
+    top: 39em;
+  }
+  .seeAllProjects {
+    top: -4em;
+    left: 9em;
+  }
+  .profileProjects {
+    width: 50vw;
+  }
+  .imageProfileContainer {
+    left: -1.5em;
+  }
+  .uploadImage {
+    left: 0;
+  }
+  .lisContainer {
+    left: -7em;
+  }
+}

@@ -16,7 +16,7 @@ import {
 } from "./state/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "./state/hooks";
 import ResetPassword from "./screens/resetPassword";
-import UplodImage from "./screens/uplodImage";
+import UplodImage from "./screens/profile";
 
 function App() {
   const { email } = useAppSelector(getUserData);
@@ -37,7 +37,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/q=:title" element={<ProjectList />} />
@@ -45,7 +44,7 @@ function App() {
         <Route path="/create" element={<CreateProject />} />
         <Route path="/editor/:id" element={<FullEditor />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/upload" element={<UplodImage />} />
+        <Route path="/Profile" element={<UplodImage />} />
       </Routes>
     </BrowserRouter>
   );
