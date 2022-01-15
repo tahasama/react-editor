@@ -121,7 +121,7 @@ const TopBar = () => {
                   className="barbar"
                   onClick={() => (
                     console.log("its loggedout"),
-                    alerted("/profile"),
+                    alerted("/profile/" + uid),
                     console.log("its alerted")
                   )}
                 >

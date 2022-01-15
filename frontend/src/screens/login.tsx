@@ -134,6 +134,3 @@ const Login = () => {
 };
 
 export default Login;
-function googleLoginUser(provider: GoogleAuthProvider): any {
-  throw new Error("Function not implemented.");
-}

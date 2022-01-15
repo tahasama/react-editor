@@ -1,4 +1,6 @@
 const productRoute = require("./routes/product");
+const userRoute = require("./routes/userRoute");
+
 const express = require("express");
 
 const mongoose = require("mongoose");
@@ -18,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/project", productRoute);
+app.use("/api/user", userRoute);
 
 app.listen(5000, () => {
   console.log("Backend server is running!");

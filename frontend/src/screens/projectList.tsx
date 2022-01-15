@@ -24,7 +24,7 @@ const ProjectList = () => {
     dispatch(updateLoading(true));
     setTimeout(() => {
       if (query === undefined) {
-        dispatch(fetchAllProject(email));
+        dispatch(fetchAllProject(uid));
       }
     }, 100);
   }, [query]);

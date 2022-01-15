@@ -14,7 +14,7 @@ const ResetPassword = () => {
   const emailRef = useRef<any>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, email } = useAppSelector(getUserData);
+  const { error, email, uid } = useAppSelector(getUserData);
 
   useEffect(() => {
     if (error.code === "auth/missing-email") {

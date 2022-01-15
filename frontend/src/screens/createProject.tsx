@@ -27,7 +27,7 @@ const CreateProject: React.FC = () => {
     code: { html, css, js },
   } = useAppSelector(getProjectData);
 
-  const { email } = useAppSelector(getUserData);
+  const { email, uid } = useAppSelector(getUserData);
 
   //useeffect
   setTimeout(() => {
@@ -55,7 +55,8 @@ const CreateProject: React.FC = () => {
       setToUpdate(false);
       dispatch(
         creatProject({
-          user: email,
+          uid: uid,
+          email: email,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
           // code: { html: html, css: css, js: js },

@@ -1,5 +1,6 @@
 import React from "react";
 import { FcOpenedFolder } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const Project = ({ proj }: any) => {
   return (
@@ -12,9 +13,12 @@ const Project = ({ proj }: any) => {
         <p className="dateList">
           Created : {new Date(proj.createdAt).toString().slice(0, 16)}
         </p>
+        <Link className="dateList" to={`/profile/${proj.uid}`}>
+          p by: {proj.email}
+        </Link>
         <div className="projectfooter">
           <p>
-            Description :<span className="desc">{proj.description}</span>
+            <span className="desc">{proj.description}</span>
           </p>
         </div>
       </div>

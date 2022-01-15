@@ -31,6 +31,7 @@
   bottom: 40px;
   right: 25px;
   color: rgb(194, 109, 211);
+  cursor: pointer;
 }
 .editImage {
   margin: 18px 4px;
@@ -41,7 +42,12 @@
   top: 18em;
   left: 7em;
 }
-
+.cancel {
+  position: relative;
+  cursor: pointer;
+  top: -23px;
+  left: 14em;
+}
 .userInfo {
   position: absolute;
   text-align: start;

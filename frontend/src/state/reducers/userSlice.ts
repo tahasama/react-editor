@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -19,6 +20,9 @@ interface valueProps {
   email: string;
   password: string;
   provider?: GoogleAuthProvider;
+  useremail?: string;
+  username?: string;
+  userimage?: string;
 }
 
 export const registerUser = createAsyncThunk(
@@ -26,6 +30,14 @@ export const registerUser = createAsyncThunk(
   async ({ email, password }: valueProps) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
+      const object = {
+        email: res.user.email,
+        uid: res.user.uid,
+        name: "",
+        image: "",
+      };
+      await axios.post("http://localhost:5000/api/user/", object);
+
       return res.user;
     } catch (error: any) {
       return error;
@@ -39,7 +51,6 @@ export const loginUser = createAsyncThunk(
     if (provider) {
       try {
         const res = await signInWithPopup(auth, provider);
-        console.log("result of google auth: ", res.user.uid);
         return res.user;
       } catch (error: any) {
         return error;
@@ -47,8 +58,6 @@ export const loginUser = createAsyncThunk(
     } else {
       try {
         const res = await signInWithEmailAndPassword(auth, email, password);
-        console.log("result of google auth: ", res.user.uid);
-
         return res.user;
       } catch (error: any) {
         return error;
@@ -61,7 +70,23 @@ export const resetPassword = createAsyncThunk(
   "loginUser",
   async (email: string) => {
     try {
-      await sendPasswordResetEmail(auth, email);
+      const res = await sendPasswordResetEmail(auth, email);
+    } catch (error: any) {
+      console.log(error);
+      return error;
+    }
+  }
+);
+
+export const getUser = createAsyncThunk(
+  "getUser",
+  async (uid: string | undefined) => {
+    try {
+      console.log("MYYYYYY UID", uid);
+
+      const res = await axios.get("http://localhost:5000/api/user/" + uid);
+      console.log("i got the user bro", res.data[0].email);
+      return res.data[0];
     } catch (error: any) {
       console.log(error);
       return error;
@@ -70,18 +95,27 @@ export const resetPassword = createAsyncThunk(
 );
 
 interface uploadProps {
+  _id?: string;
   uid?: string;
   image?: any;
 }
 
 export const uploadImage = createAsyncThunk(
   "uploadImage",
-  async ({ image, uid }: uploadProps) => {
+  async ({ image, uid, _id }: uploadProps) => {
     const storageRef = ref(storage, uid + ".jpg");
-
     console.log("image", image, "storageRef ===>", storageRef);
     try {
       await uploadBytesResumable(storageRef, image);
+      try {
+        const res = await getDownloadURL(storageRef);
+        console.log("RRRRRRRRRRRRRR", res);
+        await axios.put("http://localhost:5000/api/user/" + _id, {
+          image: res,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error: any) {
       console.log(error);
       return error;
@@ -91,15 +125,24 @@ export const uploadImage = createAsyncThunk(
 export const downloadImage = createAsyncThunk(
   "downloadImage",
   async ({ uid }: uploadProps) => {
-    console.log("uid reducer", uid);
     const storageRef = ref(storage, uid + ".jpg");
     try {
-      console.log("image reducer", ref(storage, uid + ".jpg"));
       const res = await getDownloadURL(storageRef);
-      console.log("image reducer222", storageRef);
       return res;
     } catch (error: any) {
-      console.log(error);
+      return error;
+    }
+  }
+);
+
+export const downloadOtherImage = createAsyncThunk(
+  "downloadOtherImage",
+  async ({ uid }: uploadProps) => {
+    const storageRef = ref(storage, uid + ".jpg");
+    try {
+      const res = await getDownloadURL(storageRef);
+      return res;
+    } catch (error: any) {
       return error;
     }
   }
@@ -107,22 +150,36 @@ export const downloadImage = createAsyncThunk(
 
 export interface userProps {
   user: {
+    _id: string;
     uid: string;
     email: string;
     password: string;
     confirmPassword: string;
     error: { code: string; message: string };
     image: string;
+    otherImage?: string;
+    useremail?: string;
+    username?: string;
+    userimage?: string;
+    usercreatedAt: string;
+    userupdatedAt: string;
   };
 }
 
 export const userInitialState = {
+  _id: "",
   uid: "",
   email: "",
   password: "",
   confirmPassword: "",
   error: { code: "", message: "" },
   image: "",
+  otherImage: "",
+  useremail: "",
+  username: "",
+  userimage: "",
+  usercreatedAt: "",
+  userupdatedAt: "",
 };
 
 export const userSlice = createSlice({
@@ -159,6 +216,17 @@ export const userSlice = createSlice({
     builder.addCase(downloadImage.fulfilled, (state, action: any) => {
       console.log("download image", action.payload);
       state.image = action.payload;
+    });
+
+    builder.addCase(downloadOtherImage.fulfilled, (state, action: any) => {
+      console.log("download image", action.payload);
+      state.otherImage = action.payload;
+    });
+    builder.addCase(getUser.fulfilled, (state, action: any) => {
+      console.log("EEEEEEEEEEEEEEEEEEE", action.payload);
+      state.useremail = action.payload.email;
+      state.usercreatedAt = action.payload.createdAt;
+      state._id = action.payload._id;
     });
   },
 });

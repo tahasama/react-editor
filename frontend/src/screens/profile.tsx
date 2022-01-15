@@ -1,7 +1,8 @@
+import { getAuth } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Project from "../components/project";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
@@ -10,30 +11,37 @@ import { getProjectsData } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
   downloadImage,
+  downloadOtherImage,
+  getUser,
   getUserData,
   uploadImage,
 } from "../state/reducers/userSlice";
 import "./profile.css";
 import ProjectList from "./projectList";
+import { auth, provider } from "../firebase";
 
 const Profile = () => {
-  const { uid } = useAppSelector(getUserData);
-  const { image } = useAppSelector(getUserData);
+  const { email, uid } = useAppSelector(getUserData);
+  const { image, otherImage, useremail, usercreatedAt } =
+    useAppSelector(getUserData);
   const dispatch = useDispatch();
   const { all, loading } = useAppSelector(getProjectsData);
   const projects = all.flat().reverse();
   const [allProjects, setallProjects] = useState(false);
   const [editImage, setEditImage] = useState(false);
 
-  console.log("myprojects", projects.slice(0));
-  const condition = allProjects ? 0 : 2;
+  const params = useParams();
+  console.log("jujujuuju", image);
 
   useEffect(() => {
-    console.log("uid", uid);
-    if (uid !== "") {
-      dispatch(downloadImage({ uid: uid }));
+    if (params.id !== "") {
+      dispatch(downloadOtherImage({ uid: params.id }));
+      if (params.id !== uid) {
+        dispatch(getUser(params.id));
+      }
     }
-  }, [uid]);
+  }, [params.id, uid]);
+  console.log("my otherimagebro", otherImage);
 
   return (
     <div className="App">
@@ -43,15 +51,21 @@ const Profile = () => {
         <div className="user">
           <div>
             <div className="imageProfileContainer">
-              <img src={image} alt="" className="userProfileImage" />
+              <img src={otherImage} alt="" className="userProfileImage" />
             </div>{" "}
             <div className="uploadImage">
               {editImage ? (
                 <>
-                  <UploadImage />
+                  <UploadImage />{" "}
+                  <button
+                    className="cancel"
+                    onClick={() => setEditImage(false)}
+                  >
+                    Cancel
+                  </button>
                 </>
               ) : (
-                <p className="editingImage">
+                <p className="editingImage" onClick={() => setEditImage(true)}>
                   <span className="editImage">
                     <AiFillEdit />
                   </span>
@@ -62,8 +76,8 @@ const Profile = () => {
           </div>
           <div className="userInfo">
             <h2>Display name:</h2>
-            <h3>Email:</h3>
-            <p>Joined on:</p>
+            <h3>Email:{useremail}</h3>
+            <p>Joined on:{new Date(usercreatedAt).toDateString()}</p>
             <p>last visit:</p>
             <p>projects:</p>
             <p>stars</p>

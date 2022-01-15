@@ -11,7 +11,8 @@ export const fetchProject = createAsyncThunk(
 );
 
 interface valueProps {
-  user: string; //| undefined;
+  uid: string; //| undefined;
+  email: string;
   title: string; //| undefined;
   description: string; //| undefined;
 }
@@ -20,7 +21,8 @@ export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
     const object: any = {
-      user: value.user,
+      uid: value.uid,
+      email: value.email,
       title: value.title,
       description: value.description,
       code: { html: "", css: "", js: "" },

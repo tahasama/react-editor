@@ -17,6 +17,7 @@ import {
 import { useAppDispatch, useAppSelector } from "./state/hooks";
 import ResetPassword from "./screens/resetPassword";
 import UplodImage from "./screens/profile";
+import Profile from "./screens/profile";
 
 function App() {
   const { email } = useAppSelector(getUserData);
@@ -44,7 +45,7 @@ function App() {
         <Route path="/create" element={<CreateProject />} />
         <Route path="/editor/:id" element={<FullEditor />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/Profile" element={<UplodImage />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

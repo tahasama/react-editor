@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const ProjectSchema = new mongoose.Schema(
   {
-    user: { type: String, required: true },
-    title: { type: String, unique: true, required: true },
+    uid: { type: String, required: true },
+    email: { type: String, required: true },
+    title: { type: String, required: true },
     description: { type: String, maxlength: 300 },
     code: {
       html: { type: String },
