@@ -16,6 +16,7 @@ import {
 } from "./state/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "./state/hooks";
 import ResetPassword from "./screens/resetPassword";
+import UplodImage from "./screens/uplodImage";
 
 function App() {
   const { email } = useAppSelector(getUserData);
@@ -24,7 +25,7 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("user is now", user.email);
+        console.log("user is now", user.uid);
         dispatch(saveUser(user));
       } else {
         dispatch(saveUser(undefined));
@@ -36,6 +37,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/q=:title" element={<ProjectList />} />
@@ -43,6 +45,7 @@ function App() {
         <Route path="/create" element={<CreateProject />} />
         <Route path="/editor/:id" element={<FullEditor />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/upload" element={<UplodImage />} />
       </Routes>
     </BrowserRouter>
   );

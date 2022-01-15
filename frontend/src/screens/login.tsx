@@ -18,7 +18,7 @@ const Login = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const dispatch = useDispatch();
-  const { error, email } = useAppSelector(getUserData);
+  const { error, email, uid } = useAppSelector(getUserData);
   const location = useLocation();
   const navigate = useNavigate();
   const [loginSucess, setloginSucess] = useState(false);
@@ -78,6 +78,7 @@ const Login = () => {
       <SideBar />
       <TopBar />
       <div className="registerContainer">
+        <p></p>
         <form className="logingForm" onSubmit={handleSubmit}>
           <div className="labelInputLogin">
             <label htmlFor="email" className="formlabel">

@@ -17,7 +17,7 @@ const ProjectList = () => {
   const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();
-  const { email } = useAppSelector(getUserData);
+  const { email, uid } = useAppSelector(getUserData);
 
   useEffect(() => {
     dispatch(updateLoading(true));
@@ -32,6 +32,7 @@ const ProjectList = () => {
     <div>
       <SideBar />
       <TopBar />
+
       {!loading ? (
         <div className="lisContainer">
           <div className="projectsList">

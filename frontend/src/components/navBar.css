@@ -180,6 +180,7 @@
   font-size: 18px;
   padding-top: 2px;
   border: none;
+  background-color: brown;
 }
 .userlink:active {
   transform: translate(0.5px, 0.5px);
@@ -190,6 +191,62 @@
 }
 .logIn {
   background-color: rgb(143, 2, 101);
+}
+.imageContainer {
+  height: 25px;
+  width: 25px;
+}
+.imageContainerbar {
+  display: flex;
+  cursor: pointer;
+  margin-right: -10px;
+}
+.userIconBar {
+  font-size: 22px;
+  margin: 12px;
+}
+.userImageBar {
+  border-radius: 10px;
+  object-fit: contain;
+  height: 35px;
+  margin: 5px 5px 2px 0;
+  z-index: 99;
+  color: #2936c2;
+}
+.userImage {
+  border-radius: 25px;
+  height: 40vh;
+  object-fit: contain;
+}
+.threeBars {
+  position: relative;
+  font-size: 36px;
+  margin: 0;
+  top: 2px;
+  right: 12px;
+  color: rgb(118, 60, 172);
+}
+
+.profileWrapper {
+  position: absolute;
+  top: 50px;
+  margin-right: 50px;
+  background-color: rgb(70, 84, 102);
+  border-radius: 5px;
+  padding: 6px 10px;
+  width: 100px;
+}
+.barbar {
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 1px solid rgb(0, 153, 153);
+  color: rgb(228, 203, 203);
+  font-size: 16px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.barbar:hover {
+  color: rgb(228, 203, 203, 0.7);
 }
 
 @media only screen and (max-width: 640px) {

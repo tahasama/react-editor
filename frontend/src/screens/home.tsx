@@ -12,7 +12,7 @@ import "./home.css";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { email } = useAppSelector(getUserData);
+  const { email, uid } = useAppSelector(getUserData);
 
   useEffect(() => {}, []);
 
