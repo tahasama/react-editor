@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Project from "../components/project";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
@@ -14,6 +14,7 @@ import {
   // downloadOtherImage,
   getUser,
   getUserData,
+  updateProfileUser,
   uploadImage,
 } from "../state/reducers/userSlice";
 import "./profile.css";
@@ -21,7 +22,8 @@ import ProjectList from "./projectList";
 import { auth, provider } from "../firebase";
 
 const Profile = () => {
-  const { email, uid, userimage, _id } = useAppSelector(getUserData);
+  const { email, uid, userimage, _id, user, username } =
+    useAppSelector(getUserData);
   const { image, otherImage, useremail, usercreatedAt } =
     useAppSelector(getUserData);
   const dispatch = useDispatch();
@@ -29,9 +31,13 @@ const Profile = () => {
   const projects = all.flat().reverse();
   const [allProjects, setallProjects] = useState(false);
   const [editImage, setEditImage] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [cancel, setCancel] = useState(false);
+  const emailRef = useRef<any>(null);
+  const usernameRef = useRef<any>(null);
 
   const params = useParams();
-  console.log("jujujuuju66666666666666", userimage);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (params.id !== "") {
@@ -43,7 +49,23 @@ const Profile = () => {
   }, [params.id, uid]);
   console.log("my otherimagebro 55555555", params.id);
   console.log("my userimage 555555555", uid);
-  console.log("my userimage 555555555", _id);
+  console.log("my userimage 555555555", emailRef.current);
+
+  const updateProfile = () => {
+    if (emailRef.current && auth.currentUser) {
+      dispatch(
+        updateProfileUser({
+          user: user,
+          email: emailRef.current.value,
+          uid: uid,
+          username: usernameRef.current.value,
+        })
+      );
+      setTimeout(() => {
+        setCancel(false);
+      }, 1000);
+    }
+  };
 
   return (
     <div className="App">
@@ -68,21 +90,95 @@ const Profile = () => {
                   </button>
                 </>
               ) : (
-                <p className="editingImage" onClick={() => setEditImage(true)}>
-                  <span className="editImage">
-                    <AiFillEdit />
-                  </span>
-                  <p className="editText">Edit image ?</p>
-                </p>
+                uid === params.id && (
+                  <p
+                    className="editingImage"
+                    onClick={() => setEditImage(true)}
+                  >
+                    <span className="editImage">
+                      <AiFillEdit />
+                    </span>
+                    <span className="editText">Edit image ?</span>
+                  </p>
+                )
               )}
             </div>
           </div>
           <div className="userInfo">
-            <h2>Display name:</h2>
-            <h3>Email:{useremail}</h3>
-            <p>Joined on:{new Date(usercreatedAt).toDateString()}</p>
-            <p>projects:</p>
-            <p>stars</p>
+            {!cancel ? (
+              <>
+                <p className="labelValues">Email:{useremail}</p>
+              </>
+            ) : (
+              cancel && (
+                <div className="labelInput forUpdate">
+                  <p className="labelUpate"> Email:</p>
+                  <input
+                    defaultValue={email}
+                    type="email"
+                    name="email"
+                    className="formInput email"
+                    ref={emailRef}
+                  />
+                </div>
+              )
+            )}{" "}
+            {!cancel ? (
+              <>
+                <p className="labelValues">Username:{username}</p>
+              </>
+            ) : (
+              <div className="labelInput forUpdate">
+                <p className="labelUpate">Username:</p>
+                <input
+                  defaultValue={username}
+                  type="email"
+                  name="email"
+                  className="formInput email"
+                  ref={usernameRef}
+                />
+              </div>
+            )}
+            <p className="profileLabels">
+              Joined on:{new Date(usercreatedAt).toDateString()}
+            </p>
+            <p className="profileLabels">projects:</p>
+            <p className="profileLabels">stars</p>{" "}
+            {!cancel ? (
+              <>
+                <p
+                  className="editingProfile"
+                  onClick={() => setEditProfile(true)}
+                >
+                  <span className="editImage">
+                    <AiFillEdit />
+                  </span>
+                  <span className="editText" onClick={() => setCancel(true)}>
+                    Edit profile ?
+                  </span>
+                </p>
+              </>
+            ) : (
+              <>
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className="loginButton"
+                  onClick={() => setCancel(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  style={{ background: "purple" }}
+                  disabled={loading}
+                  type="submit"
+                  className="loginButton"
+                  onClick={updateProfile}
+                >
+                  Save
+                </button>
+              </>
+            )}
           </div>
         </div>
 
@@ -108,7 +204,7 @@ const Profile = () => {
                     )}
                   </div>
                 </div>
-                {!allProjects && (
+                {!allProjects && projects.length > 2 && (
                   <button
                     onClick={() => setallProjects(true)}
                     className="seeAllProjects"

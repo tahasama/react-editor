@@ -37,6 +37,19 @@
   margin: 18px 4px;
   padding: 0;
 }
+.editText {
+  margin-top: 16px;
+}
+.editingProfile {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  /* top: 15.5em; */
+  right: 10px;
+  color: rgb(194, 109, 211);
+  cursor: pointer;
+}
 .uploadImage {
   position: absolute;
   top: 18em;
@@ -52,10 +65,10 @@
   position: absolute;
   text-align: start;
   top: -6px;
-  left: 33em;
-  /* margin-right: 0px; */
+  left: 36em;
+  margin-right: 10px;
+  width: 12em;
 }
-
 .projects {
   position: relative;
   top: 21em;
@@ -85,7 +98,27 @@
   cursor: pointer;
   width: 20vw;
 }
+.forUpdate {
+  margin: 0 0 0 5em;
+}
+.labelUpate {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  top: 20px;
+  right: 80px;
+}
+.profileLabels {
+  padding: 0px;
+}
+.email {
+  margin: -3px 0 0 0;
+  padding: 6px;
+}
 
+.labelValues {
+  margin: 24px 0;
+}
 @media only screen and (max-width: 840px) {
   .profileContainer {
     background-color: lawngreen;

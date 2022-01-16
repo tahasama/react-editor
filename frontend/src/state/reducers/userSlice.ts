@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateEmail,
+  updateProfile,
 } from "firebase/auth";
 import {
   getDownloadURL,
@@ -78,6 +80,30 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+export const updateProfileUser = createAsyncThunk(
+  "updateProfileUser",
+  async ({ user, email, uid, username }: any) => {
+    try {
+      console.log("1919191919191 before update", user);
+      const res = await updateEmail(user, email);
+      console.log("1919191919191", res);
+      try {
+        await axios.put("http://localhost:5000/api/user/" + uid, {
+          email: email,
+          username: username,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      return res;
+    } catch (error: any) {
+      console.log("MY ERROR", error);
+      return error;
+    }
+  }
+);
+
 export const getUser = createAsyncThunk(
   "getUser",
   async (uid: string | undefined) => {
@@ -104,13 +130,10 @@ export const uploadImage = createAsyncThunk(
   "uploadImage",
   async ({ image, uid, _id }: uploadProps) => {
     const storageRef = ref(storage, uid + ".jpg");
-    console.log("image", image, "storageRef ===>", storageRef);
     try {
       await uploadBytesResumable(storageRef, image);
-      console.log("SUCCESS");
       try {
         const res = await getDownloadURL(storageRef);
-        console.log("RRRRRRRRRRRRRR", res);
         await axios.put("http://localhost:5000/api/user/" + _id, {
           image: res,
         });
@@ -164,6 +187,7 @@ export interface userProps {
     userimage?: string;
     usercreatedAt: string;
     userupdatedAt: string;
+    user: any;
   };
 }
 
@@ -181,6 +205,7 @@ export const userInitialState = {
   userimage: "",
   usercreatedAt: "",
   userupdatedAt: "",
+  user: "",
 };
 
 export const userSlice = createSlice({
@@ -196,8 +221,10 @@ export const userSlice = createSlice({
     // },
     saveUser: (state, action) => {
       // Object.assign(state, action.payload);
+      console.log("3333333333333333", action.payload);
       state.email = action.payload?.email;
       state.uid = action.payload?.uid;
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {

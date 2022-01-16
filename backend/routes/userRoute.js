@@ -49,11 +49,13 @@ router.get("/:uid", async (req, res) => {
 // });
 
 // update project
-router.put("/:id", async (req, res) => {
+router.put("/:uid", async (req, res) => {
   console.log("before", req.body);
+  console.log("before2", req.params.uid);
   try {
-    const updateProject = await User.findByIdAndUpdate(
-      req.params.id,
+    const updateProject = await User.findOneAndUpdate(
+      // { uid: { $regex: req.params.uid, $options: "i" } },
+      req.params.uid,
       {
         $set: req.body,
       },
