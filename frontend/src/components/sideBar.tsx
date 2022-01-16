@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./navBar.css";
 import {
   AiFillEdit,
@@ -24,7 +24,9 @@ const SideBar = ({ remove, save, clone }: any) => {
   const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
   const { saved, _id, user } = useAppSelector(getProjectData);
-  const { email } = useAppSelector(getUserData);
+  const { email, uid } = useAppSelector(getUserData);
+  const location = useLocation();
+  console.log("MY LOCATION", location.pathname);
 
   const alerted = (destination: string) => {
     if (!saved) {
@@ -57,7 +59,7 @@ const SideBar = ({ remove, save, clone }: any) => {
           </div>
           {bar.home && <div className="message">Home</div>}
         </button>
-        {!email && (
+        {!uid && (
           <>
             <button
               // to="/editor/code-and-run"
@@ -77,7 +79,7 @@ const SideBar = ({ remove, save, clone }: any) => {
             </button>
           </>
         )}
-        {email && (
+        {uid && (
           <>
             <button
               className="side b but"
@@ -134,7 +136,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               </div>
               {bar.open && <div className="message">Open Project</div>}
             </button>
-            {id && email === user && (
+            {id && uid === user && (
               <button
                 // to="/projects"
                 className="side d but"
@@ -149,19 +151,21 @@ const SideBar = ({ remove, save, clone }: any) => {
               </button>
             )}
             {/* {params.id && ( */}
-            {email !== user && params.id && (
-              <button
-                className="side g but"
-                onMouseEnter={() => dispatch(barState({ delete: true }))}
-                onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                onClick={clone}
-              >
-                <div className="iconSide">
-                  <FaRegClone />
-                </div>
-                {bar.delete && <div className="message">Clone Project</div>}
-              </button>
-            )}
+            {uid !== user &&
+              params.id &&
+              !location.pathname.startsWith("/profile") && (
+                <button
+                  className="side g but"
+                  onMouseEnter={() => dispatch(barState({ delete: true }))}
+                  onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+                  onClick={clone}
+                >
+                  <div className="iconSide">
+                    <FaRegClone />
+                  </div>
+                  {bar.delete && <div className="message">Clone Project</div>}
+                </button>
+              )}
           </>
         )}
       </nav>

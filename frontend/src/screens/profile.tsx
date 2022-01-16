@@ -7,11 +7,11 @@ import Project from "../components/project";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import UploadImage from "../components/uploadImage";
-import { getProjectsData } from "../state";
+import { fetchAllProject, getProjectsData } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
   downloadImage,
-  downloadOtherImage,
+  // downloadOtherImage,
   getUser,
   getUserData,
   uploadImage,
@@ -21,7 +21,7 @@ import ProjectList from "./projectList";
 import { auth, provider } from "../firebase";
 
 const Profile = () => {
-  const { email, uid } = useAppSelector(getUserData);
+  const { email, uid, userimage, _id } = useAppSelector(getUserData);
   const { image, otherImage, useremail, usercreatedAt } =
     useAppSelector(getUserData);
   const dispatch = useDispatch();
@@ -31,17 +31,19 @@ const Profile = () => {
   const [editImage, setEditImage] = useState(false);
 
   const params = useParams();
-  console.log("jujujuuju", image);
+  console.log("jujujuuju66666666666666", userimage);
 
   useEffect(() => {
     if (params.id !== "") {
-      dispatch(downloadOtherImage({ uid: params.id }));
-      if (params.id !== uid) {
-        dispatch(getUser(params.id));
-      }
+      // dispatch(downloadOtherImage({ uid: params.id }));
+      dispatch(fetchAllProject(params.id));
+
+      dispatch(getUser(params.id));
     }
   }, [params.id, uid]);
-  console.log("my otherimagebro", otherImage);
+  console.log("my otherimagebro 55555555", params.id);
+  console.log("my userimage 555555555", uid);
+  console.log("my userimage 555555555", _id);
 
   return (
     <div className="App">
@@ -49,9 +51,10 @@ const Profile = () => {
       <TopBar />
       <div className="profileContainer">
         <div className="user">
+          {" "}
           <div>
             <div className="imageProfileContainer">
-              <img src={otherImage} alt="" className="userProfileImage" />
+              <img src={userimage} alt="" className="userProfileImage" />
             </div>{" "}
             <div className="uploadImage">
               {editImage ? (
@@ -78,11 +81,11 @@ const Profile = () => {
             <h2>Display name:</h2>
             <h3>Email:{useremail}</h3>
             <p>Joined on:{new Date(usercreatedAt).toDateString()}</p>
-            <p>last visit:</p>
             <p>projects:</p>
             <p>stars</p>
           </div>
         </div>
+
         <div className="projects">
           <div>
             {!loading ? (

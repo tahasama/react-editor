@@ -13,7 +13,7 @@ const UploadImage = () => {
     dispatch(
       uploadImage({ uid: uid, image: imageRef.current.files[0], _id: _id })
     );
-    window.location.reload();
+    // window.location.reload();
   };
   return (
     <div>

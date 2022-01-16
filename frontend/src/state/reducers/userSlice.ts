@@ -85,7 +85,7 @@ export const getUser = createAsyncThunk(
       console.log("MYYYYYY UID", uid);
 
       const res = await axios.get("http://localhost:5000/api/user/" + uid);
-      console.log("i got the user bro", res.data[0].email);
+      console.log("i got the user bro", res.data[0]);
       return res.data[0];
     } catch (error: any) {
       console.log(error);
@@ -107,6 +107,7 @@ export const uploadImage = createAsyncThunk(
     console.log("image", image, "storageRef ===>", storageRef);
     try {
       await uploadBytesResumable(storageRef, image);
+      console.log("SUCCESS");
       try {
         const res = await getDownloadURL(storageRef);
         console.log("RRRRRRRRRRRRRR", res);
@@ -135,18 +136,18 @@ export const downloadImage = createAsyncThunk(
   }
 );
 
-export const downloadOtherImage = createAsyncThunk(
-  "downloadOtherImage",
-  async ({ uid }: uploadProps) => {
-    const storageRef = ref(storage, uid + ".jpg");
-    try {
-      const res = await getDownloadURL(storageRef);
-      return res;
-    } catch (error: any) {
-      return error;
-    }
-  }
-);
+// export const downloadOtherImage = createAsyncThunk(
+//   "downloadOtherImage",
+//   async ({ uid }: uploadProps) => {
+//     const storageRef = ref(storage, uid + ".jpg");
+//     try {
+//       const res = await getDownloadURL(storageRef);
+//       return res;
+//     } catch (error: any) {
+//       return error;
+//     }
+//   }
+// );
 
 export interface userProps {
   user: {
@@ -218,15 +219,16 @@ export const userSlice = createSlice({
       state.image = action.payload;
     });
 
-    builder.addCase(downloadOtherImage.fulfilled, (state, action: any) => {
-      console.log("download image", action.payload);
-      state.otherImage = action.payload;
-    });
+    // builder.addCase(downloadOtherImage.fulfilled, (state, action: any) => {
+    //   console.log("download image", action.payload);
+    //   state.otherImage = action.payload;
+    // });
     builder.addCase(getUser.fulfilled, (state, action: any) => {
       console.log("EEEEEEEEEEEEEEEEEEE", action.payload);
       state.useremail = action.payload.email;
       state.usercreatedAt = action.payload.createdAt;
       state._id = action.payload._id;
+      state.userimage = action.payload.image;
     });
   },
 });

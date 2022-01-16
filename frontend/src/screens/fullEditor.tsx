@@ -35,7 +35,7 @@ function FullEditor() {
     updatedAt,
     saved,
   } = useAppSelector(getProjectData);
-  const { email } = useAppSelector(getUserData);
+  const { email, uid } = useAppSelector(getUserData);
 
   useEffect(() => {
     dispatch(fetchProject(id));
@@ -70,6 +70,7 @@ function FullEditor() {
   const handleClone = () => {
     dispatch(
       cloneProject({
+        uid: uid,
         user: email,
         title: title,
         description: description,

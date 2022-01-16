@@ -14,7 +14,7 @@ const Project = ({ proj }: any) => {
           Created : {new Date(proj.createdAt).toString().slice(0, 16)}
         </p>
         <Link className="dateList" to={`/profile/${proj.uid}`}>
-          p by: {proj.email}
+          by: {proj.email}
         </Link>
         <div className="projectfooter">
           <p>

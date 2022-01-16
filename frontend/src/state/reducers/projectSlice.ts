@@ -33,6 +33,7 @@ export const creatProject = createAsyncThunk(
   }
 );
 interface cloneProps {
+  uid: string;
   user: string; //| undefined;
   title: string | undefined;
   description: string | undefined;
@@ -43,11 +44,13 @@ export const cloneProject = createAsyncThunk(
   "cloneProject",
   async (val: cloneProps) => {
     const object: any = {
-      user: val.user,
+      uid: val.uid,
+      email: val.user,
       title: val.title + " clone",
       description: val.description,
       code: { html: val.code.html, css: val.code.css, js: val.code.js },
     };
+    console.log("DDDDDDDDDDDDDD", object);
     const res = await axios.post("http://localhost:5000/api/project/", object);
     return res.data;
   }
