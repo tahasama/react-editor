@@ -13,7 +13,12 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { useAppSelector } from "../state/hooks";
 import { useDispatch } from "react-redux";
 import { barState, sideBArInitialState } from "../state/reducers/sideBarSlice";
-import { cleanState, getProjectData, projectInitialState } from "../state";
+import {
+  cleanState,
+  getProjectData,
+  projectInitialState,
+  updateSaved,
+} from "../state";
 import { useEffect, useState } from "react";
 import { getUserData } from "../state/reducers/userSlice";
 
@@ -26,21 +31,19 @@ const SideBar = ({ remove, save, clone }: any) => {
   const { saved, _id, user } = useAppSelector(getProjectData);
   const { email, uid } = useAppSelector(getUserData);
   const location = useLocation();
-  console.log("MY LOCATION", location.pathname);
+  console.log("user...", user);
+  console.log("uid...", uid);
 
   const alerted = (destination: string) => {
     if (!saved) {
-      console.log("not saved");
       const result = window.confirm("are you sure you want to leave? ");
       if (result) {
-        console.log("result is true");
+        dispatch(updateSaved(true));
         navigate(destination);
       } else {
         navigate("");
-        console.log("result is false");
       }
     } else {
-      console.log("it is saved");
       navigate(destination);
     }
   };
@@ -94,7 +97,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               </div>
               {bar.new && <div className="message">New Project</div>}
             </button>
-            {id && email === user && (
+            {id && uid === user && (
               <>
                 <button
                   className="side a but"

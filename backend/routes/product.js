@@ -5,7 +5,6 @@ const router = require("express").Router();
 router.get("/all/:uid", async (req, res) => {
   try {
     const { uid } = req.params;
-    console.log("userp", req.params);
     let projects;
     projects = await Project.find({ uid: { $regex: uid, $options: "i" } });
     res.status(200).json(projects);
@@ -17,15 +16,12 @@ router.get("/all/:uid", async (req, res) => {
 // create a project
 router.post("/", async (req, res) => {
   const newProject = new Project(req.body);
-  console.log("newProject", newProject);
   try {
     const saveProject = await newProject.save();
-    console.log("saveProject", saveProject);
 
     res.status(200).json(saveProject);
   } catch (err) {
     res.status(500).json(err);
-    console.log(err);
   }
 });
 
@@ -43,7 +39,6 @@ router.get("/:id", async (req, res) => {
 router.get("/search/q=:value", async (req, res) => {
   try {
     const { value } = req.params;
-    console.log("value", value);
     // const project = await Project.find({
     //   title: { $regex: title, $options: "i" },
     // });
@@ -55,7 +50,6 @@ router.get("/search/q=:value", async (req, res) => {
       ],
     });
 
-    console.log("project", project);
     res.status(200).json(project);
   } catch (err) {
     res.status(500).json(err);
@@ -64,7 +58,6 @@ router.get("/search/q=:value", async (req, res) => {
 
 // update project
 router.put("/:id", async (req, res) => {
-  console.log("before", req.body);
   try {
     const updateProject = await Project.findByIdAndUpdate(
       req.params.id,
@@ -74,7 +67,6 @@ router.put("/:id", async (req, res) => {
       { new: true }
     );
     res.status(200).json(updateProject);
-    console.log("after", updateProject);
   } catch (err) {
     res.status(500).json(err);
   }

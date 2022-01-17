@@ -4,25 +4,20 @@ const router = require("express").Router();
 // create a project
 router.post("/", async (req, res) => {
   const newProject = new User(req.body);
-  console.log("newUUUUUUSER", newProject);
   try {
     const saveProject = await newProject.save();
-    console.log("saveProjectTTTTTTT", saveProject);
     res.status(200).json(saveProject);
   } catch (err) {
     res.status(500).json(err);
-    console.log(err);
   }
 });
 
 // get project by uid
 router.get("/:uid", async (req, res) => {
   try {
-    console.log(req.params.uid);
     const user = await User.find({
       uid: { $regex: req.params.uid, $options: "i" },
     });
-    console.log("aaaaand the user iiiiis : ", user);
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json(err);
@@ -49,20 +44,19 @@ router.get("/:uid", async (req, res) => {
 // });
 
 // update project
-router.put("/:uid", async (req, res) => {
-  console.log("before", req.body);
-  console.log("before2", req.params.uid);
+router.put("/:id", async (req, res) => {
+  console.log("id...", req.params.id);
+  console.log("body...", req.body);
+
   try {
-    const updateProject = await User.findOneAndUpdate(
-      // { uid: { $regex: req.params.uid, $options: "i" } },
-      req.params.uid,
+    const updateProject = await User.findByIdAndUpdate(
+      req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
     res.status(200).json(updateProject);
-    console.log("after", updateProject);
   } catch (err) {
     res.status(500).json(err);
   }

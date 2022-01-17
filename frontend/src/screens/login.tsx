@@ -14,6 +14,7 @@ import {
 } from "../state/reducers/userSlice";
 import "./login.css";
 
+// TAKE CARE OF THIS ERROR Firebase: Error (auth/user-not-found).
 const Login = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);

@@ -31,11 +31,8 @@ const TopBar = () => {
   const { email, uid, image } = useAppSelector(getUserData);
   const [profile, setprofile] = useState(false);
 
-  console.log("uyuyuyuyu", image);
-
   useEffect(() => {
-    console.log("uid", uid);
-    if (uid !== "") {
+    if (uid) {
       dispatch(downloadImage({ uid: uid }));
     }
   }, [uid]);
@@ -53,15 +50,13 @@ const TopBar = () => {
   };
 
   const alerted = (destination: string) => {
-    console.log("inside alert");
-
     if (!saved) {
       const result = window.confirm("are you sure you want to leave? ");
       if (result) {
+        dispatch(updateSaved(true));
         navigate(destination);
       }
     } else {
-      console.log("navigating");
       navigate(destination);
     }
   };
@@ -119,22 +114,13 @@ const TopBar = () => {
               <div className="profileWrapper">
                 <button
                   className="barbar"
-                  onClick={() => (
-                    console.log("its loggedout"),
-                    alerted("/profile/" + uid),
-                    console.log("its alerted")
-                  )}
+                  onClick={() => alerted("/profile/" + uid)}
                 >
                   Profile
                 </button>
                 <button
                   className="barbar"
-                  onClick={() => (
-                    signOut(auth),
-                    console.log("its loggedout"),
-                    alerted("/"),
-                    console.log("its alerted")
-                  )}
+                  onClick={() => (signOut(auth), alerted("/"))}
                 >
                   Logout
                 </button>

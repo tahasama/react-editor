@@ -82,23 +82,29 @@ export const resetPassword = createAsyncThunk(
 
 export const updateProfileUser = createAsyncThunk(
   "updateProfileUser",
-  async ({ user, email, uid, username }: any) => {
+  async ({ user, email, uid, username, _id }: any) => {
+    const newId = _id;
     try {
-      console.log("1919191919191 before update", user);
       const res = await updateEmail(user, email);
-      console.log("1919191919191", res);
+      console.log("fire results...", newId);
       try {
-        await axios.put("http://localhost:5000/api/user/" + uid, {
-          email: email,
-          username: username,
-        });
+        console.log("fire results 2...", newId);
+
+        const res2 = await axios.put(
+          "http://localhost:5000/api/user/" + newId,
+          {
+            email: email,
+            username: username,
+          }
+        );
+        console.log("mongo results...", res2);
       } catch (error) {
         console.log(error);
       }
 
       return res;
     } catch (error: any) {
-      console.log("MY ERROR", error);
+      console.log(error);
       return error;
     }
   }
@@ -108,10 +114,7 @@ export const getUser = createAsyncThunk(
   "getUser",
   async (uid: string | undefined) => {
     try {
-      console.log("MYYYYYY UID", uid);
-
       const res = await axios.get("http://localhost:5000/api/user/" + uid);
-      console.log("i got the user bro", res.data[0]);
       return res.data[0];
     } catch (error: any) {
       console.log(error);
@@ -158,19 +161,6 @@ export const downloadImage = createAsyncThunk(
     }
   }
 );
-
-// export const downloadOtherImage = createAsyncThunk(
-//   "downloadOtherImage",
-//   async ({ uid }: uploadProps) => {
-//     const storageRef = ref(storage, uid + ".jpg");
-//     try {
-//       const res = await getDownloadURL(storageRef);
-//       return res;
-//     } catch (error: any) {
-//       return error;
-//     }
-//   }
-// );
 
 export interface userProps {
   user: {
@@ -221,7 +211,6 @@ export const userSlice = createSlice({
     // },
     saveUser: (state, action) => {
       // Object.assign(state, action.payload);
-      console.log("3333333333333333", action.payload);
       state.email = action.payload?.email;
       state.uid = action.payload?.uid;
       state.user = action.payload;
@@ -236,13 +225,11 @@ export const userSlice = createSlice({
 
     builder.addCase(loginUser.fulfilled, (state, action: any) => {
       state.uid = action.payload.uid;
-      console.log("fron redu", state.uid);
       state.email = action.payload.email;
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;
     });
     builder.addCase(downloadImage.fulfilled, (state, action: any) => {
-      console.log("download image", action.payload);
       state.image = action.payload;
     });
 
@@ -251,11 +238,11 @@ export const userSlice = createSlice({
     //   state.otherImage = action.payload;
     // });
     builder.addCase(getUser.fulfilled, (state, action: any) => {
-      console.log("EEEEEEEEEEEEEEEEEEE", action.payload);
       state.useremail = action.payload.email;
       state.usercreatedAt = action.payload.createdAt;
       state._id = action.payload._id;
       state.userimage = action.payload.image;
+      state.username = action.payload.username;
     });
   },
 });

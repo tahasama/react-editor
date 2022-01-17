@@ -27,7 +27,6 @@ const Register: React.FC = () => {
   const { error, email } = useAppSelector(getUserData);
 
   useEffect(() => {
-    console.log("ithser an email?", email);
     if (email) {
       navigate("/");
     }

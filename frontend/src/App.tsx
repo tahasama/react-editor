@@ -26,14 +26,12 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("user is now", user.uid);
         dispatch(saveUser(user));
       } else {
         dispatch(saveUser(undefined));
       }
     });
   }, [auth]);
-  console.log("is he still logged in ?", email);
   return (
     <BrowserRouter>
       <Routes>

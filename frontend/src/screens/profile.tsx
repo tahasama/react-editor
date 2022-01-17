@@ -29,6 +29,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { all, loading } = useAppSelector(getProjectsData);
   const projects = all.flat().reverse();
+  const nbProjects = projects.length;
   const [allProjects, setallProjects] = useState(false);
   const [editImage, setEditImage] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
@@ -38,7 +39,7 @@ const Profile = () => {
 
   const params = useParams();
   const navigate = useNavigate();
-
+  // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
     if (params.id !== "") {
       // dispatch(downloadOtherImage({ uid: params.id }));
@@ -47,10 +48,6 @@ const Profile = () => {
       dispatch(getUser(params.id));
     }
   }, [params.id, uid]);
-  console.log("my otherimagebro 55555555", params.id);
-  console.log("my userimage 555555555", uid);
-  console.log("my userimage 555555555", emailRef.current);
-
   const updateProfile = () => {
     if (emailRef.current && auth.currentUser) {
       dispatch(
@@ -58,6 +55,7 @@ const Profile = () => {
           user: user,
           email: emailRef.current.value,
           uid: uid,
+          _id: _id,
           username: usernameRef.current.value,
         })
       );
@@ -142,7 +140,7 @@ const Profile = () => {
             <p className="profileLabels">
               Joined on:{new Date(usercreatedAt).toDateString()}
             </p>
-            <p className="profileLabels">projects:</p>
+            <p className="profileLabels">projects:{nbProjects}</p>
             <p className="profileLabels">stars</p>{" "}
             {!cancel ? (
               <>
@@ -191,14 +189,14 @@ const Profile = () => {
                     {(!allProjects ? projects.slice(0, 2) : projects).map(
                       (proj: any) => (
                         <div key={proj._id}>
-                          <Link
-                            to={"/editor/" + proj._id}
-                            className="projectLink"
+                          <button
+                            onClick={() => navigate("/editor/" + proj._id)}
+                            className="projectLink but"
                           >
                             <div className="profileProjects">
                               <Project proj={proj} />
                             </div>
-                          </Link>
+                          </button>
                         </div>
                       )
                     )}

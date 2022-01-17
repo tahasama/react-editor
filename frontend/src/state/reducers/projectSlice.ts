@@ -126,7 +126,6 @@ export const projectSlice = createSlice({
       state._id = action.payload._id;
     },
     updateSaved: (state, action) => {
-      console.log("reducer saved", action.payload.saved);
       state.saved = action.payload;
     },
 
@@ -136,7 +135,11 @@ export const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
+      console.log("fetching project data..", action.payload);
       Object.assign(state, action.payload);
+      // state.title = action.payload.title;
+      state.user = action.payload.uid;
+      console.log("user...", state.user);
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
       state.updatedAt = action.payload.updatedAt;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FcOpenedFolder } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppSelector } from "../state/hooks";
 import { fetchAllProject, updateLoading } from "../state/";
@@ -19,6 +19,7 @@ const ProjectList = () => {
   const { title } = useParams();
   const query = title?.toString();
   const { email, uid } = useAppSelector(getUserData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(updateLoading(true));
@@ -39,9 +40,12 @@ const ProjectList = () => {
           <div className="projectsList">
             {projects.map((proj: any) => (
               <div key={proj._id}>
-                <Link to={"/editor/" + proj._id} className="projectLink">
+                <button
+                  onClick={() => navigate("/editor/" + proj._id)}
+                  className="projectLink but"
+                >
                   <Project proj={proj} />
-                </Link>
+                </button>
               </div>
             ))}
             {query !== undefined && projects.length === 0 && (
