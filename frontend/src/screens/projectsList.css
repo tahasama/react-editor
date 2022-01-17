@@ -13,10 +13,14 @@
   text-decoration: none;
 }
 .project {
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 8px;
+  margin-bottom: 30px;
   width: 70vw;
   border-bottom: 3px solid rgb(90, 32, 145);
+  border-left: 3px solid rgb(90, 32, 145, 0.3);
+  border-top: 2px solid rgb(90, 32, 145, 0.1);
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 10px;
 }
 
 .projectHeader {

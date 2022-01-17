@@ -18,16 +18,29 @@ const UploadImage = () => {
         uploadImage({ uid: uid, image: imageRef.current.files[0], _id: _id })
       );
       // dispatch(newImage(userimage));
-      dispatch(cancelState({ cancelImage: true }));
+      dispatch(cancelState({ cancelImage: false }));
     } else {
       setError(true);
       console.log("/error", error);
+      dispatch(cancelState({ cancelImage: true }));
     }
   };
   return (
     <div>
-      <input type="file" ref={imageRef} />
-      <button onClick={upload}>Upload</button>
+      <label htmlFor="file-upload" className="imageUpload">
+        Browse Image
+      </label>
+      <input id="file-upload" ref={imageRef} type="file" />
+
+      <button onClick={upload} className="imageUpload upload xx">
+        <span className="uploadText">Upload</span>
+      </button>
+      <button
+        className="imageUpload upload xy"
+        onClick={() => dispatch(cancelState({ cancelImage: false }))}
+      >
+        <span className="uploadText"> Cancel</span>
+      </button>
       {error && (
         <p className="errorMessage">please add an image before uploading!</p>
       )}

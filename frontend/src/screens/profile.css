@@ -131,6 +131,32 @@
 .noUserImage {
   font-size: 200px;
 }
+/* Upload image styling */
+input[type="file"] {
+  display: none;
+}
+.imageUpload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.upload {
+  position: relative;
+  padding: 11.5px 12px 6.5px 12px;
+  left: 50px;
+  margin-left: 10px;
+}
+.xx {
+  background-color: rgba(182, 248, 226, 0.705);
+}
+.xy {
+  background-color: rgba(248, 106, 172, 0.61);
+}
+.uploadText {
+  position: relative;
+  top: -2px;
+}
 @media only screen and (max-width: 840px) {
   /* .profileContainer {
     background-color: lawngreen;

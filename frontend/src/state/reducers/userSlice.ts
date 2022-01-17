@@ -212,6 +212,7 @@ export const userSlice = createSlice({
     saveUser: (state, action) => {
       // Object.assign(state, action.payload);
       state.email = action.payload?.email;
+      // state.username = action.payload.username;
       state.uid = action.payload?.uid;
       state.user = action.payload;
     },
@@ -233,6 +234,16 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action: any) => {
       state.uid = action.payload.uid;
       state.email = action.payload.email;
+      state.error.code = action.payload.code;
+      state.error.message = action.payload.message;
+    });
+    builder.addCase(updateProfileUser.fulfilled, (state, action: any) => {
+      console.log(
+        "error...",
+        action.payload.code,
+        "and message",
+        action.payload.message
+      );
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;
     });

@@ -46,9 +46,11 @@ const Profile = () => {
   // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
+      console.log("MY ERROR...", error.message);
       dispatch(updateError("please re-LogIn to update your email."));
     }
-
+  }, [error]);
+  useEffect(() => {
     if (!projects) {
       dispatch(updateLoading(true));
     }
@@ -56,7 +58,7 @@ const Profile = () => {
       dispatch(fetchAllProject(params.id));
       dispatch(getUser(params.id));
     }
-  }, [params.id, uid, projects, error]);
+  }, [params.id, uid, projects]);
 
   const updateProfile = () => {
     if (emailRef.current && auth.currentUser) {
@@ -69,7 +71,11 @@ const Profile = () => {
           username: usernameRef.current.value,
         })
       );
-      dispatch(cancelState({ cancelImage: false }));
+
+      {
+        !error.code && dispatch(cancelState({ cancelImage: false }));
+        console.log("error 7ta hna?", error);
+      }
     }
   };
 
@@ -94,14 +100,6 @@ const Profile = () => {
               {cancelImage ? (
                 <>
                   <UploadImage />{" "}
-                  <button
-                    className="cancel"
-                    onClick={() =>
-                      dispatch(cancelState({ cancelImage: false }))
-                    }
-                  >
-                    Cancel
-                  </button>
                 </>
               ) : (
                 uid === params.id && (
@@ -189,6 +187,12 @@ const Profile = () => {
               </>
             ) : (
               <>
+                {" "}
+                {error && (
+                  <p className="errorMessage" style={{ width: 500 }}>
+                    {error.message}
+                  </p>
+                )}
                 <button
                   disabled={loading}
                   type="submit"
@@ -207,13 +211,8 @@ const Profile = () => {
                   Save
                 </button>{" "}
               </>
-            )}
+            )}{" "}
           </div>
-          {error && (
-            <p className="errorMessage" style={{ width: 500 }}>
-              {error.message}
-            </p>
-          )}
         </div>
 
         <div className="projects">
