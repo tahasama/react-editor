@@ -1,3 +1,9 @@
+.profileProjectsList {
+  margin-top: 12px;
+}
+.ProfileListContainer {
+  margin: 20em;
+}
 .profileContainer {
   margin: 70px;
   position: relative;
@@ -12,11 +18,15 @@
   position: absolute;
   width: 27em;
   height: 16em;
-  border: 2px solid rgba(92, 28, 28);
+  border: 2px solid rgb(75, 52, 52);
   overflow: hidden;
   border-radius: 25px;
   top: 0em;
   left: 4em;
+  background-color: rgba(80, 72, 116, 0.247);
+}
+.imageProfileContainer:hover .editingImage {
+  opacity: 1;
 }
 
 .userProfileImage {
@@ -56,36 +66,34 @@
   left: 7em;
 }
 .cancel {
-  position: relative;
+  position: absolute;
   cursor: pointer;
-  top: -23px;
-  left: 14em;
+  top: 2px;
+  left: 24em;
 }
 .userInfo {
   position: absolute;
   text-align: start;
-  top: -6px;
+  top: -16px;
   left: 36em;
   margin-right: 10px;
   width: 12em;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif font;
 }
 .projects {
   position: relative;
   top: 21em;
   margin-left: 5em;
 }
-.profileProjectsList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around !important;
-  margin: 0 5em;
-}
-.profileProjects {
+
+/* .profileProjects {
   display: inline-block;
-  width: 30vw;
-  overflow: hidden;
+   width: 30vw;
+  overflow: hidden; 
   margin: 0 10px;
-}
+  width: 6em;
+} */
 .seeAllProjects {
   position: relative;
   top: 12em;
@@ -113,17 +121,20 @@
   padding: 0px;
 }
 .email {
-  margin: -3px 0 0 0;
+  margin: -3px 0 0 15px;
   padding: 6px;
 }
 
 .labelValues {
   margin: 24px 0;
 }
+.noUserImage {
+  font-size: 200px;
+}
 @media only screen and (max-width: 840px) {
-  .profileContainer {
+  /* .profileContainer {
     background-color: lawngreen;
-  }
+  } */
   .userInfo {
     top: 20em;
     left: 5em;
@@ -140,12 +151,21 @@
     width: 50vw;
   }
   .imageProfileContainer {
-    left: -1.5em;
+    left: 1.4em;
+    position: relative;
   }
   .uploadImage {
     left: 0;
   }
   .lisContainer {
     left: -7em;
+  }
+  .editingImage {
+    margin-left: 10em;
+  }
+  .profileProjectsList {
+    position: relative;
+    right: 4em;
+    top: -14em;
   }
 }

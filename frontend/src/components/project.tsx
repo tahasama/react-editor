@@ -10,11 +10,11 @@ const Project = ({ proj }: any) => {
           <FcOpenedFolder className="icon" />
           <p className="name">{proj.title}</p>
         </div>
-        <p className="dateList">
+        <p className="dateList onProjects">
           Created : {new Date(proj.createdAt).toString().slice(0, 16)}
         </p>
-        <Link className="dateList" to={`/profile/${proj.uid}`}>
-          by: {proj.email}
+        <Link className="dateList onProjects hovery" to="">
+          {proj.username ? <>by: {proj.username}</> : <>by: {proj.email}</>}
         </Link>
         <div className="projectfooter">
           <p>

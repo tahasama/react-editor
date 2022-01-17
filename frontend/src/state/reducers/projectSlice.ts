@@ -15,6 +15,7 @@ interface valueProps {
   email: string;
   title: string; //| undefined;
   description: string; //| undefined;
+  username?: string;
 }
 
 export const creatProject = createAsyncThunk(
@@ -23,6 +24,7 @@ export const creatProject = createAsyncThunk(
     const object: any = {
       uid: value.uid,
       email: value.email,
+      username: value.username,
       title: value.title,
       description: value.description,
       code: { html: "", css: "", js: "" },

@@ -215,6 +215,13 @@ export const userSlice = createSlice({
       state.uid = action.payload?.uid;
       state.user = action.payload;
     },
+    newImage: (state, action) => {
+      state.userimage = action.payload.userimage;
+    },
+    newUsernme: (state, action) => {
+      state.username = action.payload.username;
+      state.email = action.payload.email;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action: any) => {

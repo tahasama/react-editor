@@ -8,6 +8,7 @@ import {
   AiOutlineFolderOpen,
 } from "react-icons/ai";
 import { HiOutlineCode } from "react-icons/hi";
+import { ImProfile } from "react-icons/im";
 import { FaRegClone } from "react-icons/fa";
 import { MdAddCircleOutline } from "react-icons/md";
 import { useAppSelector } from "../state/hooks";
@@ -31,8 +32,6 @@ const SideBar = ({ remove, save, clone }: any) => {
   const { saved, _id, user } = useAppSelector(getProjectData);
   const { email, uid } = useAppSelector(getUserData);
   const location = useLocation();
-  console.log("user...", user);
-  console.log("uid...", uid);
 
   const alerted = (destination: string) => {
     if (!saved) {
@@ -157,17 +156,32 @@ const SideBar = ({ remove, save, clone }: any) => {
             {uid !== user &&
               params.id &&
               !location.pathname.startsWith("/profile") && (
-                <button
-                  className="side g but"
-                  onMouseEnter={() => dispatch(barState({ delete: true }))}
-                  onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                  onClick={clone}
-                >
-                  <div className="iconSide">
-                    <FaRegClone />
-                  </div>
-                  {bar.delete && <div className="message">Clone Project</div>}
-                </button>
+                <>
+                  <button
+                    className="side g but"
+                    onMouseEnter={() => dispatch(barState({ delete: true }))}
+                    onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+                    onClick={clone}
+                  >
+                    <div className="iconSide">
+                      <FaRegClone />
+                    </div>
+                    {bar.delete && <div className="message">Clone Project</div>}
+                  </button>
+                  <button
+                    className="side a but"
+                    onMouseEnter={() => dispatch(barState({ edit: true }))}
+                    onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+                    onClick={() => alerted("/profile/" + user)}
+                  >
+                    <div className="iconSide">
+                      <ImProfile />
+                    </div>
+                    {bar.edit && (
+                      <div className="message">Authors's Profile</div>
+                    )}
+                  </button>
+                </>
               )}
           </>
         )}

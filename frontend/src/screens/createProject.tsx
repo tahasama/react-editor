@@ -27,7 +27,7 @@ const CreateProject: React.FC = () => {
     code: { html, css, js },
   } = useAppSelector(getProjectData);
 
-  const { email, uid } = useAppSelector(getUserData);
+  const { email, uid, username } = useAppSelector(getUserData);
 
   //useeffect
   setTimeout(() => {
@@ -57,6 +57,7 @@ const CreateProject: React.FC = () => {
         creatProject({
           uid: uid,
           email: email,
+          username: username,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
           // code: { html: html, css: css, js: js },
@@ -94,7 +95,7 @@ const CreateProject: React.FC = () => {
             <footer className="modalFooter">
               <textarea
                 className="createInput"
-                rows={5}
+                rows={8}
                 ref={descriptionRef}
                 value={description}
                 onChange={() =>

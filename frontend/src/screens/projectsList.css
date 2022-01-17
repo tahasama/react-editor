@@ -39,7 +39,16 @@
   left: 1vw;
   top: 2vh;
   margin: 0;
-  width: 30vw;
+  width: 100%;
+  text-align: justify;
+}
+/* .hovery:hover {
+  color: rgb(94, 177, 245);
+  font-size: 19px;
+  transition: all 0.5s ease-in-out;
+} */
+.onProjects {
+  font-size: 18px;
 }
 .projectfooter {
   font-size: 20px;
@@ -49,6 +58,7 @@
 .desc {
   position: relative;
   left: 5px;
+  top: 12px;
 }
 
 .noResult {

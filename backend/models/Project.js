@@ -4,6 +4,7 @@ const ProjectSchema = new mongoose.Schema(
   {
     uid: { type: String, required: true },
     email: { type: String, required: true },
+    username: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, maxlength: 300 },
     code: {

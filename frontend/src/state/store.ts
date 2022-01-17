@@ -3,6 +3,7 @@ import projectsReducer from "./reducers/projectSlice";
 import projectszzReducer from "./reducers/projectsSlice";
 import sideBarReducer from "./reducers/sideBarSlice";
 import userReducer from "./reducers/userSlice";
+import cancelreducer from "./reducers/cancelSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     projs: projectsReducer,
     projas: projectszzReducer,
     bar: sideBarReducer,
+    cancel: cancelreducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

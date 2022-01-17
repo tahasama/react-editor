@@ -22,13 +22,19 @@ const ProjectList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(updateLoading(true));
+    if (!projects) {
+      dispatch(updateLoading(true));
+    }
+
     setTimeout(() => {
       if (query === undefined) {
         dispatch(fetchAllProject(uid));
       }
     }, 100);
-  }, [query]);
+    // return () => {
+    //   dispatch(updateLoading(false));
+    // };
+  }, [query, projects]);
 
   return (
     <div>

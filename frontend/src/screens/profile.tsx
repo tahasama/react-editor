@@ -7,13 +7,14 @@ import Project from "../components/project";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import UploadImage from "../components/uploadImage";
-import { fetchAllProject, getProjectsData } from "../state";
+import { fetchAllProject, getProjectsData, updateLoading } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
   downloadImage,
   // downloadOtherImage,
   getUser,
   getUserData,
+  updateError,
   updateProfileUser,
   uploadImage,
 } from "../state/reducers/userSlice";
@@ -21,19 +22,22 @@ import "./profile.css";
 import ProjectList from "./projectList";
 import { auth, provider } from "../firebase";
 
+import { FiUser } from "react-icons/fi";
+import { cancelState } from "../state/reducers/cancelSlice";
+
 const Profile = () => {
   const { email, uid, userimage, _id, user, username } =
     useAppSelector(getUserData);
-  const { image, otherImage, useremail, usercreatedAt } =
+  const { image, otherImage, useremail, usercreatedAt, error } =
     useAppSelector(getUserData);
   const dispatch = useDispatch();
   const { all, loading } = useAppSelector(getProjectsData);
   const projects = all.flat().reverse();
   const nbProjects = projects.length;
   const [allProjects, setallProjects] = useState(false);
-  const [editImage, setEditImage] = useState(false);
-  const [editProfile, setEditProfile] = useState(false);
-  const [cancel, setCancel] = useState(false);
+  // const [error, setError] = useState(false);
+
+  const { cancelImage, cancelInfo } = useAppSelector((state) => state.cancel);
   const emailRef = useRef<any>(null);
   const usernameRef = useRef<any>(null);
 
@@ -41,13 +45,19 @@ const Profile = () => {
   const navigate = useNavigate();
   // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
-    if (params.id !== "") {
-      // dispatch(downloadOtherImage({ uid: params.id }));
-      dispatch(fetchAllProject(params.id));
+    if (error.code === "auth/requires-recent-login") {
+      dispatch(updateError("please re-LogIn to update your email."));
+    }
 
+    if (!projects) {
+      dispatch(updateLoading(true));
+    }
+    if (params.id !== "") {
+      dispatch(fetchAllProject(params.id));
       dispatch(getUser(params.id));
     }
-  }, [params.id, uid]);
+  }, [params.id, uid, projects, error]);
+
   const updateProfile = () => {
     if (emailRef.current && auth.currentUser) {
       dispatch(
@@ -59,9 +69,7 @@ const Profile = () => {
           username: usernameRef.current.value,
         })
       );
-      setTimeout(() => {
-        setCancel(false);
-      }, 1000);
+      dispatch(cancelState({ cancelImage: false }));
     }
   };
 
@@ -74,15 +82,23 @@ const Profile = () => {
           {" "}
           <div>
             <div className="imageProfileContainer">
-              <img src={userimage} alt="" className="userProfileImage" />
+              {userimage ? (
+                <img src={userimage} alt="" className="userProfileImage" />
+              ) : (
+                <div className="noUserImage">
+                  <FiUser />
+                </div>
+              )}
             </div>{" "}
             <div className="uploadImage">
-              {editImage ? (
+              {cancelImage ? (
                 <>
                   <UploadImage />{" "}
                   <button
                     className="cancel"
-                    onClick={() => setEditImage(false)}
+                    onClick={() =>
+                      dispatch(cancelState({ cancelImage: false }))
+                    }
                   >
                     Cancel
                   </button>
@@ -91,7 +107,11 @@ const Profile = () => {
                 uid === params.id && (
                   <p
                     className="editingImage"
-                    onClick={() => setEditImage(true)}
+                    style={{
+                      fontFamily: "initial",
+                      fontSize: 18,
+                    }}
+                    onClick={() => dispatch(cancelState({ cancelImage: true }))}
                   >
                     <span className="editImage">
                       <AiFillEdit />
@@ -103,27 +123,35 @@ const Profile = () => {
             </div>
           </div>
           <div className="userInfo">
-            {!cancel ? (
+            {!cancelInfo ? (
               <>
-                <p className="labelValues">Email:{useremail}</p>
+                <h3
+                  className="labelValues"
+                  style={{ marginTop: 28, marginBottom: 22 }}
+                >
+                  Email : {useremail}
+                </h3>
               </>
             ) : (
-              cancel && (
-                <div className="labelInput forUpdate">
-                  <p className="labelUpate"> Email:</p>
-                  <input
-                    defaultValue={email}
-                    type="email"
-                    name="email"
-                    className="formInput email"
-                    ref={emailRef}
-                  />
-                </div>
-              )
+              <div className="labelInput forUpdate">
+                <p className="labelUpate"> Email:</p>
+                <input
+                  defaultValue={email}
+                  type="email"
+                  name="email"
+                  className="formInput email"
+                  ref={emailRef}
+                />
+              </div>
             )}{" "}
-            {!cancel ? (
+            {!cancelInfo ? (
               <>
-                <p className="labelValues">Username:{username}</p>
+                <h4
+                  className="labelValues"
+                  style={{ marginTop: 22, marginBottom: 22 }}
+                >
+                  Username: {username}
+                </h4>
               </>
             ) : (
               <div className="labelInput forUpdate">
@@ -140,18 +168,21 @@ const Profile = () => {
             <p className="profileLabels">
               Joined on:{new Date(usercreatedAt).toDateString()}
             </p>
-            <p className="profileLabels">projects:{nbProjects}</p>
-            <p className="profileLabels">stars</p>{" "}
-            {!cancel ? (
+            <p className="profileLabels">projects : {nbProjects}</p>
+            <p className="profileLabels">stars : </p>{" "}
+            {!cancelInfo ? (
               <>
                 <p
                   className="editingProfile"
-                  onClick={() => setEditProfile(true)}
+                  style={{ fontFamily: "initial", marginTop: 28, fontSize: 18 }}
                 >
                   <span className="editImage">
                     <AiFillEdit />
                   </span>
-                  <span className="editText" onClick={() => setCancel(true)}>
+                  <span
+                    className="editText"
+                    onClick={() => dispatch(cancelState({ cancelInfo: true }))}
+                  >
                     Edit profile ?
                   </span>
                 </p>
@@ -162,7 +193,7 @@ const Profile = () => {
                   disabled={loading}
                   type="submit"
                   className="loginButton"
-                  onClick={() => setCancel(false)}
+                  onClick={() => dispatch(cancelState({ cancelInfo: false }))}
                 >
                   Cancel
                 </button>
@@ -174,33 +205,36 @@ const Profile = () => {
                   onClick={updateProfile}
                 >
                   Save
-                </button>
+                </button>{" "}
               </>
             )}
           </div>
+          {error && (
+            <p className="errorMessage" style={{ width: 500 }}>
+              {error.message}
+            </p>
+          )}
         </div>
 
         <div className="projects">
           <div>
             {!loading ? (
               <>
-                <div className="lisContainer">
-                  <div className="profileProjectsList">
-                    {(!allProjects ? projects.slice(0, 2) : projects).map(
-                      (proj: any) => (
-                        <div key={proj._id}>
-                          <button
-                            onClick={() => navigate("/editor/" + proj._id)}
-                            className="projectLink but"
-                          >
-                            <div className="profileProjects">
-                              <Project proj={proj} />
-                            </div>
-                          </button>
-                        </div>
-                      )
-                    )}
-                  </div>
+                <div className="profileProjectsList">
+                  {(!allProjects ? projects.slice(0, 2) : projects).map(
+                    (proj: any) => (
+                      <div key={proj._id}>
+                        <button
+                          onClick={() => navigate("/editor/" + proj._id)}
+                          className="projectLink but"
+                        >
+                          <div className="profileProjects">
+                            <Project proj={proj} />
+                          </div>
+                        </button>
+                      </div>
+                    )
+                  )}
                 </div>
                 {!allProjects && projects.length > 2 && (
                   <button
