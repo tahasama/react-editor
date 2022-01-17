@@ -53,6 +53,15 @@ export const loginUser = createAsyncThunk(
     if (provider) {
       try {
         const res = await signInWithPopup(auth, provider);
+        console.log("my google user...", res.user.email);
+        try {
+          await axios.post("http://localhost:5000/api/user/", {
+            email: res.user.email,
+            uid: res.user.uid,
+          });
+        } catch (error) {
+          console.log("error register google user...", error);
+        }
         return res.user;
       } catch (error: any) {
         return error;
