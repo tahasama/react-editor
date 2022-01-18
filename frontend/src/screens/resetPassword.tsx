@@ -45,7 +45,11 @@ const ResetPassword = () => {
       <SideBar />
       <TopBar />
       <div className="registerContainer">
-        <form className="logingForm reset" onSubmit={handleSubmit}>
+        <form
+          className="logingForm reset"
+          onSubmit={handleSubmit}
+          style={{ height: 270, marginTop: 40 }}
+        >
           <div className="labelInputLogin">
             <label htmlFor="email" className="formlabel">
               Email
@@ -58,7 +62,7 @@ const ResetPassword = () => {
             />{" "}
           </div>
 
-          <button type="submit" className="loginButton">
+          <button type="submit" className="loginButton reset">
             Reset
           </button>
           <p className="linktoForgot">

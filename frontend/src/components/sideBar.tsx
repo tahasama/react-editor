@@ -166,7 +166,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                     onMouseLeave={() => dispatch(barState(sideBArInitialState))}
                     onClick={clone}
                   >
-                    <div className="iconSide">
+                    <div className="iconSide sizeIt">
                       <FaRegClone />
                     </div>
                     {bar.delete && <div className="message">Clone Project</div>}
@@ -177,7 +177,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                     onMouseLeave={() => dispatch(barState(sideBArInitialState))}
                     onClick={() => alerted("/profile/" + user)}
                   >
-                    <div className="iconSide">
+                    <div className="iconSide sizeIt">
                       <ImProfile />
                     </div>
                     {bar.edit && (

@@ -22,26 +22,26 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const { email, error } = useAppSelector(getAuthData);
 
+  if (error.code === "auth/weak-password") {
+    dispatch(updateError("Password should be at least 6 characters"));
+  } else if (error.code === "auth/email-already-in-use") {
+    dispatch(updateError("Email already taken, please add a different one"));
+  } else if (error.code === "auth/invalid-email") {
+    dispatch(updateError("Please provide a valid email"));
+  } else if (error.code === "auth/internal-error") {
+    dispatch(updateError("Please provide a valid passwords"));
+  } else if (
+    error.code === "storage/object-not-found" ||
+    error.code === "auth/popup-closed-by-user"
+  ) {
+    dispatch(updateError(""));
+  }
   useEffect(() => {
     if (email) {
       navigate("/");
     }
-
-    if (error.code === "auth/weak-password") {
-      dispatch(updateError("Password should be at least 6 characters"));
-    } else if (error.code === "auth/email-already-in-use") {
-      dispatch(updateError("Email already taken, please add a different one"));
-    } else if (error.code === "auth/invalid-email") {
-      dispatch(updateError("Please provide a valid email"));
-    } else if (error.code === "auth/internal-error") {
-      dispatch(updateError("Please provide a valid passwords"));
-    } else if (error.code === "storage/object-not-found") {
-      dispatch(updateError(""));
-    }
-    return () => {
-      dispatch(updateError(""));
-    };
-  }, [error.code, email]);
+    dispatch(updateError(""));
+  }, [email]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

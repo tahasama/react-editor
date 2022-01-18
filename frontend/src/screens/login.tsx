@@ -17,28 +17,29 @@ const Login = () => {
   const navigate = useNavigate();
   const { email, error } = useAppSelector(getAuthData);
 
+  if (error.code === "auth/user-not-found") {
+    dispatch(updateError("wrong email, please try again"));
+  } else if (error.code === "auth/wrong-password") {
+    dispatch(updateError("Wrong password, please try again"));
+  } else if (error.code === "auth/invalid-email") {
+    dispatch(updateError("Please provide a valid email"));
+  } else if (error.code === "auth/internal-error") {
+    dispatch(updateError("Please provide a valid password"));
+  } else if (error.code === "auth/network-request-failed") {
+    dispatch(updateError("Failed to login, please try again"));
+  } else if (
+    error.code === "storage/object-not-found" ||
+    error.code === "auth/popup-closed-by-user"
+  ) {
+    dispatch(updateError(""));
+  }
+
   useEffect(() => {
     if (email) {
       navigate("/");
     }
-
-    if (error.code === "auth/user-not-found") {
-      dispatch(updateError("wrong email, please try again"));
-    } else if (error.code === "auth/wrong-password") {
-      dispatch(updateError("Wrong password, please try again"));
-    } else if (error.code === "auth/invalid-email") {
-      dispatch(updateError("Please provide a valid email"));
-    } else if (error.code === "auth/internal-error") {
-      dispatch(updateError("Please provide a valid password"));
-    } else if (error.code === "auth/network-request-failed") {
-      dispatch(updateError("Failed to login, please try again"));
-    } else if (error.code === "storage/object-not-found") {
-      dispatch(updateError(""));
-    }
-    return () => {
-      dispatch(updateError(""));
-    };
-  }, [error.code, email]);
+    dispatch(updateError(""));
+  }, [email]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

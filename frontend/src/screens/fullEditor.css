@@ -118,4 +118,7 @@ iframe body {
   .projectTitle {
     width: 1000vw;
   }
+  .frame {
+    width: 92%;
+  }
 }

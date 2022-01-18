@@ -90,6 +90,11 @@
 .iconSide:active {
   animation: minShake 0.2s linear;
 }
+.sizeIt {
+  /* background-color: rgb(218, 201, 198); */
+  margin-left: 2px;
+  font-size: 28px;
+}
 
 @keyframes minShake {
   0% {
@@ -172,25 +177,28 @@
 .userlink {
   margin-right: 10px;
   text-decoration: none;
-  color: #e0eaee;
+  /* color: #e0eaee; */
   height: 30px;
   width: 80px;
   border-radius: 5px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 2px;
   border: none;
-  background-color: brown;
+  cursor: pointer;
+  background-color: transparent;
 }
 .userlink:active {
   transform: translate(0.5px, 0.5px);
   opacity: 0.8;
 }
 .signUp {
-  background-color: rgb(14, 98, 124);
+  border: 2px solid rgba(1, 171, 177, 0.8);
+  color: rgba(1, 177, 168, 0.8);
 }
 .logIn {
-  background-color: rgb(143, 2, 101);
+  border: 2px solid rgb(218, 89, 250, 0.8);
+  color: rgb(218, 89, 250, 0.8);
 }
 
 .imageContainerbar {

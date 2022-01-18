@@ -103,6 +103,7 @@ export const authSlice = createSlice({
   reducers: {
     updateError: (state, action) => {
       state.error.message = action.payload;
+      //   state.error.code = action.payload;
     },
     saveUser: (state, action) => {
       state.email = action.payload?.email;
