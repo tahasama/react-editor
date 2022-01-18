@@ -9,7 +9,6 @@ export const cancelSlice = createSlice({
   initialState: cancelInitialState,
   reducers: {
     cancelState: (state, action) => {
-      console.log("states...", action.payload.cancelImage);
       state.cancelImage = action.payload.cancelImage;
       state.cancelInfo = action.payload.cancelInfo;
     },

@@ -40,6 +40,8 @@ const Login = () => {
       dispatch(updateError("Please provide a valid password"));
     } else if (error.code === "auth/network-request-failed") {
       dispatch(updateError("Failed to login, please try again"));
+    } else if (error.code === "storage/object-not-found") {
+      dispatch(updateError(""));
     }
     return () => {
       // setErrors("");

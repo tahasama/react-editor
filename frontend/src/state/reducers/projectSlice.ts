@@ -29,9 +29,18 @@ export const creatProject = createAsyncThunk(
       description: value.description,
       code: { html: "", css: "", js: "" },
     };
-    const res = await axios.post("http://localhost:5000/api/project/", object);
+    try {
+      console.log("before error", object);
 
-    return res.data;
+      const res = await axios.post(
+        "http://localhost:5000/api/project/",
+        object
+      );
+      console.log("after error");
+      return res.data;
+    } catch (error) {
+      console.log("this is the error", error);
+    }
   }
 );
 interface cloneProps {
@@ -52,7 +61,6 @@ export const cloneProject = createAsyncThunk(
       description: val.description,
       code: { html: val.code.html, css: val.code.css, js: val.code.js },
     };
-    console.log("DDDDDDDDDDDDDD", object);
     const res = await axios.post("http://localhost:5000/api/project/", object);
     return res.data;
   }
@@ -137,11 +145,9 @@ export const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
-      console.log("fetching project data..", action.payload);
       Object.assign(state, action.payload);
       // state.title = action.payload.title;
       state.user = action.payload.uid;
-      console.log("user...", state.user);
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
       state.updatedAt = action.payload.updatedAt;

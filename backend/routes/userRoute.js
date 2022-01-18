@@ -8,12 +8,9 @@ router.post("/", async (req, res) => {
     { uid: req.body.uid },
     async (error, result) => {
       if (!error) {
-        console.log("RESULT...", result);
         if (!result) {
-          console.log("RESULT...WE IN...");
           try {
             const saveProject = await newProject.save();
-            console.log("RESULT saveProject...", saveProject);
             res.status(200).json(saveProject);
           } catch (err) {
             res.status(500).json(err);
@@ -22,7 +19,6 @@ router.post("/", async (req, res) => {
       }
     }
   );
-  console.log("MY GOOGLE USER...", UserExists);
 
   if (!UserExists) {
   }

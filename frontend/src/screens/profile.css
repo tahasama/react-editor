@@ -96,8 +96,8 @@
 } */
 .seeAllProjects {
   position: relative;
-  top: 12em;
-  left: 28em;
+  top: 0em;
+  left: 25em;
   margin: 12px;
   border: none;
   background-color: rgb(160, 134, 86);
@@ -105,6 +105,8 @@
   border-radius: 10px;
   cursor: pointer;
   width: 20vw;
+  margin-bottom: 2em;
+  font-size: 15px;
 }
 .forUpdate {
   margin: 0 0 0 5em;
@@ -140,12 +142,19 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+  /* padding: 6.5x 12px 11.5px 12px; */
+}
+.imageUpload:active {
+  opacity: 0.7;
 }
 .upload {
   position: relative;
   padding: 11.5px 12px 6.5px 12px;
   left: 50px;
   margin-left: 10px;
+}
+.upload:active {
+  opacity: 0.7;
 }
 .xx {
   background-color: rgba(182, 248, 226, 0.705);

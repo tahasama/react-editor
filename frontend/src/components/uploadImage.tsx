@@ -21,13 +21,12 @@ const UploadImage = () => {
       dispatch(cancelState({ cancelImage: false }));
     } else {
       setError(true);
-      console.log("/error", error);
       dispatch(cancelState({ cancelImage: true }));
     }
   };
   return (
     <div>
-      <label htmlFor="file-upload" className="imageUpload">
+      <label htmlFor="file-upload" className="imageUpload ">
         Browse Image
       </label>
       <input id="file-upload" ref={imageRef} type="file" />

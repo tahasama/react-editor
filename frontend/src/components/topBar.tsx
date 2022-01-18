@@ -17,7 +17,12 @@ import { FaUserAlt } from "react-icons/fa";
 // import { IoMdArrowDropdown } from "react-icons/io";
 
 import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { downloadImage, getUserData } from "../state/reducers/userSlice";
+import {
+  downloadImage,
+  getUserData,
+  resetUser,
+  userInitialState,
+} from "../state/reducers/userSlice";
 import { signOut } from "firebase/auth";
 import { auth, storage } from "../firebase";
 import { ref } from "firebase/storage";
@@ -28,14 +33,14 @@ const TopBar = () => {
   const navigate = useNavigate();
   const searchRef = useRef<any>(null);
   const { saved } = useAppSelector(getProjectData);
-  const { email, uid, image } = useAppSelector(getUserData);
+  const { email, uid, image, error } = useAppSelector(getUserData);
   const [profile, setprofile] = useState(false);
 
   useEffect(() => {
-    if (uid) {
+    if (uid && error.code !== "storage/object-not-found") {
       dispatch(downloadImage({ uid: uid }));
     }
-  }, [uid]);
+  }, [error, uid]);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
@@ -80,25 +85,27 @@ const TopBar = () => {
         </form>
       </div>
       <div className="user">
-        {!email && (
-          <button
-            className="userlink signUp"
-            onClick={() => alerted("/register")}
-          >
-            Sign Up
-          </button>
-        )}
-        {!email && (
-          <button className="userlink logIn" onClick={() => alerted("/login")}>
-            Log In
-          </button>
-        )}
-
-        {uid && (
+        {!uid ? (
+          <>
+            <button
+              className="userlink signUp"
+              onClick={() => alerted("/register")}
+            >
+              Sign Up
+            </button>
+            <button
+              className="userlink logIn"
+              onClick={() => alerted("/login")}
+            >
+              Log In
+            </button>
+          </>
+        ) : (
           <>
             {" "}
             <div className="imageContainerbar" onClick={onProfile}>
-              {!image.toString().startsWith("FirebaseError") ? (
+              {/* {!image.toString().startsWith("FirebaseError") ? ( */}
+              {error.code !== "storage/object-not-found" ? (
                 <img src={image} alt="" className="userImageBar" />
               ) : (
                 <>

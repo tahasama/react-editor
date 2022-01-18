@@ -53,15 +53,12 @@ export const loginUser = createAsyncThunk(
     if (provider) {
       try {
         const res = await signInWithPopup(auth, provider);
-        console.log("my google user...", res.user.email);
         try {
           await axios.post("http://localhost:5000/api/user/", {
             email: res.user.email,
             uid: res.user.uid,
           });
-        } catch (error) {
-          console.log("error register google user...", error);
-        }
+        } catch (error) {}
         return res.user;
       } catch (error: any) {
         return error;
@@ -95,10 +92,7 @@ export const updateProfileUser = createAsyncThunk(
     const newId = _id;
     try {
       const res = await updateEmail(user, email);
-      console.log("fire results...", newId);
       try {
-        console.log("fire results 2...", newId);
-
         const res2 = await axios.put(
           "http://localhost:5000/api/user/" + newId,
           {
@@ -106,7 +100,6 @@ export const updateProfileUser = createAsyncThunk(
             username: username,
           }
         );
-        console.log("mongo results...", res2);
       } catch (error) {
         console.log(error);
       }
@@ -232,6 +225,9 @@ export const userSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
     },
+    resetUser: (state, action) => {
+      Object.assign(state, action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action: any) => {
@@ -247,17 +243,13 @@ export const userSlice = createSlice({
       state.error.message = action.payload.message;
     });
     builder.addCase(updateProfileUser.fulfilled, (state, action: any) => {
-      console.log(
-        "error...",
-        action.payload.code,
-        "and message",
-        action.payload.message
-      );
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;
     });
     builder.addCase(downloadImage.fulfilled, (state, action: any) => {
       state.image = action.payload;
+      state.error.code = action.payload.code;
+      state.error.message = action.payload.message;
     });
 
     // builder.addCase(downloadOtherImage.fulfilled, (state, action: any) => {
@@ -265,15 +257,17 @@ export const userSlice = createSlice({
     //   state.otherImage = action.payload;
     // });
     builder.addCase(getUser.fulfilled, (state, action: any) => {
+      // MIGHT BREAK SOMETHING !!!
       state.useremail = action.payload.email;
       state.usercreatedAt = action.payload.createdAt;
-      state._id = action.payload._id;
+      // state._id = action.payload._id;
       state.userimage = action.payload.image;
-      state.username = action.payload.username;
+      // state.username = action.payload.username;
+      Object.assign(state, action.payload);
     });
   },
 });
 
 export const getUserData = (state: userProps) => state.user;
-export const { updateError, saveUser } = userSlice.actions;
+export const { updateError, saveUser, resetUser } = userSlice.actions;
 export default userSlice.reducer;

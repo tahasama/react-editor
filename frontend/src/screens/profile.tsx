@@ -14,9 +14,11 @@ import {
   // downloadOtherImage,
   getUser,
   getUserData,
+  resetUser,
   updateError,
   updateProfileUser,
   uploadImage,
+  userInitialState,
 } from "../state/reducers/userSlice";
 import "./profile.css";
 import ProjectList from "./projectList";
@@ -46,19 +48,21 @@ const Profile = () => {
   // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
-      console.log("MY ERROR...", error.message);
       dispatch(updateError("please re-LogIn to update your email."));
     }
   }, [error]);
+
   useEffect(() => {
     if (!projects) {
       dispatch(updateLoading(true));
-    }
-    if (params.id !== "") {
+    } else {
       dispatch(fetchAllProject(params.id));
-      dispatch(getUser(params.id));
     }
-  }, [params.id, uid, projects]);
+  }, [params.id, projects]);
+
+  useEffect(() => {
+    dispatch(getUser(params.id));
+  }, [params.id]);
 
   const updateProfile = () => {
     if (emailRef.current && auth.currentUser) {
@@ -74,7 +78,6 @@ const Profile = () => {
 
       {
         !error.code && dispatch(cancelState({ cancelImage: false }));
-        console.log("error 7ta hna?", error);
       }
     }
   };

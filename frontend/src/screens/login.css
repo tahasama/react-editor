@@ -28,6 +28,9 @@
   width: 30.7vw;
   margin: 2vh 0 1.3vh 0;
 }
+.loginButton:active {
+  opacity: 0.7;
+}
 
 .google {
   background-color: #165e7a;

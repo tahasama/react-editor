@@ -98,31 +98,39 @@ const SideBar = ({ remove, save, clone }: any) => {
             </button>
             {id && uid === user && (
               <>
-                <button
-                  className="side a but"
-                  onMouseEnter={() => dispatch(barState({ save: true }))}
-                  onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                  onClick={save}
-                >
-                  <div className="iconSide">
-                    <AiFillSave />
-                  </div>
-                  {bar.save && <div className="message in">Save</div>}
-                </button>
-                <button
-                  // to={"/create"}
-                  className="side e but"
-                  onMouseEnter={() => dispatch(barState({ edit: true }))}
-                  onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                  onClick={() => alerted("/create")}
-                >
-                  <div className="iconSide">
-                    <AiFillEdit />{" "}
-                  </div>
-                  {bar.edit && (
-                    <div className="message">Edit project's infos</div>
-                  )}
-                </button>
+                {!location.pathname.startsWith("/profile") && (
+                  <>
+                    <button
+                      className="side a but"
+                      onMouseEnter={() => dispatch(barState({ save: true }))}
+                      onMouseLeave={() =>
+                        dispatch(barState(sideBArInitialState))
+                      }
+                      onClick={save}
+                    >
+                      <div className="iconSide">
+                        <AiFillSave />
+                      </div>
+                      {bar.save && <div className="message in">Save</div>}
+                    </button>
+                    <button
+                      // to={"/create"}
+                      className="side e but"
+                      onMouseEnter={() => dispatch(barState({ edit: true }))}
+                      onMouseLeave={() =>
+                        dispatch(barState(sideBArInitialState))
+                      }
+                      onClick={() => alerted("/create")}
+                    >
+                      <div className="iconSide">
+                        <AiFillEdit />{" "}
+                      </div>
+                      {bar.edit && (
+                        <div className="message">Edit project's infos</div>
+                      )}
+                    </button>
+                  </>
+                )}
               </>
             )}
 
@@ -138,7 +146,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               </div>
               {bar.open && <div className="message">Open Project</div>}
             </button>
-            {id && uid === user && (
+            {id && uid === user && !location.pathname.startsWith("/profile") && (
               <button
                 // to="/projects"
                 className="side d but"
