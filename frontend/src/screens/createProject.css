@@ -7,7 +7,7 @@
 
 .modal {
   width: 50vw;
-  height: 60vh;
+  height: 68.5vh;
   padding: 5px;
   border-radius: 20px;
   background-color: rgba(96, 48, 150, 0.35);
@@ -62,12 +62,13 @@
 
 .creating {
   margin-top: 2px;
-  margin-left: 5vw;
+  /* margin-left: 7vw; */
   font-weight: bold;
   font-family: monospace;
   font-size: 30px;
-  clip-path: inset(0 3ch 0 0);
   animation: create 1.5s linear infinite;
+  text-align: center;
+  width: 100%;
 }
 
 @keyframes create {

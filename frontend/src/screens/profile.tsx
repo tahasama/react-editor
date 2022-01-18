@@ -49,6 +49,8 @@ const Profile = () => {
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
       dispatch(updateError("please re-LogIn to update your email."));
+    } else if (error.code === "storage/object-not-found") {
+      dispatch(updateError(""));
     }
   }, [error]);
 

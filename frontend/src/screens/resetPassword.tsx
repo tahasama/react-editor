@@ -22,6 +22,8 @@ const ResetPassword = () => {
     }
     if (error.code === "auth/user-not-found") {
       dispatch(updateError("Wrong email, please try again"));
+    } else if (error.code === "storage/object-not-found") {
+      dispatch(updateError(""));
     }
     return () => {
       // setErrors("");

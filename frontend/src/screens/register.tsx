@@ -36,6 +36,8 @@ const Register: React.FC = () => {
       dispatch(updateError("Email already taken, please add a different one"));
     } else if (error.code === "auth/invalid-email") {
       dispatch(updateError("Please provide a valid email"));
+    } else if (error.code === "storage/object-not-found") {
+      dispatch(updateError(""));
     } else
       return () => {
         // setErrors("");
