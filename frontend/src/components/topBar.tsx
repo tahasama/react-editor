@@ -32,12 +32,12 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchRef = useRef<any>(null);
-  const { saved } = useAppSelector(getProjectData);
-  const { email, uid, image, error } = useAppSelector(getUserData);
+  const { saved, user } = useAppSelector(getProjectData);
+  const { email, uid, userimage, error, image } = useAppSelector(getUserData);
   const [profile, setprofile] = useState(false);
 
   useEffect(() => {
-    if (uid && error.code !== "storage/object-not-found") {
+    if (!user && error.code !== "storage/object-not-found") {
       dispatch(downloadImage({ uid: uid }));
     }
   }, [error, uid]);

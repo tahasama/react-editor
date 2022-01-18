@@ -45,6 +45,7 @@ const Profile = () => {
 
   const params = useParams();
   const navigate = useNavigate();
+
   // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
@@ -57,9 +58,10 @@ const Profile = () => {
   useEffect(() => {
     if (!projects) {
       dispatch(updateLoading(true));
-    } else {
-      dispatch(fetchAllProject(params.id));
     }
+    // if (params.id) {
+    dispatch(fetchAllProject(params.id));
+    // }
   }, [params.id, projects]);
 
   useEffect(() => {
@@ -174,22 +176,30 @@ const Profile = () => {
             <p className="profileLabels">projects : {nbProjects}</p>
             <p className="profileLabels">stars : </p>{" "}
             {!cancelInfo ? (
-              <>
-                <p
-                  className="editingProfile"
-                  style={{ fontFamily: "initial", marginTop: 28, fontSize: 18 }}
-                >
-                  <span className="editImage">
-                    <AiFillEdit />
-                  </span>
-                  <span
-                    className="editText"
-                    onClick={() => dispatch(cancelState({ cancelInfo: true }))}
+              uid === params.id && (
+                <>
+                  <p
+                    className="editingProfile"
+                    style={{
+                      fontFamily: "initial",
+                      marginTop: 28,
+                      fontSize: 18,
+                    }}
                   >
-                    Edit profile ?
-                  </span>
-                </p>
-              </>
+                    <span className="editImage">
+                      <AiFillEdit />
+                    </span>
+                    <span
+                      className="editText"
+                      onClick={() =>
+                        dispatch(cancelState({ cancelInfo: true }))
+                      }
+                    >
+                      Edit profile ?
+                    </span>
+                  </p>
+                </>
+              )
             ) : (
               <>
                 {" "}

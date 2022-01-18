@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppSelector } from "../state/hooks";
-import { fetchAllProject, updateLoading } from "../state/";
+import { fetchAllProject, searchProject, updateLoading } from "../state/";
 
 import "./projectsList.css";
 import { getProjectsData } from "../state/";
@@ -25,11 +25,17 @@ const ProjectList = () => {
     if (!projects) {
       dispatch(updateLoading(true));
     }
-
+    if (query !== undefined && query !== "") {
+      dispatch(searchProject(query));
+      //   navigate("/search/q=" + query);
+    }
     setTimeout(() => {
       if (query === undefined) {
         dispatch(fetchAllProject(uid));
       }
+      // } else {
+      //
+      // }
     }, 100);
     // return () => {
     //   dispatch(updateLoading(false));

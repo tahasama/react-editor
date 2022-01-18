@@ -26,7 +26,7 @@ const UploadImage = () => {
   };
   return (
     <div>
-      <label htmlFor="file-upload" className="imageUpload ">
+      <label htmlFor="file-upload" className="imageUpload">
         Browse Image
       </label>
       <input id="file-upload" ref={imageRef} type="file" />

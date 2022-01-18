@@ -25,10 +25,6 @@
   left: 4em;
   background-color: rgba(80, 72, 116, 0.247);
 }
-.imageProfileContainer:hover .editingImage {
-  opacity: 1;
-}
-
 .userProfileImage {
   height: 16em;
   object-fit: contain;
@@ -51,12 +47,12 @@
   margin-top: 16px;
 }
 .editingProfile {
-  position: relative;
-  margin: 0;
-  padding: 0;
+  position: absolute;
+  /* margin: 0; */
+  /* padding: 0; */
   display: flex;
-  /* top: 15.5em; */
-  right: 10px;
+  top: 233px;
+  left: -3px;
   color: rgb(194, 109, 211);
   cursor: pointer;
 }

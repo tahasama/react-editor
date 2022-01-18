@@ -145,6 +145,7 @@ export const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
+      console.log("WAAAAAAAA");
       Object.assign(state, action.payload);
       // state.title = action.payload.title;
       state.user = action.payload.uid;

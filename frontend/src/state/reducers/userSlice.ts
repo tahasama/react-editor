@@ -221,6 +221,9 @@ export const userSlice = createSlice({
     newImage: (state, action) => {
       state.userimage = action.payload.userimage;
     },
+    newImag2: (state, action) => {
+      state.image = action.payload.image;
+    },
     newUsernme: (state, action) => {
       state.username = action.payload.username;
       state.email = action.payload.email;
@@ -260,10 +263,11 @@ export const userSlice = createSlice({
       // MIGHT BREAK SOMETHING !!!
       state.useremail = action.payload.email;
       state.usercreatedAt = action.payload.createdAt;
-      // state._id = action.payload._id;
+      state._id = action.payload._id;
       state.userimage = action.payload.image;
-      // state.username = action.payload.username;
-      Object.assign(state, action.payload);
+      state.username = action.payload.username;
+      state.user = action.payload.uid;
+      // Object.assign(state, action.payload);
     });
   },
 });
