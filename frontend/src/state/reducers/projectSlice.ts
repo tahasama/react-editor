@@ -30,13 +30,10 @@ export const creatProject = createAsyncThunk(
       code: { html: "", css: "", js: "" },
     };
     try {
-      console.log("before error", object);
-
       const res = await axios.post(
         "http://localhost:5000/api/project/",
         object
       );
-      console.log("after error");
       return res.data;
     } catch (error) {
       console.log("this is the error", error);
@@ -145,7 +142,6 @@ export const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
-      console.log("WAAAAAAAA");
       Object.assign(state, action.payload);
       // state.title = action.payload.title;
       state.user = action.payload.uid;

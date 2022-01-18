@@ -18,7 +18,7 @@ const ProjectList = () => {
   const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();
-  const { email, uid } = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getUserData);
   const navigate = useNavigate();
 
   useEffect(() => {

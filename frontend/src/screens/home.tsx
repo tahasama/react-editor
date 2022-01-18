@@ -5,6 +5,7 @@ import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import { cleanState, projectInitialState } from "../state";
 import { useAppSelector } from "../state/hooks";
+import { getAuthData } from "../state/reducers/authSlice";
 import { getUserData } from "../state/reducers/userSlice";
 
 import "./home.css";
@@ -12,9 +13,7 @@ import "./home.css";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { email, uid } = useAppSelector(getUserData);
-
-  useEffect(() => {}, []);
+  const { email } = useAppSelector(getAuthData);
 
   const handleNewProjectClick: React.MouseEventHandler<
     HTMLButtonElement

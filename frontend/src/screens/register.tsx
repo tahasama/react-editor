@@ -7,13 +7,11 @@ import TopBar from "../components/topBar";
 import { auth, provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
 import {
-  // getUser,
-  getUserData,
+  getAuthData,
   loginUser,
-  // googleLoginUser,
   registerUser,
-  updateError,
-} from "../state/reducers/userSlice";
+} from "../state/reducers/authSlice";
+import { getUserData, updateError } from "../state/reducers/userSlice";
 import "./register.css";
 
 const Register: React.FC = () => {
@@ -24,7 +22,8 @@ const Register: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, email } = useAppSelector(getUserData);
+  const { error } = useAppSelector(getUserData);
+  const { email } = useAppSelector(getAuthData);
 
   useEffect(() => {
     if (email) {

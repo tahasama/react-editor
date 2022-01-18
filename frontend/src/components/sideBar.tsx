@@ -22,6 +22,7 @@ import {
 } from "../state";
 import { useEffect, useState } from "react";
 import { getUserData } from "../state/reducers/userSlice";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const SideBar = ({ remove, save, clone }: any) => {
   const { id } = useParams();
@@ -30,7 +31,8 @@ const SideBar = ({ remove, save, clone }: any) => {
   const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
   const { saved, _id, user } = useAppSelector(getProjectData);
-  const { email, uid } = useAppSelector(getUserData);
+  const {} = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getAuthData);
   const location = useLocation();
 
   const alerted = (destination: string) => {

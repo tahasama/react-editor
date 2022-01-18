@@ -14,6 +14,7 @@ import {
   // downloadOtherImage,
   getUser,
   getUserData,
+  newUsernme,
   resetUser,
   updateError,
   updateProfileUser,
@@ -26,10 +27,11 @@ import { auth, provider } from "../firebase";
 
 import { FiUser } from "react-icons/fi";
 import { cancelState } from "../state/reducers/cancelSlice";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const Profile = () => {
-  const { email, uid, userimage, _id, user, username } =
-    useAppSelector(getUserData);
+  const { userimage, _id, username } = useAppSelector(getUserData);
+  const { email, uid, user } = useAppSelector(getAuthData);
   const { image, otherImage, useremail, usercreatedAt, error } =
     useAppSelector(getUserData);
   const dispatch = useDispatch();
@@ -45,7 +47,6 @@ const Profile = () => {
 
   const params = useParams();
   const navigate = useNavigate();
-
   // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
@@ -79,9 +80,15 @@ const Profile = () => {
           username: usernameRef.current.value,
         })
       );
-
+      dispatch(
+        newUsernme({
+          username: usernameRef.current.value,
+          useremail: emailRef.current.value,
+        })
+      );
       {
-        !error.code && dispatch(cancelState({ cancelImage: false }));
+        error.code === "storage/object-not-found" &&
+          dispatch(cancelState({ cancelImage: false }));
       }
     }
   };

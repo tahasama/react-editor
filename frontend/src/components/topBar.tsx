@@ -26,18 +26,21 @@ import {
 import { signOut } from "firebase/auth";
 import { auth, storage } from "../firebase";
 import { ref } from "firebase/storage";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const TopBar = () => {
   const { title } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchRef = useRef<any>(null);
-  const { saved, user } = useAppSelector(getProjectData);
-  const { email, uid, userimage, error, image } = useAppSelector(getUserData);
+  const { saved } = useAppSelector(getProjectData);
+  const { userimage, image } = useAppSelector(getUserData);
+  const { email, uid, error, user } = useAppSelector(getAuthData);
+
   const [profile, setprofile] = useState(false);
 
   useEffect(() => {
-    if (!user && error.code !== "storage/object-not-found") {
+    if (uid && error.code !== "storage/object-not-found") {
       dispatch(downloadImage({ uid: uid }));
     }
   }, [error, uid]);
@@ -105,7 +108,8 @@ const TopBar = () => {
             {" "}
             <div className="imageContainerbar" onClick={onProfile}>
               {/* {!image.toString().startsWith("FirebaseError") ? ( */}
-              {error.code !== "storage/object-not-found" ? (
+              {/* {error.code !== "storage/object-not-found" ? ( */}
+              {image ? (
                 <img src={image} alt="" className="userImageBar" />
               ) : (
                 <>

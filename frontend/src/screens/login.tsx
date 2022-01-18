@@ -6,10 +6,10 @@ import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import { provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
+import { getAuthData, loginUser } from "../state/reducers/authSlice";
 import {
   getUserData,
   // googleLoginUser,
-  loginUser,
   updateError,
 } from "../state/reducers/userSlice";
 import "./login.css";
@@ -19,17 +19,16 @@ const Login = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const dispatch = useDispatch();
-  const { error, email, uid } = useAppSelector(getUserData);
+  const { error, uid } = useAppSelector(getUserData);
   const location = useLocation();
   const navigate = useNavigate();
-  const [loginSucess, setloginSucess] = useState(false);
+  const { email } = useAppSelector(getAuthData);
 
   useEffect(() => {
     if (email) {
       navigate("/");
     }
 
-    setloginSucess(true);
     if (error.code === "auth/user-not-found") {
       dispatch(updateError("wrong email, please try again"));
     } else if (error.code === "auth/wrong-password") {

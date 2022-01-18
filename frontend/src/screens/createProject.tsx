@@ -12,6 +12,7 @@ import {
 import "./createProject.css";
 import TopBar from "../components/topBar";
 import { getUserData } from "../state/reducers/userSlice";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const CreateProject: React.FC = () => {
   const nameRef = useRef<any>(null);
@@ -19,6 +20,7 @@ const CreateProject: React.FC = () => {
   const [toUpdate, setToUpdate] = useState<boolean>(true);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { email } = useAppSelector(getAuthData);
 
   const {
     _id,
@@ -27,7 +29,7 @@ const CreateProject: React.FC = () => {
     code: { html, css, js },
   } = useAppSelector(getProjectData);
 
-  const { email, uid, username } = useAppSelector(getUserData);
+  const { uid, username } = useAppSelector(getUserData);
 
   //useeffect
   setTimeout(() => {

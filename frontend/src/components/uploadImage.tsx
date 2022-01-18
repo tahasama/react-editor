@@ -1,11 +1,21 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
+import { getAuthData } from "../state/reducers/authSlice";
 import { cancelState } from "../state/reducers/cancelSlice";
-import { getUserData, uploadImage } from "../state/reducers/userSlice";
+import {
+  downloadImage,
+  getUser,
+  getUserData,
+  newImage,
+  newUserImage,
+  uploadImage,
+} from "../state/reducers/userSlice";
 
 const UploadImage = () => {
-  const { email, uid, _id, userimage } = useAppSelector(getUserData);
+  const { _id, userimage, image } = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getAuthData);
+  // console.log("in the uploader...", uid);
 
   const dispatch = useDispatch();
   const imageRef = useRef<any>(null);
@@ -17,7 +27,20 @@ const UploadImage = () => {
       dispatch(
         uploadImage({ uid: uid, image: imageRef.current.files[0], _id: _id })
       );
-      // dispatch(newImage(userimage));
+      // dispatch(downloadImage({ uid: uid }));
+      const imgUrl = URL.createObjectURL(imageRef.current.files[0]);
+
+      dispatch(
+        newUserImage({
+          userimage: imgUrl,
+        })
+      );
+      dispatch(
+        newImage({
+          image: imgUrl,
+        })
+      );
+
       dispatch(cancelState({ cancelImage: false }));
     } else {
       setError(true);

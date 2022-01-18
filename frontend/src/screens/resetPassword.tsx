@@ -4,17 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import { useAppSelector } from "../state/hooks";
-import {
-  getUserData,
-  resetPassword,
-  updateError,
-} from "../state/reducers/userSlice";
+import { getAuthData, resetPassword } from "../state/reducers/authSlice";
+import { getUserData, updateError } from "../state/reducers/userSlice";
 
 const ResetPassword = () => {
   const emailRef = useRef<any>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, email, uid } = useAppSelector(getUserData);
+  const { error, uid } = useAppSelector(getUserData);
+  const { email } = useAppSelector(getAuthData);
 
   useEffect(() => {
     if (error.code === "auth/missing-email") {

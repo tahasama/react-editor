@@ -22,12 +22,13 @@ import {
 
 import TopBar from "../components/topBar";
 import { getUserData } from "../state/reducers/userSlice";
+import { getAuthData } from "../state/reducers/authSlice";
 
 function FullEditor() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  const { email } = useAppSelector(getAuthData);
   const {
     title,
     description,
@@ -35,7 +36,7 @@ function FullEditor() {
     updatedAt,
     saved,
   } = useAppSelector(getProjectData);
-  const { email, uid } = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getUserData);
 
   useEffect(() => {
     dispatch(fetchProject(id));
