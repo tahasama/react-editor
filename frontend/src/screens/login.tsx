@@ -19,10 +19,9 @@ const Login = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const dispatch = useDispatch();
-  const { error, uid } = useAppSelector(getUserData);
   const location = useLocation();
   const navigate = useNavigate();
-  const { email } = useAppSelector(getAuthData);
+  const { email, error } = useAppSelector(getAuthData);
 
   useEffect(() => {
     if (email) {

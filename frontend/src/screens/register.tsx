@@ -22,26 +22,29 @@ const Register: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error } = useAppSelector(getUserData);
-  const { email } = useAppSelector(getAuthData);
+  const { email, error } = useAppSelector(getAuthData);
 
   useEffect(() => {
+    console.log("REGISTER ERROR...", error.code);
     if (email) {
       navigate("/");
     }
+
     if (error.code === "auth/weak-password") {
       dispatch(updateError("Password should be at least 6 characters"));
     } else if (error.code === "auth/email-already-in-use") {
       dispatch(updateError("Email already taken, please add a different one"));
     } else if (error.code === "auth/invalid-email") {
       dispatch(updateError("Please provide a valid email"));
+    } else if (error.code === "auth/internal-error") {
+      dispatch(updateError("Please provide a valid passwords"));
     } else if (error.code === "storage/object-not-found") {
       dispatch(updateError(""));
-    } else
-      return () => {
-        // setErrors("");
-        dispatch(updateError(""));
-      };
+    }
+    return () => {
+      // setErrors("");
+      dispatch(updateError(""));
+    };
   }, [error.code, email]);
 
   const handleSubmit = async (e: any) => {

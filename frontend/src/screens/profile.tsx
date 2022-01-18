@@ -87,8 +87,8 @@ const Profile = () => {
         })
       );
       {
-        error.code === "storage/object-not-found" &&
-          dispatch(cancelState({ cancelImage: false }));
+        // error.code === "storage/object-not-found"
+        dispatch(cancelState({ cancelProfile: true }));
       }
     }
   };
@@ -178,7 +178,7 @@ const Profile = () => {
               </div>
             )}
             <p className="profileLabels">
-              Joined on:{new Date(usercreatedAt).toDateString()}
+              Joined on : {new Date(usercreatedAt).toDateString().slice(4, 16)}
             </p>
             <p className="profileLabels">projects : {nbProjects}</p>
             <p className="profileLabels">stars : </p>{" "}
@@ -211,7 +211,7 @@ const Profile = () => {
               <>
                 {" "}
                 {error && (
-                  <p className="errorMessage" style={{ width: 500 }}>
+                  <p className="errorMessage" style={{ width: 500, margin: 0 }}>
                     {error.message}
                   </p>
                 )}

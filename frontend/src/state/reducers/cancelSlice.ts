@@ -1,9 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { AiOutlineConsoleSql } from "react-icons/ai";
+
 export const cancelInitialState = {
   cancelImage: false,
   cancelInfo: false,
 };
+
 export const cancelSlice = createSlice({
   name: "cancel-redux",
   initialState: cancelInitialState,

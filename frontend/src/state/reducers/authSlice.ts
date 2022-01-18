@@ -75,7 +75,7 @@ export const loginUser = createAsyncThunk(
 );
 
 export const resetPassword = createAsyncThunk(
-  "loginUser",
+  "resetPassword",
   async (email: string) => {
     try {
       const res = await sendPasswordResetEmail(auth, email);
@@ -132,6 +132,7 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(loginUser.fulfilled, (state, action: any) => {
+      console.log("ddddddd", action.payload.code);
       state.uid = action.payload.uid;
       state.email = action.payload.email;
       state.error.code = action.payload.code;
