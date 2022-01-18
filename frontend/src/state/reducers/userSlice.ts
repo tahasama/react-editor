@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { GoogleAuthProvider, updateEmail } from "firebase/auth";
+import { updateEmail } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { auth, storage } from "../../firebase";
+import { storage } from "../../firebase";
 
 export const updateProfileUser = createAsyncThunk(
   "updateProfileUser",
@@ -10,7 +10,6 @@ export const updateProfileUser = createAsyncThunk(
     const newId = _id;
     try {
       const res = await updateEmail(user, email);
-      console.log("USER...", user);
 
       try {
         const res2 = await axios.put(
@@ -21,12 +20,9 @@ export const updateProfileUser = createAsyncThunk(
           }
         );
         return res2;
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       return res;
     } catch (error: any) {
-      console.log(error);
       return error;
     }
   }
@@ -39,7 +35,6 @@ export const getUser = createAsyncThunk(
       const res = await axios.get("http://localhost:5000/api/user/" + uid);
       return res.data[0];
     } catch (error: any) {
-      console.log(error);
       return error;
     }
   }
@@ -62,11 +57,8 @@ export const uploadImage = createAsyncThunk(
         await axios.put("http://localhost:5000/api/user/" + _id, {
           image: res,
         });
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } catch (error: any) {
-      console.log(error);
       return error;
     }
   }
@@ -74,12 +66,9 @@ export const uploadImage = createAsyncThunk(
 export const downloadImage = createAsyncThunk(
   "downloadImage",
   async ({ uid }: uploadProps) => {
-    // console.log("downloadImage TRIGGERED");
-
     const storageRef = ref(storage, uid + ".jpg");
     try {
       const res = await getDownloadURL(storageRef);
-      console.log("downloadImage", res);
       return { image: res };
     } catch (error: any) {
       return error;
@@ -125,16 +114,11 @@ export const userSlice = createSlice({
       state.error.message = action.payload;
     },
     newUserImage: (state, action) => {
-      console.log("TRIGGERED userimage", action.payload.userimage);
       state.userimage = action.payload.userimage;
     },
     newImage: (state, action) => {
-      console.log("TRIGGERED image", action.payload.image);
       state.image = action.payload.image;
     },
-    // newImag2: (state, action) => {
-    //   state.image = action.payload.image;
-    // },
     newUsernme: (state, action) => {
       state.username = action.payload.username;
       state.useremail = action.payload.useremail;
@@ -149,26 +133,18 @@ export const userSlice = createSlice({
       state.error.message = action.payload.message;
     });
     builder.addCase(downloadImage.fulfilled, (state, action: any) => {
-      console.log("MY IMAGE...", action.payload.image);
       state.image = action.payload.image;
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;
     });
 
-    // builder.addCase(downloadOtherImage.fulfilled, (state, action: any) => {
-    //   console.log("download image", action.payload);
-    //   state.otherImage = action.payload;
-    // });
     builder.addCase(getUser.fulfilled, (state, action: any) => {
-      // MIGHT BREAK SOMETHING !!!
-
       state.useremail = action.payload.email;
       state.usercreatedAt = action.payload.createdAt;
       state._id = action.payload._id;
       state.userimage = action.payload.image;
       state.username = action.payload.username;
       state.user = action.payload.uid;
-      // Object.assign(state, action.payload);
     });
   },
 });

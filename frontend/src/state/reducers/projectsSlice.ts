@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useAppSelector } from "../hooks";
-import { getUserData } from "./userSlice";
 
 export const fetchAllProject = createAsyncThunk(
   "fetchAllProject",

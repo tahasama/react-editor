@@ -6,17 +6,9 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
-  updateEmail,
-  updateProfile,
 } from "firebase/auth";
-import {
-  getDownloadURL,
-  ref,
-  StorageReference,
-  uploadBytesResumable,
-} from "firebase/storage";
-import { auth, storage } from "../../firebase";
+
+import { auth } from "../../firebase";
 
 interface valueProps {
   email: string;
@@ -80,7 +72,6 @@ export const resetPassword = createAsyncThunk(
     try {
       const res = await sendPasswordResetEmail(auth, email);
     } catch (error: any) {
-      console.log(error);
       return error;
     }
   }
@@ -114,9 +105,7 @@ export const authSlice = createSlice({
       state.error.message = action.payload;
     },
     saveUser: (state, action) => {
-      // Object.assign(state, action.payload);
       state.email = action.payload?.email;
-      // state.username = action.payload.username;
       state.uid = action.payload?.uid;
       state.user = action.payload;
     },
@@ -132,7 +121,6 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(loginUser.fulfilled, (state, action: any) => {
-      console.log("ddddddd", action.payload.code);
       state.uid = action.payload.uid;
       state.email = action.payload.email;
       state.error.code = action.payload.code;

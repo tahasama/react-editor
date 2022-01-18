@@ -1,5 +1,4 @@
-import { GoogleAuthProvider } from "firebase/auth";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
@@ -7,14 +6,9 @@ import TopBar from "../components/topBar";
 import { provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
 import { getAuthData, loginUser } from "../state/reducers/authSlice";
-import {
-  getUserData,
-  // googleLoginUser,
-  updateError,
-} from "../state/reducers/userSlice";
+import { updateError } from "../state/reducers/userSlice";
 import "./login.css";
 
-// TAKE CARE OF THIS ERROR Firebase: Error (auth/user-not-found).
 const Login = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
@@ -42,7 +36,6 @@ const Login = () => {
       dispatch(updateError(""));
     }
     return () => {
-      // setErrors("");
       dispatch(updateError(""));
     };
   }, [error.code, email]);
@@ -51,15 +44,12 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(updateError(""));
-      // setLoading(true);
       dispatch(
         loginUser({
           email: emailRef.current.value,
           password: passwordRef.current.value,
         })
       );
-
-      // setLoading(false);
     } catch (err) {
       dispatch(updateError("failed to login, please try again"));
     }

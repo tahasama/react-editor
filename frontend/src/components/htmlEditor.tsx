@@ -8,7 +8,6 @@ import {
   updateCode,
   getProjectData,
   updateSaved,
-  updateId,
 } from "../state/reducers/projectSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
@@ -52,7 +51,6 @@ const HtmlEditor = () => {
           height="45vh"
           defaultLanguage="html"
           value={html}
-          // defaultValue={html}
           onChange={handleEditorChange}
           onMount={handleEditorDidMount}
           theme="vs-dark"

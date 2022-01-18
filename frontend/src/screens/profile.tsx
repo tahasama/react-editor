@@ -1,8 +1,7 @@
-import { getAuth } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Project from "../components/project";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
@@ -10,36 +9,28 @@ import UploadImage from "../components/uploadImage";
 import { fetchAllProject, getProjectsData, updateLoading } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
-  downloadImage,
-  // downloadOtherImage,
   getUser,
   getUserData,
   newUsernme,
-  resetUser,
   updateError,
   updateProfileUser,
-  uploadImage,
-  userInitialState,
 } from "../state/reducers/userSlice";
 import "./profile.css";
-import ProjectList from "./projectList";
-import { auth, provider } from "../firebase";
+import { auth } from "../firebase";
 
 import { FiUser } from "react-icons/fi";
 import { cancelState } from "../state/reducers/cancelSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 
 const Profile = () => {
-  const { userimage, _id, username } = useAppSelector(getUserData);
-  const { email, uid, user } = useAppSelector(getAuthData);
-  const { image, otherImage, useremail, usercreatedAt, error } =
+  const { userimage, _id, username, useremail, usercreatedAt, error } =
     useAppSelector(getUserData);
+  const { email, uid, user } = useAppSelector(getAuthData);
   const dispatch = useDispatch();
   const { all, loading } = useAppSelector(getProjectsData);
   const projects = all.flat().reverse();
   const nbProjects = projects.length;
   const [allProjects, setallProjects] = useState(false);
-  // const [error, setError] = useState(false);
 
   const { cancelImage, cancelInfo } = useAppSelector((state) => state.cancel);
   const emailRef = useRef<any>(null);
@@ -47,7 +38,6 @@ const Profile = () => {
 
   const params = useParams();
   const navigate = useNavigate();
-  // TAKE CARE OF THIS ERROR auth/requires-recent-login
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
       dispatch(updateError("please re-LogIn to update your email."));
@@ -60,9 +50,7 @@ const Profile = () => {
     if (!projects) {
       dispatch(updateLoading(true));
     }
-    // if (params.id) {
     dispatch(fetchAllProject(params.id));
-    // }
   }, [params.id, projects]);
 
   useEffect(() => {
@@ -87,7 +75,6 @@ const Profile = () => {
         })
       );
       {
-        // error.code === "storage/object-not-found"
         dispatch(cancelState({ cancelProfile: true }));
       }
     }

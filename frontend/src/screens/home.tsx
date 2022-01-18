@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
@@ -6,7 +6,6 @@ import TopBar from "../components/topBar";
 import { cleanState, projectInitialState } from "../state";
 import { useAppSelector } from "../state/hooks";
 import { getAuthData } from "../state/reducers/authSlice";
-import { getUserData } from "../state/reducers/userSlice";
 
 import "./home.css";
 

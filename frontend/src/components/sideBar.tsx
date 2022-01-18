@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./navBar.css";
 import {
   AiFillEdit,
@@ -20,7 +20,6 @@ import {
   projectInitialState,
   updateSaved,
 } from "../state";
-import { useEffect, useState } from "react";
 import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 
@@ -66,14 +65,12 @@ const SideBar = ({ remove, save, clone }: any) => {
         {!uid && (
           <>
             <button
-              // to="/editor/code-and-run"
               className="side d but"
               onMouseEnter={() => dispatch(barState({ code: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
               onClick={() => (
                 navigate("/editor/code-and-run"),
                 dispatch(cleanState(projectInitialState))
-                // window.location.reload() // in case data persists from search
               )}
             >
               <div className="iconSide">
@@ -116,7 +113,6 @@ const SideBar = ({ remove, save, clone }: any) => {
                       {bar.save && <div className="message in">Save</div>}
                     </button>
                     <button
-                      // to={"/create"}
                       className="side e but"
                       onMouseEnter={() => dispatch(barState({ edit: true }))}
                       onMouseLeave={() =>
@@ -138,7 +134,6 @@ const SideBar = ({ remove, save, clone }: any) => {
 
             <button
               className="side f but"
-              // to="/projects"
               onMouseEnter={() => dispatch(barState({ open: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
               onClick={() => alerted("/projects")}
@@ -150,7 +145,6 @@ const SideBar = ({ remove, save, clone }: any) => {
             </button>
             {id && uid === user && !location.pathname.startsWith("/profile") && (
               <button
-                // to="/projects"
                 className="side d but"
                 onMouseEnter={() => dispatch(barState({ delete: true }))}
                 onMouseLeave={() => dispatch(barState(sideBArInitialState))}
@@ -162,7 +156,6 @@ const SideBar = ({ remove, save, clone }: any) => {
                 {bar.delete && <div className="message">Delete</div>}
               </button>
             )}
-            {/* {params.id && ( */}
             {uid !== user &&
               params.id &&
               !location.pathname.startsWith("/profile") && (

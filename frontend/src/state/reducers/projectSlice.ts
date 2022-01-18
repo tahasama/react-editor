@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import userSlice from "./userSlice";
 
 export const fetchProject = createAsyncThunk(
   "fetchProject",
@@ -11,10 +10,10 @@ export const fetchProject = createAsyncThunk(
 );
 
 interface valueProps {
-  uid: string; //| undefined;
+  uid: string;
   email: string;
-  title: string; //| undefined;
-  description: string; //| undefined;
+  title: string;
+  description: string;
   username?: string;
 }
 
@@ -35,9 +34,7 @@ export const creatProject = createAsyncThunk(
         object
       );
       return res.data;
-    } catch (error) {
-      console.log("this is the error", error);
-    }
+    } catch (error) {}
   }
 );
 interface cloneProps {
@@ -143,7 +140,6 @@ export const projectSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchProject.fulfilled, (state, action) => {
       Object.assign(state, action.payload);
-      // state.title = action.payload.title;
       state.user = action.payload.uid;
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {

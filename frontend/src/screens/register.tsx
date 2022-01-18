@@ -1,31 +1,28 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
-import { auth, provider } from "../firebase";
+import { provider } from "../firebase";
 import { useAppSelector } from "../state/hooks";
 import {
   getAuthData,
   loginUser,
   registerUser,
 } from "../state/reducers/authSlice";
-import { getUserData, updateError } from "../state/reducers/userSlice";
+import { updateError } from "../state/reducers/userSlice";
 import "./register.css";
 
 const Register: React.FC = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const passwordConfirmRef = useRef<any>(null);
-  // const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { email, error } = useAppSelector(getAuthData);
 
   useEffect(() => {
-    console.log("REGISTER ERROR...", error.code);
     if (email) {
       navigate("/");
     }
@@ -42,7 +39,6 @@ const Register: React.FC = () => {
       dispatch(updateError(""));
     }
     return () => {
-      // setErrors("");
       dispatch(updateError(""));
     };
   }, [error.code, email]);

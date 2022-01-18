@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import Editor, { useMonaco } from "@monaco-editor/react";
+import React, { useRef } from "react";
+import Editor from "@monaco-editor/react";
 import prettier from "prettier";
 import jsParser from "prettier/parser-babel";
 
@@ -7,11 +7,6 @@ import "../screens/fullEditor.css";
 import { useDispatch } from "react-redux";
 import { getProjectData, updateCode, updateSaved } from "../state";
 import { useAppSelector } from "../state/hooks";
-
-interface jsProps {
-  js: string;
-  setJs: any;
-}
 
 const JsEditor = () => {
   const editorRef = useRef<any>(null);

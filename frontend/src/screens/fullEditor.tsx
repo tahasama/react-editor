@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "../state/hooks";
 import {
   cleanState,
   cloneProject,
-  // cloneProject,
   deleteProject,
   fetchProject,
   getProjectData,

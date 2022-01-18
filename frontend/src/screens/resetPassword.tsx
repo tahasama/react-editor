@@ -11,8 +11,7 @@ const ResetPassword = () => {
   const emailRef = useRef<any>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, uid } = useAppSelector(getUserData);
-  const { email } = useAppSelector(getAuthData);
+  const { error } = useAppSelector(getAuthData);
 
   useEffect(() => {
     if (error.code === "auth/missing-email") {
@@ -24,7 +23,6 @@ const ResetPassword = () => {
       dispatch(updateError(""));
     }
     return () => {
-      // setErrors("");
       dispatch(updateError(""));
     };
   }, [error.code]);
@@ -33,13 +31,11 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       dispatch(updateError(""));
-      // setLoading(true);
       dispatch(resetPassword(emailRef.current.value));
 
       {
         !error && navigate(-1);
       }
-      // setLoading(false);
     } catch (err) {
       dispatch(updateError("failed to reset password, please try again"));
     }

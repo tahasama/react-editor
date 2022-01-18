@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useRef, useState } from "react";
+import React, { FormEventHandler, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
@@ -31,7 +31,6 @@ const CreateProject: React.FC = () => {
 
   const { uid, username } = useAppSelector(getUserData);
 
-  //useeffect
   setTimeout(() => {
     if (!toUpdate) {
       navigate("/editor/" + _id);
@@ -62,7 +61,6 @@ const CreateProject: React.FC = () => {
           username: username,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
-          // code: { html: html, css: css, js: js },
         })
       );
     }

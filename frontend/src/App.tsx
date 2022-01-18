@@ -9,12 +9,9 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
-import { getUserData } from "./state/reducers/userSlice";
-import { useAppDispatch, useAppSelector } from "./state/hooks";
 import ResetPassword from "./screens/resetPassword";
-import UplodImage from "./screens/profile";
 import Profile from "./screens/profile";
-import { getAuthData, saveUser } from "./state/reducers/authSlice";
+import { saveUser } from "./state/reducers/authSlice";
 
 function App() {
   const dispatch = useDispatch();

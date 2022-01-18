@@ -4,8 +4,6 @@ import { useAppSelector } from "../state/hooks";
 import { getAuthData } from "../state/reducers/authSlice";
 import { cancelState } from "../state/reducers/cancelSlice";
 import {
-  downloadImage,
-  getUser,
   getUserData,
   newImage,
   newUserImage,
@@ -13,9 +11,8 @@ import {
 } from "../state/reducers/userSlice";
 
 const UploadImage = () => {
-  const { _id, userimage, image } = useAppSelector(getUserData);
+  const { _id } = useAppSelector(getUserData);
   const { uid } = useAppSelector(getAuthData);
-  // console.log("in the uploader...", uid);
 
   const dispatch = useDispatch();
   const imageRef = useRef<any>(null);
@@ -27,7 +24,6 @@ const UploadImage = () => {
       dispatch(
         uploadImage({ uid: uid, image: imageRef.current.files[0], _id: _id })
       );
-      // dispatch(downloadImage({ uid: uid }));
       const imgUrl = URL.createObjectURL(imageRef.current.files[0]);
 
       dispatch(
