@@ -46,7 +46,7 @@ const JsEditor = () => {
           <Resizable direction={"horizontal"}>
             <Editor
               className="thaEditor"
-              height="60vh"
+              height="100%"
               defaultLanguage="javascript"
               value={js}
               // defaultValue={js}

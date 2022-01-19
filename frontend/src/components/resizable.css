@@ -1,7 +1,7 @@
 .react-resizable-handle {
   display: block;
   background-color: #37414b;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-position: 50%;
   margin: 0 2px;
 }
@@ -15,18 +15,37 @@
   height: 10px;
   width: 80.1em;
   z-index: 99;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   cursor: row-resize;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
+  /* background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII="); */
+  background: linear-gradient(
+    180deg,
+    #37414b calc(25% - 1px),
+    rgb(133, 127, 160) calc(25%),
+    #37414b calc(25% + 1px),
+    #37414b calc(75% - 1px),
+    rgb(133, 127, 160) calc(75%),
+    #37414b calc(75% + 1px)
+  );
 }
 
 .react-resizable-handle-e {
   width: 10px;
   min-width: 10px;
-  height: 23.45em;
+  /* height: 23.45em; */
+  height: 100%;
   z-index: 99;
   cursor: col-resize;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+  /* background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg=="); */
+  background: linear-gradient(
+    90deg,
+    #37414b calc(25% - 1px),
+    rgb(133, 127, 160) calc(25%),
+    #37414b calc(25% + 1px),
+    #37414b calc(75% - 1px),
+    rgb(133, 127, 160) calc(75%),
+    #37414b calc(75% + 1px)
+  );
 }
 
 @media only screen and (max-width: 1320px) {

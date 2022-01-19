@@ -136,20 +136,25 @@ function FullEditor() {
           )}
         </div>
         <div className="fullEdit">
-          <div className="editors">
-            <div className="editor">
-              <HtmlEditor />
-            </div>{" "}
-            <div className="editor">
-              <CssEditor />
-            </div>{" "}
-            <div className="editor">
+          <div>
+            <Resizable direction={"vertical-down"}>
               {" "}
-              <JsEditor />
-            </div>
+              <div className="editors">
+                <div className="editor">
+                  <HtmlEditor />
+                </div>{" "}
+                <div className="editor">
+                  <CssEditor />
+                </div>{" "}
+                <div className="editor">
+                  {" "}
+                  <JsEditor />
+                </div>
+              </div>
+            </Resizable>
           </div>{" "}
           <div className="frame">
-            <Resizable direction={"vertical"}>
+            <Resizable direction={"vertical-up"}>
               <div className="frameWrapper">
                 <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
               </div>
