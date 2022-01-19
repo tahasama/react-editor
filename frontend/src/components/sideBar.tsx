@@ -6,6 +6,8 @@ import {
   AiFillSave,
   AiFillDelete,
   AiOutlineFolderOpen,
+  AiTwotoneStar,
+  AiOutlineStar,
 } from "react-icons/ai";
 import { HiOutlineCode } from "react-icons/hi";
 import { ImProfile } from "react-icons/im";
@@ -34,6 +36,7 @@ const SideBar = ({ remove, save, clone }: any) => {
   const {} = useAppSelector(getUserData);
   const { uid } = useAppSelector(getAuthData);
   const location = useLocation();
+  console.log("STAAAAAAAAAAAAAAARS", star);
 
   const alerted = (destination: string) => {
     if (!saved) {
@@ -50,7 +53,17 @@ const SideBar = ({ remove, save, clone }: any) => {
   };
   const handleStar = (e: any) => {
     e.preventDefault();
-    dispatch(StarProject({ _id: id, star: star + 2 }));
+    const starArray = [...star];
+    if (star.includes(uid)) {
+      const starArrayIndex = starArray.indexOf(uid);
+      if (starArrayIndex !== -1) {
+        starArray.splice(starArrayIndex, 1);
+      }
+      dispatch(StarProject({ _id: id, star: starArray }));
+    } else {
+      starArray.push(uid);
+      dispatch(StarProject({ _id: id, star: starArray }));
+    }
   };
 
   return (
@@ -191,12 +204,31 @@ const SideBar = ({ remove, save, clone }: any) => {
                   </button>
                   <button
                     className="side a but"
-                    onMouseEnter={() => dispatch(barState({ edit: true }))}
+                    onMouseEnter={() => dispatch(barState({ star: true }))}
                     onMouseLeave={() => dispatch(barState(sideBArInitialState))}
                     onClick={handleStar}
                   >
-                    <div className="iconSide sizeIt">Star</div>
-                    {bar.edit && <div className="message">Give it a Star</div>}
+                    {!star.includes(uid) ? (
+                      <div>
+                        <div className="iconSide sizeIt starColor">
+                          <AiOutlineStar />
+                        </div>
+                        {bar.star && (
+                          <div className="message">Give it a Star</div>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="iconSide sizeIt starColor">
+                          <AiTwotoneStar />
+                        </div>
+                        {bar.star && (
+                          <div className="message">
+                            you rated this project. unrate it?{" "}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </button>
                 </>
               )}

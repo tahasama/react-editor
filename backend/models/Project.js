@@ -12,7 +12,7 @@ const ProjectSchema = new mongoose.Schema(
       css: { type: String },
       js: { type: String },
     },
-    star: { type: Number },
+    star: { type: Array },
   },
   {
     timestamps: true,

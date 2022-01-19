@@ -1,5 +1,6 @@
 import React from "react";
 import { FcOpenedFolder } from "react-icons/fc";
+import { AiTwotoneStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const Project = ({ proj }: any) => {
@@ -9,6 +10,10 @@ const Project = ({ proj }: any) => {
         <div className="projectHeader">
           <FcOpenedFolder className="icon" />
           <p className="name">{proj.title}</p>
+        </div>
+        <div className="projectHeaderStar">
+          <p className="nameStar">{proj.star.length}</p>
+          <AiTwotoneStar className="iconStar" />
         </div>
         <p className="dateList onProjects">
           Created : {new Date(proj.createdAt).toString().slice(0, 16)}

@@ -265,6 +265,9 @@
   animation-duration: 0.6s;
   animation-name: dropDownShow;
 }
+.starColor {
+  color: #a6ff00;
+}
 @keyframes dropDownShow {
   from {
     opacity: 0;

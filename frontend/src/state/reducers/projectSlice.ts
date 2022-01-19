@@ -15,7 +15,7 @@ interface valueProps {
   title: string;
   description: string;
   username?: string;
-  star?: number;
+  star?: string[];
 }
 
 export const creatProject = createAsyncThunk(
@@ -86,7 +86,7 @@ export const saveProject = createAsyncThunk(
 );
 interface starProps {
   _id: string | undefined;
-  star: number;
+  star: string[];
 }
 export const StarProject = createAsyncThunk(
   "saveProject",
@@ -124,7 +124,7 @@ export interface projectProps {
     createdAt: string;
     updatedAt: string;
     saved: boolean;
-    star: number;
+    star: string[];
   };
 }
 
@@ -138,7 +138,7 @@ export const projectInitialState = {
   createdAt: "",
   updatedAt: "",
   saved: true,
-  star: 0,
+  star: [],
 };
 
 export const projectSlice = createSlice({

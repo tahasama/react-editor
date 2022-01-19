@@ -117,3 +117,21 @@
   color: rgb(192, 96, 96);
 } */
 /* <p className="visit">Visit profile ?</p> */
+
+.projectHeaderStar {
+  display: flex;
+  position: relative;
+  float: right;
+  top: -45px;
+}
+.iconStar {
+  font-size: 22px;
+  margin: 0px 3px 0px 3px;
+  color: yellow;
+}
+.nameStar {
+  font-size: 20px !important;
+  margin: 1px 0px 5px 0px;
+  font-size: 25px;
+  color: rgb(204, 203, 203);
+}
