@@ -16,11 +16,14 @@ router.get("/all/:uid", async (req, res) => {
 // create a project
 router.post("/", async (req, res) => {
   const newProject = new Project(req.body);
+  console.log("MY newProject", newProject);
+
   try {
     const saveProject = await newProject.save();
 
     res.status(200).json(saveProject);
   } catch (err) {
+    console.log("some creating error", err);
     res.status(500).json(err);
   }
 });
@@ -68,6 +71,21 @@ router.put("/:id", async (req, res) => {
     );
     res.status(200).json(updateProject);
   } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.put("/star/:id", async (req, res) => {
+  try {
+    const updateProject = await Project.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updateProject);
+  } catch (err) {
+    console.log("STAR ERROR", err);
     res.status(500).json(err);
   }
 });

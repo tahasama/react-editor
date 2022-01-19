@@ -15,6 +15,7 @@ interface valueProps {
   title: string;
   description: string;
   username?: string;
+  star?: number;
 }
 
 export const creatProject = createAsyncThunk(
@@ -27,6 +28,7 @@ export const creatProject = createAsyncThunk(
       title: value.title,
       description: value.description,
       code: { html: "", css: "", js: "" },
+      star: 0,
     };
     try {
       const res = await axios.post(
@@ -34,7 +36,9 @@ export const creatProject = createAsyncThunk(
         object
       );
       return res.data;
-    } catch (error) {}
+    } catch (error) {
+      console.log("creratng error....", error);
+    }
   }
 );
 interface cloneProps {
@@ -80,6 +84,28 @@ export const saveProject = createAsyncThunk(
     return res.data;
   }
 );
+interface starProps {
+  _id: string | undefined;
+  star: number;
+}
+export const StarProject = createAsyncThunk(
+  "saveProject",
+  async (value: starProps) => {
+    const object = {
+      _id: value._id,
+      star: value.star,
+    };
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/api/project/star/" + object._id,
+        value
+      );
+      return res.data;
+    } catch (error) {
+      console.log("NO UPDATE", error);
+    }
+  }
+);
 
 export const deleteProject = createAsyncThunk(
   "deleteProject",
@@ -98,6 +124,7 @@ export interface projectProps {
     createdAt: string;
     updatedAt: string;
     saved: boolean;
+    star: number;
   };
 }
 
@@ -111,6 +138,7 @@ export const projectInitialState = {
   createdAt: "",
   updatedAt: "",
   saved: true,
+  star: 0,
 };
 
 export const projectSlice = createSlice({

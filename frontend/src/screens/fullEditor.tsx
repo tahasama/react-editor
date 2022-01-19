@@ -15,6 +15,7 @@ import {
   getProjectData,
   projectInitialState,
   saveProject,
+  StarProject,
   updateCode,
   updateSaved,
 } from "../state/";
@@ -37,12 +38,12 @@ function FullEditor() {
     code: { html, css, js },
     updatedAt,
     saved,
+    star,
   } = useAppSelector(getProjectData);
   const { uid } = useAppSelector(getUserData);
 
   useEffect(() => {
     function handleResize() {
-      console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
       if (window.innerWidth < 820) {
         setResize(false);
       } else {
@@ -119,6 +120,7 @@ function FullEditor() {
         remove={handleDeleteProject}
         save={handleUpdateTitle}
         clone={handleClone}
+        // star={handleStar}
       />
       <div className="editorWrapper">
         <div className="titleContainer">

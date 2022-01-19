@@ -18,6 +18,7 @@ import {
   cleanState,
   getProjectData,
   projectInitialState,
+  StarProject,
   updateSaved,
 } from "../state";
 import { getUserData } from "../state/reducers/userSlice";
@@ -29,7 +30,7 @@ const SideBar = ({ remove, save, clone }: any) => {
   const params = useParams();
   const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
-  const { saved, _id, user } = useAppSelector(getProjectData);
+  const { saved, _id, user, star } = useAppSelector(getProjectData);
   const {} = useAppSelector(getUserData);
   const { uid } = useAppSelector(getAuthData);
   const location = useLocation();
@@ -46,6 +47,10 @@ const SideBar = ({ remove, save, clone }: any) => {
     } else {
       navigate(destination);
     }
+  };
+  const handleStar = (e: any) => {
+    e.preventDefault();
+    dispatch(StarProject({ _id: id, star: star + 2 }));
   };
 
   return (
@@ -183,6 +188,15 @@ const SideBar = ({ remove, save, clone }: any) => {
                     {bar.edit && (
                       <div className="message">Authors's Profile</div>
                     )}
+                  </button>
+                  <button
+                    className="side a but"
+                    onMouseEnter={() => dispatch(barState({ edit: true }))}
+                    onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+                    onClick={handleStar}
+                  >
+                    <div className="iconSide sizeIt">Star</div>
+                    {bar.edit && <div className="message">Give it a Star</div>}
                   </button>
                 </>
               )}

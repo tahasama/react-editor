@@ -29,7 +29,8 @@ const CreateProject: React.FC = () => {
     code: { html, css, js },
   } = useAppSelector(getProjectData);
 
-  const { uid, username } = useAppSelector(getUserData);
+  const { username } = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getAuthData);
 
   setTimeout(() => {
     if (!toUpdate) {
