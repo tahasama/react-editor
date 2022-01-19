@@ -7,6 +7,7 @@ import "../screens/fullEditor.css";
 import { useDispatch } from "react-redux";
 import { getProjectData, updateCode, updateSaved } from "../state";
 import { useAppSelector } from "../state/hooks";
+import Resizable from "./resizable";
 
 const JsEditor = () => {
   const editorRef = useRef<any>(null);
@@ -33,7 +34,7 @@ const JsEditor = () => {
   };
 
   return (
-    <div>
+    <div className="oneEditor">
       <div className="header">
         <p className="title">JavaScript</p>
         <button onClick={onFormat} className="format">
@@ -41,26 +42,31 @@ const JsEditor = () => {
         </button>
       </div>
       <span onClick={() => dispatch(updateSaved(false))}>
-        <Editor
-          height="45vh"
-          defaultLanguage="javascript"
-          value={js}
-          // defaultValue={js}
-          onChange={handleEditorChange}
-          onMount={handleEditorDidMount}
-          theme="vs-dark"
-          width="100%"
-          options={{
-            wordWrap: "on",
-            minimap: { enabled: false },
-            showUnused: false,
-            folding: false,
-            lineNumbersMinChars: 3,
-            fontSize: 16,
-            scrollBeyondLastLine: false,
-            automaticLayout: true,
-          }}
-        />
+        <div className="resizableEditor">
+          <Resizable direction={"horizontal"}>
+            <Editor
+              className="thaEditor"
+              height="45vh"
+              defaultLanguage="javascript"
+              value={js}
+              // defaultValue={js}
+              onChange={handleEditorChange}
+              onMount={handleEditorDidMount}
+              theme="vs-dark"
+              width="100%"
+              options={{
+                wordWrap: "on",
+                minimap: { enabled: false },
+                showUnused: false,
+                folding: false,
+                lineNumbersMinChars: 3,
+                fontSize: 16,
+                scrollBeyondLastLine: false,
+                automaticLayout: true,
+              }}
+            />
+          </Resizable>
+        </div>
       </span>
     </div>
   );

@@ -3,11 +3,15 @@ import axios from "axios";
 
 export const fetchAllProject = createAsyncThunk(
   "fetchAllProject",
-  async (user: string | undefined) => {
-    const res = await axios.get(
-      "http://localhost:5000/api/project/all/" + user
-    );
-    return res.data;
+  async (uid: string | undefined) => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/project/all/" + uid
+      );
+      return res.data;
+    } catch (error) {
+      console.log("fetchAllProject error...", error);
+    }
   }
 );
 

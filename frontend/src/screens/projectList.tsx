@@ -10,6 +10,7 @@ import { getProjectsData } from "../state/";
 import TopBar from "../components/topBar";
 import { getUserData } from "../state/reducers/userSlice";
 import Project from "../components/project";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,8 @@ const ProjectList = () => {
   const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();
-  const { uid } = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getAuthData);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!projects) {
       dispatch(updateLoading(true));
@@ -42,16 +42,17 @@ const ProjectList = () => {
       {!loading ? (
         <div className="lisContainer">
           <div className="projectsList">
-            {projects.map((proj: any) => (
-              <div key={proj._id}>
-                <button
-                  onClick={() => navigate("/editor/" + proj._id)}
-                  className="projectLink but"
-                >
-                  <Project proj={proj} />
-                </button>
-              </div>
-            ))}
+            {projects[0] !== undefined &&
+              projects.map((proj: any) => (
+                <div key={proj._id}>
+                  <button
+                    onClick={() => navigate("/editor/" + proj._id)}
+                    className="projectLink but"
+                  >
+                    <Project proj={proj} />
+                  </button>
+                </div>
+              ))}
             {query !== undefined && projects.length === 0 && (
               <h2 className="noResult">
                 No project with this name has been found..

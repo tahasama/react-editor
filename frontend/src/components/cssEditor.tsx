@@ -11,6 +11,7 @@ import {
 } from "../state/reducers/projectSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
+import Resizable from "./resizable";
 
 const CssEditor = () => {
   const editorRef = useRef<any>(null);
@@ -38,7 +39,7 @@ const CssEditor = () => {
   };
 
   return (
-    <div>
+    <div className="oneEditor">
       <div className="header">
         <p className="title">Css</p>
         <button onClick={onFormat} className="format">
@@ -46,25 +47,30 @@ const CssEditor = () => {
         </button>
       </div>
       <span onClick={() => dispatch(updateSaved(false))}>
-        <Editor
-          height="45vh"
-          defaultLanguage="css"
-          value={css}
-          onChange={handleEditorChange}
-          onMount={handleEditorDidMount}
-          theme="vs-dark"
-          width="100%"
-          options={{
-            wordWrap: "on",
-            minimap: { enabled: false },
-            showUnused: false,
-            folding: false,
-            lineNumbersMinChars: 3,
-            fontSize: 16,
-            scrollBeyondLastLine: false,
-            automaticLayout: true,
-          }}
-        />
+        <div className="resizableEditor">
+          <Resizable direction={"horizontal"}>
+            <Editor
+              // className="thaEditor"
+              height="45vh"
+              defaultLanguage="css"
+              value={css}
+              onChange={handleEditorChange}
+              onMount={handleEditorDidMount}
+              theme="vs-dark"
+              width="100%"
+              options={{
+                wordWrap: "on",
+                minimap: { enabled: false },
+                showUnused: false,
+                folding: false,
+                lineNumbersMinChars: 3,
+                fontSize: 16,
+                scrollBeyondLastLine: false,
+                automaticLayout: true,
+              }}
+            />
+          </Resizable>
+        </div>
       </span>
     </div>
   );

@@ -22,6 +22,7 @@ import {
 import TopBar from "../components/topBar";
 import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
+import Resizable from "../components/resizable";
 
 function FullEditor() {
   const { id } = useParams();
@@ -134,21 +135,24 @@ function FullEditor() {
             </>
           )}
         </div>
-
-        <div className="editors">
-          <div className="editor">
-            <HtmlEditor />
+        <div className="fullEdit">
+          <div className="editors">
+            <div className="editor">
+              <HtmlEditor />
+            </div>{" "}
+            <div className="editor">
+              <CssEditor />
+            </div>{" "}
+            <div className="editor">
+              {" "}
+              <JsEditor />
+            </div>
+          </div>{" "}
+          <div className="frame">
+            <Resizable direction={"vertical"}>
+              <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
+            </Resizable>
           </div>
-          <div className="editor">
-            <CssEditor />
-          </div>
-          <div className="editor">
-            <JsEditor />
-          </div>
-        </div>
-
-        <div className="frame">
-          <iframe srcDoc={srcDoc} width="100%" title="codeFrame"></iframe>
         </div>
       </div>
     </div>
