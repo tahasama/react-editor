@@ -143,11 +143,16 @@ iframe {
     opacity: 0;
   }
   .editors {
-    display: block;
-    width: 85vws;
+    display: flex;
+    flex-direction: column;
+    /* width: 85vws; */
   }
   .editor {
     margin: 20px 0 0 20px;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    flex-grow: 1;
   }
   .date {
     opacity: 0;
@@ -156,6 +161,8 @@ iframe {
     width: 1000vw;
   }
   .frame {
+    position: relative;
+    /* top: 500px; */
     width: 92%;
   }
   .titleContainer {
@@ -165,7 +172,7 @@ iframe {
     margin-top: 46px;
   }
   .resizableEditor {
-    /* width: 100v; */
+    width: 100%;
   }
   .format {
     right: 40vw;

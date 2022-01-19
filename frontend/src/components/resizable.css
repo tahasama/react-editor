@@ -50,7 +50,7 @@
 
 @media only screen and (max-width: 1320px) {
   .react-resizable-handle-e {
-    height: 256px;
+    height: 100%;
   }
   .react-resizable-handle-s {
     /* width: 69.6em; */

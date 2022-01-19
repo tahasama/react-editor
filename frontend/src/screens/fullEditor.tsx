@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CssEditor from "../components/cssEditor";
 import HtmlEditor from "../components/htmlEditor";
@@ -23,8 +23,10 @@ import TopBar from "../components/topBar";
 import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 import Resizable from "../components/resizable";
+import ThreeEditors from "../components/threeEditors";
 
 function FullEditor() {
+  const [resize, setResize] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -37,6 +39,19 @@ function FullEditor() {
     saved,
   } = useAppSelector(getProjectData);
   const { uid } = useAppSelector(getUserData);
+
+  useEffect(() => {
+    function handleResize() {
+      console.log("resized to: ", window.innerWidth, "x", window.innerHeight);
+      if (window.innerWidth < 820) {
+        setResize(false);
+      } else {
+        setResize(true);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, [window.innerWidth]);
 
   useEffect(() => {
     dispatch(fetchProject(id));
@@ -137,22 +152,14 @@ function FullEditor() {
         </div>
         <div className="fullEdit">
           <div>
-            <Resizable direction={"vertical-down"}>
-              {" "}
-              <div className="editors">
-                <div className="editor">
-                  <HtmlEditor />
-                </div>{" "}
-                <div className="editor">
-                  <CssEditor />
-                </div>{" "}
-                <div className="editor">
-                  {" "}
-                  <JsEditor />
-                </div>
-              </div>
-            </Resizable>
-          </div>{" "}
+            {resize ? (
+              <Resizable direction={"vertical-down"}>
+                <ThreeEditors />
+              </Resizable>
+            ) : (
+              <ThreeEditors />
+            )}
+          </div>
           <div className="frame">
             <Resizable direction={"vertical-up"}>
               <div className="frameWrapper">
