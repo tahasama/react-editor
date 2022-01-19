@@ -7,12 +7,13 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  margin-left: 0px;
 }
 .editors {
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin: 0;
+  margin: 8px 8px 8px 0px;
   padding: 0;
   /* margin: 0px 15px 0px 15px; */
   overflow: hidden;
@@ -65,13 +66,24 @@
 iframe {
   background-color: white;
   border: 0;
-  /* width: 98%;
-  height: 45vh; */
-  width: 98%;
+  width: 99%;
   height: 100%;
-  margin-left: 12px;
+  margin-left: 2px;
   margin-top: 2px;
   margin-bottom: -3px;
+  margin-right: 2px;
+}
+.frameWrapper {
+  position: relative;
+  height: 100%;
+}
+.frameWrapper:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .frame {
   margin-bottom: 100px;
@@ -130,6 +142,9 @@ iframe {
     display: block;
     width: 85vws;
   }
+  .editor {
+    margin: 20px 0 0 20px;
+  }
   .date {
     opacity: 0;
   }
@@ -144,5 +159,11 @@ iframe {
     padding: 0;
     height: 50px;
     margin-top: 46px;
+  }
+  .resizableEditor {
+    /* width: 100v; */
+  }
+  .format {
+    right: 40vw;
   }
 }

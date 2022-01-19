@@ -52,7 +52,7 @@ const HtmlEditor = () => {
           <Resizable direction={"horizontal"}>
             <Editor
               className="thaEditor"
-              height="45vh"
+              height="60vh"
               defaultLanguage="html"
               value={html}
               onChange={handleEditorChange}

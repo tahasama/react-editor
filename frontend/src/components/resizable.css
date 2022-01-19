@@ -3,21 +3,19 @@
   background-color: #37414b;
   background-repeat: no-repeat;
   background-position: 50%;
-  z-index: 99;
   margin: 0 2px;
 }
 
 .resize-horizontal {
   display: flex;
-  z-index: 99;
   flex-direction: row;
-  /* margin: 10px; */
 }
 
 .react-resizable-handle-s {
   height: 10px;
-  width: 100%;
+  width: 80.1em;
   z-index: 99;
+  margin-bottom: 50px;
   cursor: row-resize;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
 }
@@ -25,8 +23,7 @@
 .react-resizable-handle-e {
   width: 10px;
   min-width: 10px;
-  /* height: 256px; */
-  height: 280px;
+  height: 23.45em;
   z-index: 99;
   cursor: col-resize;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
@@ -35,5 +32,9 @@
 @media only screen and (max-width: 1320px) {
   .react-resizable-handle-e {
     height: 256px;
+  }
+  .react-resizable-handle-s {
+    /* width: 69.6em; */
+    width: 99%;
   }
 }

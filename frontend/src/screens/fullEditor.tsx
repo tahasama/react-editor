@@ -150,7 +150,9 @@ function FullEditor() {
           </div>{" "}
           <div className="frame">
             <Resizable direction={"vertical"}>
-              <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
+              <div className="frameWrapper">
+                <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
+              </div>
             </Resizable>
           </div>
         </div>
