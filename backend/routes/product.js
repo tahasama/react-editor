@@ -7,8 +7,10 @@ router.get("/all/:uid", async (req, res) => {
     const { uid } = req.params;
     let projects;
     projects = await Project.find({ uid: { $regex: uid, $options: "i" } });
+    console.log("the projects...", projects);
     res.status(200).json(projects);
   } catch (err) {
+    console.log("the errorrrr...", err);
     res.status(500).json(err);
   }
 });

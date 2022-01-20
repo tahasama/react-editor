@@ -130,10 +130,10 @@ iframe {
   height: 100%;
   width: 100%;
 }
-.resizableEditor {
+/* .resizableEditor {
 }
 .thaEditor {
-}
+} */
 .saveMessage {
   position: absolute;
   font-size: 26px;
@@ -168,11 +168,12 @@ iframe {
   }
   .editor {
     margin: 20px 0 0 20px;
-    height: 100%;
+    height: 70%;
     width: 100%;
     flex: 1;
     flex-grow: 1;
   }
+
   .date {
     opacity: 0;
   }

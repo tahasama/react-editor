@@ -135,3 +135,9 @@
   font-size: 25px;
   color: rgb(204, 203, 203);
 }
+
+@media only screen and (max-width: 830px) {
+  .projectsList {
+    margin-left: 100px;
+  }
+}
