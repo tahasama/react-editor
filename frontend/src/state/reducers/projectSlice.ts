@@ -9,7 +9,7 @@ export const fetchProject = createAsyncThunk(
   }
 );
 
-interface valueProps {
+export interface valueProps {
   uid: string;
   email: string;
   title: string;

@@ -36,7 +36,6 @@ const SideBar = ({ remove, save, clone }: any) => {
   const {} = useAppSelector(getUserData);
   const { uid } = useAppSelector(getAuthData);
   const location = useLocation();
-  console.log("STAAAAAAAAAAAAAAARS", star);
 
   const alerted = (destination: string) => {
     if (!saved) {

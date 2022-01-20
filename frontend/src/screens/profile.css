@@ -71,11 +71,12 @@
   position: absolute;
   text-align: start;
   top: -16px;
-  left: 36em;
+  left: 26em;
   margin-right: 10px;
   width: 12em;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif font;
+  font-size: 21px;
+  /* font-variant: small-caps; */
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .projects {
   position: relative;
