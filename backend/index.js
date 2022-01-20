@@ -2,8 +2,8 @@ const productRoute = require("./routes/product");
 const userRoute = require("./routes/userRoute");
 
 const express = require("express");
-
 const mongoose = require("mongoose");
+const helmet = require("helmet");
 const cors = require("cors");
 
 mongoose
@@ -16,6 +16,8 @@ mongoose
   });
 
 const app = express();
+
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
