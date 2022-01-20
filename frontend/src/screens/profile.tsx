@@ -55,7 +55,10 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUser(params.id));
-    dispatch(fetchAllProject(params.id));
+    if (loading) {
+      dispatch(fetchAllProject(params.id));
+    }
+
     if (!projects) {
       dispatch(updateLoading(true));
     }

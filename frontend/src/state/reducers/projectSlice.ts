@@ -160,6 +160,11 @@ export const projectSlice = createSlice({
     updateSaved: (state, action) => {
       state.saved = action.payload;
     },
+    updateStar: (state, action) => {
+      console.log("MY STARS", action.payload.star);
+      state.star = action.payload.star;
+      // state.star.push(action.payload);
+    },
 
     cleanState: (state, action) => {
       Object.assign(state, action.payload);
@@ -190,6 +195,7 @@ export const {
   updateDate,
   updateId,
   updateSaved,
+  updateStar,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

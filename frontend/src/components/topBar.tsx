@@ -1,7 +1,12 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./navBar.css";
 import { useDispatch } from "react-redux";
-import { getProjectData, searchProject, updateSaved } from "../state";
+import {
+  getProjectData,
+  searchProject,
+  updateLoading,
+  updateSaved,
+} from "../state";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch, AiOutlineBars } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
@@ -30,8 +35,11 @@ const TopBar = () => {
   const handleSearch = async (e: any) => {
     e.preventDefault();
     if (searchRef.current.value !== "") {
-      dispatch(searchProject(searchRef.current?.value));
-      navigate("/search/q=" + searchRef.current?.value);
+      dispatch(updateLoading(true));
+      setTimeout(() => {
+        dispatch(searchProject(searchRef.current?.value));
+        navigate("/search/q=" + searchRef.current?.value);
+      }, 100);
     }
   };
 
@@ -55,7 +63,6 @@ const TopBar = () => {
       <Link className="thacoder" to="/">
         ThaCoder
       </Link>
-
       <div className="search">
         <form onSubmit={handleSearch}>
           <input

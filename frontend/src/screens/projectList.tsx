@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import { useAppSelector } from "../state/hooks";
 import { fetchAllProject, searchProject, updateLoading } from "../state/";
@@ -14,12 +14,21 @@ import { getAuthData } from "../state/reducers/authSlice";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
-  const { all, loading } = useAppSelector(getProjectsData);
-  const projects = all.flat();
   const { title } = useParams();
   const query = title?.toString();
   const { uid } = useAppSelector(getAuthData);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { all, loading, searchAll } = useAppSelector(getProjectsData);
+
+  // const projects = all.flat();
+
+  // console.log(location);
+  const projects = (query !== undefined ? searchAll : all).flat();
+
+  // console.log("query", query);
+
   useEffect(() => {
     if (!projects) {
       dispatch(updateLoading(true));

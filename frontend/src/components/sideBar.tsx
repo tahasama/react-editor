@@ -22,6 +22,7 @@ import {
   projectInitialState,
   StarProject,
   updateSaved,
+  updateStar,
 } from "../state";
 import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
@@ -59,9 +60,11 @@ const SideBar = ({ remove, save, clone }: any) => {
         starArray.splice(starArrayIndex, 1);
       }
       dispatch(StarProject({ _id: id, star: starArray }));
+      dispatch(updateStar({ star: starArray }));
     } else {
       starArray.push(uid);
       dispatch(StarProject({ _id: id, star: starArray }));
+      dispatch(updateStar({ star: starArray }));
     }
   };
 

@@ -4,6 +4,7 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const Project = ({ proj }: any) => {
+  const nbStars = proj.star.length;
   return (
     <div>
       <div className="project">
@@ -12,7 +13,7 @@ const Project = ({ proj }: any) => {
           <p className="name">{proj.title}</p>
         </div>
         <div className="projectHeaderStar">
-          <p className="nameStar">{proj.star.length}</p>
+          <p className="nameStar">{nbStars}</p>
           <AiTwotoneStar className="iconStar" />
         </div>
         <p className="dateList onProjects">

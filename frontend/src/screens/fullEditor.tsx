@@ -28,6 +28,8 @@ import ThreeEditors from "../components/threeEditors";
 
 function FullEditor() {
   const [resize, setResize] = useState(true);
+  const [saveMessage, setSaveMessage] = useState("");
+
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -40,7 +42,7 @@ function FullEditor() {
     saved,
     star,
   } = useAppSelector(getProjectData);
-  const { uid } = useAppSelector(getUserData);
+  const { uid } = useAppSelector(getAuthData);
 
   useEffect(() => {
     function handleResize() {
@@ -82,6 +84,10 @@ function FullEditor() {
 
     dispatch(updateCode({ code: { html: html, css: css, js: js } }));
     dispatch(updateSaved(true));
+    setSaveMessage("Saved !");
+    setTimeout(() => {
+      setSaveMessage("");
+    }, 1000);
   };
 
   const handleClone = () => {
@@ -94,6 +100,10 @@ function FullEditor() {
         code: { html: html, css: css, js: js },
       })
     );
+    setSaveMessage("Cloned ! ");
+    setTimeout(() => {
+      setSaveMessage("");
+    }, 1000);
   };
 
   const handleDeleteProject = async () => {
@@ -126,6 +136,7 @@ function FullEditor() {
         <div className="titleContainer">
           {id && (
             <>
+              {saveMessage && <p className="saveMessage">{saveMessage}</p>}
               {email ? (
                 <h2 className="projectTitle">Project: {title} </h2>
               ) : (

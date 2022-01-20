@@ -18,27 +18,23 @@ export const fetchAllProject = createAsyncThunk(
 export const searchProject = createAsyncThunk(
   "searchProject",
   async (projectTitle: string | undefined) => {
-    const res = await axios.get(
-      "http://localhost:5000/api/project/search/q=" + projectTitle
-    );
-
-    return res.data;
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/project/search/q=" + projectTitle
+      );
+      return res.data;
+    } catch (error) {
+      console.log("searchProject error...", error);
+    }
   }
 );
 interface projectsProps {
-  projas: { all: {}[]; loading: boolean };
+  projas: { all: {}[]; searchAll: {}[]; loading: boolean };
 }
 
 const initialState = {
-  all: [
-    {
-      _id: "",
-      title: "",
-      code: { html: "", css: "", js: "" },
-      createdAt: "",
-      updatedAt: "",
-    },
-  ],
+  all: [{}],
+  searchAll: [{}],
   loading: true,
 };
 
@@ -53,12 +49,13 @@ export const projectsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAllProject.fulfilled, (state, action) => {
       state.all.push(action.payload);
+      // console.log("STATSATSTATSTA", state.all);
       state.all.splice(0, 1);
       state.loading = false;
     });
     builder.addCase(searchProject.fulfilled, (state, action) => {
-      state.all.push(action.payload);
-      state.all.splice(0, 1);
+      state.searchAll.push(action.payload);
+      state.searchAll.splice(0, 1);
       state.loading = false;
     });
   },
