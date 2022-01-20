@@ -4,6 +4,7 @@ const router = require("express").Router();
 // create a project
 router.post("/", async (req, res) => {
   const newProject = new User(req.body);
+
   const UserExists = User.findOne(
     { uid: req.body.uid },
     async (error, result) => {
