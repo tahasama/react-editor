@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import { provider } from "../firebase";
+import { fetchAllProject } from "../state";
 import { useAppSelector } from "../state/hooks";
 import { getAuthData, loginUser } from "../state/reducers/authSlice";
 import { updateError } from "../state/reducers/userSlice";
@@ -35,8 +36,13 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if (email) {
-      navigate("/profile/" + uid);
+    if (uid) {
+      setTimeout(() => {
+        dispatch(fetchAllProject(uid));
+        console.log("YYYYYYYYYY", uid);
+
+        navigate("/profile/" + uid);
+      }, 1000);
     }
     dispatch(updateError(""));
   }, [email, dispatch, navigate, uid]);

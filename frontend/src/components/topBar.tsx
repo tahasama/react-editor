@@ -70,6 +70,10 @@ const TopBar = () => {
   const handleLogout = () => {
     signOut(auth);
     alerted("/");
+    dispatch(cleanUpProjects([projectInitialState]));
+  };
+  const handleLogin = () => {
+    alerted("/login");
   };
   return (
     <nav className="topBar ">
@@ -98,10 +102,7 @@ const TopBar = () => {
             >
               Sign Up
             </button>
-            <button
-              className="userlink logIn"
-              onClick={() => alerted("/login")}
-            >
+            <button className="userlink logIn" onClick={handleLogin}>
               Log In
             </button>
           </>
