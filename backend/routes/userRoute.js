@@ -58,9 +58,6 @@ router.get("/:uid", async (req, res) => {
 
 // update project
 router.put("/:id", async (req, res) => {
-  console.log("id...", req.params.id);
-  console.log("body...", req.body);
-
   try {
     const updateProject = await User.findByIdAndUpdate(
       req.params.id,

@@ -16,6 +16,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { email, error } = useAppSelector(getAuthData);
+  const { uid } = useAppSelector(getAuthData);
 
   if (error.code === "auth/user-not-found") {
     dispatch(updateError("wrong email, please try again"));
@@ -36,7 +37,7 @@ const Login = () => {
 
   useEffect(() => {
     if (email) {
-      navigate("/");
+      navigate("/profile/" + uid);
     }
     dispatch(updateError(""));
   }, [email]);

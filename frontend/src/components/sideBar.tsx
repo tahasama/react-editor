@@ -18,6 +18,8 @@ import { useDispatch } from "react-redux";
 import { barState, sideBArInitialState } from "../state/reducers/sideBarSlice";
 import {
   cleanState,
+  cleanUpProjects,
+  fetchAllProject,
   getProjectData,
   projectInitialState,
   StarProject,
@@ -156,7 +158,11 @@ const SideBar = ({ remove, save, clone }: any) => {
               className="side f but"
               onMouseEnter={() => dispatch(barState({ open: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-              onClick={() => alerted("/projects")}
+              onClick={() => (
+                dispatch(cleanUpProjects([projectInitialState])),
+                dispatch(fetchAllProject(uid)),
+                alerted("/projects")
+              )}
             >
               <div className="iconSide">
                 <AiOutlineFolderOpen />

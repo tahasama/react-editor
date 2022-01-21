@@ -2,7 +2,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./navBar.css";
 import { useDispatch } from "react-redux";
 import {
+  cleanUpProjects,
+  fetchAllProject,
   getProjectData,
+  projectInitialState,
   searchProject,
   updateLoading,
   updateSaved,
@@ -37,6 +40,7 @@ const TopBar = () => {
     if (searchRef.current.value !== "") {
       dispatch(updateLoading(true));
       setTimeout(() => {
+        dispatch(cleanUpProjects([projectInitialState]));
         dispatch(searchProject(searchRef.current?.value));
         navigate("/search/q=" + searchRef.current?.value);
       }, 100);
@@ -111,7 +115,11 @@ const TopBar = () => {
               <div className="profileWrapper">
                 <button
                   className="barbar"
-                  onClick={() => alerted("/profile/" + uid)}
+                  onClick={() => (
+                    dispatch(cleanUpProjects([projectInitialState])),
+                    dispatch(fetchAllProject(uid)),
+                    alerted("/profile/" + uid)
+                  )}
                 >
                   Profile
                 </button>
