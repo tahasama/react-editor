@@ -138,7 +138,7 @@
 .filterContainer {
   display: flex;
   position: relative;
-  margin: 0px 0 45px 0;
+  margin: -10px 60px 40px 0;
   justify-content: center;
 }
 .filterLabel {
