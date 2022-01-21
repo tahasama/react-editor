@@ -26,7 +26,6 @@ import {
   updateSaved,
   updateStar,
 } from "../state";
-import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 
 const SideBar = ({ remove, save, clone }: any) => {
@@ -35,8 +34,7 @@ const SideBar = ({ remove, save, clone }: any) => {
   const params = useParams();
   const navigate = useNavigate();
   const bar = useAppSelector((state) => state.bar);
-  const { saved, _id, user, star } = useAppSelector(getProjectData);
-  const {} = useAppSelector(getUserData);
+  const { saved, user, star } = useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
   const location = useLocation();
 
@@ -69,6 +67,19 @@ const SideBar = ({ remove, save, clone }: any) => {
       dispatch(updateStar({ star: starArray }));
     }
   };
+  const handleOpenProject = () => {
+    dispatch(cleanUpProjects([projectInitialState]));
+    dispatch(fetchAllProject(uid));
+    alerted("/projects");
+  };
+  const handleNewProject = () => {
+    dispatch(cleanState(projectInitialState));
+    alerted("/create");
+  };
+  const handleCodeAndRun = () => {
+    navigate("/editor/code-and-run");
+    dispatch(cleanState(projectInitialState));
+  };
 
   return (
     <div className="sideBarContainer">
@@ -90,10 +101,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               className="side d but"
               onMouseEnter={() => dispatch(barState({ code: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-              onClick={() => (
-                navigate("/editor/code-and-run"),
-                dispatch(cleanState(projectInitialState))
-              )}
+              onClick={handleCodeAndRun}
             >
               <div className="iconSide">
                 <HiOutlineCode />
@@ -108,9 +116,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               className="side b but"
               onMouseEnter={() => dispatch(barState({ new: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-              onClick={() => (
-                dispatch(cleanState(projectInitialState)), alerted("/create")
-              )}
+              onClick={handleNewProject}
             >
               <div className="iconSide">
                 <MdAddCircleOutline />
@@ -158,11 +164,7 @@ const SideBar = ({ remove, save, clone }: any) => {
               className="side f but"
               onMouseEnter={() => dispatch(barState({ open: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-              onClick={() => (
-                dispatch(cleanUpProjects([projectInitialState])),
-                dispatch(fetchAllProject(uid)),
-                alerted("/projects")
-              )}
+              onClick={handleOpenProject}
             >
               <div className="iconSide">
                 <AiOutlineFolderOpen />

@@ -6,13 +6,7 @@ import Project from "../components/project";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import UploadImage from "../components/uploadImage";
-import {
-  fetchAllProject,
-  getProjectsData,
-  projectProps,
-  updateLoading,
-  valueProps,
-} from "../state";
+import { fetchAllProject, getProjectsData, updateLoading } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
   getUser,
@@ -51,7 +45,7 @@ const Profile = () => {
     } else if (error.code === "storage/object-not-found") {
       dispatch(updateError(""));
     }
-  }, [error]);
+  }, [error, dispatch]);
 
   useEffect(() => {
     dispatch(getUser(params.id));
@@ -67,7 +61,7 @@ const Profile = () => {
       i.push(projects[index].star);
     }
     setNbStars(i.flat().length);
-  }, [params.id, projects]);
+  }, [params.id, projects, loading, nbProjects, dispatch]);
 
   const updateProfile = () => {
     if (emailRef.current && auth.currentUser) {
@@ -86,9 +80,7 @@ const Profile = () => {
           useremail: emailRef.current.value,
         })
       );
-      {
-        dispatch(cancelState({ cancelProfile: true }));
-      }
+      dispatch(cancelState({ cancelProfile: true }));
     }
   };
 

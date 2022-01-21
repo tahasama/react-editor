@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navBar.css";
 import { useDispatch } from "react-redux";
 import {
@@ -33,7 +33,7 @@ const TopBar = () => {
     if (uid && error.code !== "storage/object-not-found") {
       dispatch(downloadImage({ uid: uid }));
     }
-  }, [error, uid]);
+  }, [error, uid, dispatch]);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
@@ -61,6 +61,15 @@ const TopBar = () => {
     } else {
       navigate(destination);
     }
+  };
+  const handleProfile = () => {
+    dispatch(cleanUpProjects([projectInitialState]));
+    dispatch(fetchAllProject(uid));
+    alerted("/profile/" + uid);
+  };
+  const handleLogout = () => {
+    signOut(auth);
+    alerted("/");
   };
   return (
     <nav className="topBar ">
@@ -113,20 +122,10 @@ const TopBar = () => {
             </div>
             {profile && (
               <div className="profileWrapper">
-                <button
-                  className="barbar"
-                  onClick={() => (
-                    dispatch(cleanUpProjects([projectInitialState])),
-                    dispatch(fetchAllProject(uid)),
-                    alerted("/profile/" + uid)
-                  )}
-                >
+                <button className="barbar" onClick={handleProfile}>
                   Profile
                 </button>
-                <button
-                  className="barbar"
-                  onClick={() => (signOut(auth), alerted("/"))}
-                >
+                <button className="barbar" onClick={handleLogout}>
                   Logout
                 </button>
               </div>

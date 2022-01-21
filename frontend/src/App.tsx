@@ -23,7 +23,7 @@ function App() {
         dispatch(saveUser(undefined));
       }
     });
-  }, [auth]);
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <Routes>

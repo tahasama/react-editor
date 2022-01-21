@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import { provider } from "../firebase";
@@ -13,7 +13,6 @@ const Login = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const dispatch = useDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
   const { email, error } = useAppSelector(getAuthData);
   const { uid } = useAppSelector(getAuthData);
@@ -40,7 +39,7 @@ const Login = () => {
       navigate("/profile/" + uid);
     }
     dispatch(updateError(""));
-  }, [email]);
+  }, [email, dispatch, navigate, uid]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
