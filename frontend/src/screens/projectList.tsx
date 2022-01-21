@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SideBar from "../components/sideBar";
-import { useAppSelector } from "../state/hooks";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
 import { fetchAllProject, searchProject, updateLoading } from "../state/";
 
 import "./projectsList.css";
@@ -12,7 +11,7 @@ import Project from "../components/project";
 import { getAuthData } from "../state/reducers/authSlice";
 
 const ProjectList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { title } = useParams();
   const query = title?.toString();
   const { uid } = useAppSelector(getAuthData);
@@ -20,12 +19,12 @@ const ProjectList = () => {
 
   const { all, loading, searchAll } = useAppSelector(getProjectsData);
 
-  // const projects = all.flat();
-
-  // console.log(location);
   const projects = (query !== undefined ? searchAll : all).flat();
 
-  // console.log("query", query);
+  const [filtered, setFiltered] = useState("");
+  const sorted = projects.sort((a: any, b: any) => {
+    return b.star.length - a.star.length;
+  });
 
   useEffect(() => {
     if (!projects) {
@@ -49,8 +48,29 @@ const ProjectList = () => {
       {!loading ? (
         <div className="lisContainer">
           <div className="projectsList">
+            <div className="filterContainer">
+              <p className="filterLabel">Filter by : </p>
+              <button
+                className="filterName"
+                onClick={() => setFiltered("byDate")}
+              >
+                Date
+              </button>
+              <button
+                className="filterName"
+                onClick={() => setFiltered("byStars")}
+              >
+                Stars
+              </button>
+            </div>
+
             {projects[0] !== undefined &&
-              projects.map((proj: any) => (
+              (filtered === "byDate"
+                ? projects.reverse()
+                : filtered === "byStars"
+                ? sorted
+                : projects
+              ).map((proj: any) => (
                 <div key={proj._id}>
                   <button
                     onClick={() => navigate("/editor/" + proj._id)}

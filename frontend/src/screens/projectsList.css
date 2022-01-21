@@ -135,6 +135,30 @@
   font-size: 25px;
   color: rgb(204, 203, 203);
 }
+.filterContainer {
+  display: flex;
+  position: relative;
+  margin: 0px 0 45px 0;
+  justify-content: center;
+}
+.filterLabel {
+  margin: 7px 20px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+}
+.filterName {
+  margin: 0 10px;
+  padding: 5px 30px;
+  background-color: #195f8d;
+  border: none;
+  cursor: pointer;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 18px;
+  border-radius: 15px;
+}
+.filterName:active {
+  opacity: 0.7;
+}
 
 @media only screen and (max-width: 830px) {
   .projectsList {

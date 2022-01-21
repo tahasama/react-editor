@@ -45,8 +45,13 @@ export const projectsSlice = createSlice({
     updateLoading: (state, action) => {
       state.loading = action.payload;
     },
+    filteredProjects: (state, action) => {
+      console.log("filtering zooooooooone", action.payload);
+      state.all = action.payload;
+      console.log("filtering staaaaaaaaaaaate", state.all);
+    },
     cleanUpProjects: (state, action) => {
-      // console.log("cleaning zooooooooone");
+      // console.log("cleaning zooooooooone", action.payload);
       state.all = action.payload;
       state.searchAll = action.payload;
     },
@@ -69,6 +74,7 @@ export const projectsSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const getProjectsData = (state: projectsProps) => state.projas;
 
-export const { updateLoading, cleanUpProjects } = projectsSlice.actions;
+export const { updateLoading, cleanUpProjects, filteredProjects } =
+  projectsSlice.actions;
 
 export default projectsSlice.reducer;
