@@ -22,12 +22,7 @@ const CreateProject: React.FC = () => {
   const dispatch = useAppDispatch();
   const { email } = useAppSelector(getAuthData);
 
-  const {
-    _id,
-    title,
-    description,
-    code: { html, css, js },
-  } = useAppSelector(getProjectData);
+  const { _id, title, description, code } = useAppSelector(getProjectData);
 
   const { username } = useAppSelector(getUserData);
   const { uid } = useAppSelector(getAuthData);
@@ -49,7 +44,7 @@ const CreateProject: React.FC = () => {
           _id: _id,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
-          code: { html: html, css: css, js: js },
+          code: { html: code?.html, css: code?.css, js: code?.js },
         })
       );
       navigate("/editor/" + _id);

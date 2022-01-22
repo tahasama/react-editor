@@ -130,10 +130,14 @@ iframe {
   height: 100%;
   width: 100%;
 }
-/* .resizableEditor {
+.resizableReactEditor {
+  height: 100%;
 }
-.thaEditor {
-} */
+.thaReactEditor {
+  height: 100%;
+  /* overflow-y: hidden;
+  z-index: -1; */
+}
 .saveMessage {
   position: absolute;
   font-size: 26px;

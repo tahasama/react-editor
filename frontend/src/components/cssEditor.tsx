@@ -18,9 +18,7 @@ const CssEditor = () => {
 
   const dispatch = useDispatch();
 
-  const {
-    code: { css },
-  } = useAppSelector(getProjectData);
+  const { code } = useAppSelector(getProjectData);
 
   const handleEditorChange = () => {
     dispatch(updateCode({ code: { css: editorRef.current.getValue() || "" } }));
@@ -53,7 +51,7 @@ const CssEditor = () => {
               // className="thaEditor"
               height="100%"
               defaultLanguage="css"
-              value={css}
+              value={code?.css}
               onChange={handleEditorChange}
               onMount={handleEditorDidMount}
               theme="vs-dark"

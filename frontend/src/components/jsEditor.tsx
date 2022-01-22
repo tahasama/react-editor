@@ -14,9 +14,7 @@ const JsEditor = () => {
 
   const dispatch = useDispatch();
 
-  const {
-    code: { js },
-  } = useAppSelector(getProjectData);
+  const { code } = useAppSelector(getProjectData);
   const handleEditorChange = () => {
     dispatch(updateCode({ code: { js: editorRef.current.getValue() || "" } }));
   };
@@ -48,7 +46,7 @@ const JsEditor = () => {
               className="thaEditor"
               height="100%"
               defaultLanguage="javascript"
-              value={js}
+              value={code?.js}
               // defaultValue={js}
               onChange={handleEditorChange}
               onMount={handleEditorDidMount}

@@ -142,14 +142,15 @@
   justify-content: center;
 }
 .filterLabel {
-  margin: 7px 20px;
+  margin: 5px 20px;
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
 }
 .filterName {
-  margin: 0 10px;
-  padding: 5px 30px;
+  margin: -6px 14px 0 0;
+  padding: 10px 30px;
   background-color: #195f8d;
+  color: rgb(178, 189, 252);
   border: none;
   cursor: pointer;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;

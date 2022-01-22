@@ -17,9 +17,7 @@ const HtmlEditor = () => {
   const editorRef = useRef<any>(null);
   const dispatch = useDispatch();
 
-  const {
-    code: { html },
-  } = useAppSelector(getProjectData);
+  const { code } = useAppSelector(getProjectData);
 
   const handleEditorChange = () => {
     dispatch(
@@ -54,7 +52,7 @@ const HtmlEditor = () => {
               className="thaEditor"
               height="100%"
               defaultLanguage="html"
-              value={html}
+              value={code?.html}
               onChange={handleEditorChange}
               onMount={handleEditorDidMount}
               theme="vs-dark"

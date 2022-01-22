@@ -34,14 +34,8 @@ function FullEditor() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { email } = useAppSelector(getAuthData);
-  const {
-    title,
-    description,
-    code: { html, css, js },
-    updatedAt,
-    saved,
-    star,
-  } = useAppSelector(getProjectData);
+  const { title, description, code, updatedAt, saved, star } =
+    useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
 
   useEffect(() => {
@@ -78,11 +72,13 @@ function FullEditor() {
         _id: id,
         title: title,
         description: description,
-        code: { html: html, css: css, js: js },
+        code: { html: code?.html, css: code?.css, js: code?.js },
       })
     );
 
-    dispatch(updateCode({ code: { html: html, css: css, js: js } }));
+    dispatch(
+      updateCode({ code: { html: code?.html, css: code?.css, js: code?.js } })
+    );
     dispatch(updateSaved(true));
     setSaveMessage("Saved !");
     setTimeout(() => {
@@ -97,7 +93,7 @@ function FullEditor() {
         user: email,
         title: title,
         description: description,
-        code: { html: html, css: css, js: js },
+        code: { html: code?.html, css: code?.css, js: code?.js },
       })
     );
     setSaveMessage("Cloned ! ");
@@ -118,9 +114,9 @@ function FullEditor() {
   };
 
   const srcDoc = `<html>
-                    <body>${html}</body>
-                    <style>${css}</style>
-                    <script>${js}</script> 
+                    <body>${code?.html}</body>
+                    <style>${code?.css}</style>
+                    <script>${code?.js}</script> 
                   </html>`;
 
   return (

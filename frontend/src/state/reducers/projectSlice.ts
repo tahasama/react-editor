@@ -46,7 +46,11 @@ interface cloneProps {
   user: string; //| undefined;
   title: string | undefined;
   description: string | undefined;
-  code: { html: string; css: string; js: string };
+  code: {
+    html: string | undefined;
+    css: string | undefined;
+    js: string | undefined;
+  };
 }
 
 export const cloneProject = createAsyncThunk(
@@ -68,7 +72,11 @@ interface saveProps {
   _id: string | undefined;
   title: string;
   description: string;
-  code: { html: string; css: string; js: string };
+  code: {
+    html: string | undefined;
+    css: string | undefined;
+    js: string | undefined;
+  };
 }
 
 export const saveProject = createAsyncThunk(
@@ -119,12 +127,13 @@ export interface projectProps {
     user: string;
     title: string;
     description: string;
-    code: { html: string; css: string; js: string };
+    code?: { html: string; css: string; js: string };
     err: string;
     createdAt: string;
     updatedAt: string;
     saved: boolean;
     star: string[];
+    reactCode: string;
   };
 }
 
@@ -139,6 +148,7 @@ export const projectInitialState = {
   updatedAt: "",
   saved: true,
   star: [],
+  reactCode: "",
 };
 
 export const projectSlice = createSlice({
@@ -147,6 +157,12 @@ export const projectSlice = createSlice({
   reducers: {
     updateCode: (state, action) => {
       Object.assign(state.code, action.payload.code);
+    },
+    updateReactCode: (state, action) => {
+      // Object.assign(state.reactCode, action.payload.reactCode);
+      console.log("action.payload.reactCode...", action.payload.reactCode);
+      state.reactCode = action.payload.reactCode;
+      console.log("state.reactCode...", state.reactCode);
     },
     updateProjectInfos: (state, action) => {
       Object.assign(state, action.payload);
@@ -196,6 +212,7 @@ export const {
   updateId,
   updateSaved,
   updateStar,
+  updateReactCode,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

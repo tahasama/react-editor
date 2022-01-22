@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import ResetPassword from "./screens/resetPassword";
 import Profile from "./screens/profile";
 import { saveUser } from "./state/reducers/authSlice";
+import ReactEditor from "./components/reactEditor";
+import ReactProject from "./screens/reactProject";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ function App() {
         <Route path="/editor/:id" element={<FullEditor />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/react" element={<ReactProject />} />
       </Routes>
     </BrowserRouter>
   );
