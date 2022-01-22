@@ -12,7 +12,9 @@ const ProjectSchema = new mongoose.Schema(
       css: { type: String },
       js: { type: String },
     },
+    reactCode: { type: String },
     star: { type: Array },
+    type: { type: String },
   },
   {
     timestamps: true,

@@ -15,6 +15,7 @@ router.get("/all/:uid", async (req, res) => {
 
 // create a project
 router.post("/", async (req, res) => {
+  console.log("whoahh....", req.body);
   const newProject = new Project(req.body);
 
   try {

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const Project = ({ proj }: any) => {
   const nbStars = proj.star.length;
+
   return (
     <div>
       <div className="project">

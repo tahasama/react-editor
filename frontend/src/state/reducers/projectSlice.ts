@@ -16,25 +16,16 @@ export interface valueProps {
   description: string;
   username?: string;
   star?: string[];
+  type: string;
+  // reactCode?: string;
+  // code: any;
 }
 
 export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
-    const object: any = {
-      uid: value.uid,
-      email: value.email,
-      username: value.username,
-      title: value.title,
-      description: value.description,
-      code: { html: "", css: "", js: "" },
-      star: 0,
-    };
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/project/",
-        object
-      );
+      const res = await axios.post("http://localhost:5000/api/project/", value);
       return res.data;
     } catch (error) {
       console.log("creratng error....", error);
@@ -42,15 +33,17 @@ export const creatProject = createAsyncThunk(
   }
 );
 interface cloneProps {
+  reactCode?: string;
   uid: string;
   user: string; //| undefined;
   title: string | undefined;
   description: string | undefined;
-  code: {
+  code?: {
     html: string | undefined;
     css: string | undefined;
     js: string | undefined;
   };
+  type: string;
 }
 
 export const cloneProject = createAsyncThunk(
@@ -61,7 +54,9 @@ export const cloneProject = createAsyncThunk(
       email: val.user,
       title: val.title + " clone",
       description: val.description,
-      code: { html: val.code.html, css: val.code.css, js: val.code.js },
+      code: { html: val.code?.html, css: val.code?.css, js: val.code?.js },
+      reactCode: val?.reactCode,
+      type: val.type,
     };
     const res = await axios.post("http://localhost:5000/api/project/", object);
     return res.data;
@@ -72,11 +67,12 @@ interface saveProps {
   _id: string | undefined;
   title: string;
   description: string;
-  code: {
+  code?: {
     html: string | undefined;
     css: string | undefined;
     js: string | undefined;
   };
+  reactCode?: string;
 }
 
 export const saveProject = createAsyncThunk(
@@ -134,6 +130,7 @@ export interface projectProps {
     saved: boolean;
     star: string[];
     reactCode: string;
+    type: string;
   };
 }
 
@@ -149,6 +146,7 @@ export const projectInitialState = {
   saved: true,
   star: [],
   reactCode: "",
+  type: "",
 };
 
 export const projectSlice = createSlice({

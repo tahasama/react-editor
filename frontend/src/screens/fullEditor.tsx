@@ -25,6 +25,7 @@ import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 import Resizable from "../components/resizable";
 import ThreeEditors from "../components/threeEditors";
+import ReactProject from "./reactProject";
 
 function FullEditor() {
   const [resize, setResize] = useState(true);
@@ -34,7 +35,7 @@ function FullEditor() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { email } = useAppSelector(getAuthData);
-  const { title, description, code, updatedAt, saved, star } =
+  const { title, description, code, updatedAt, saved, type, reactCode } =
     useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
 
@@ -67,12 +68,23 @@ function FullEditor() {
 
   const handleUpdateTitle = (e: any) => {
     e.preventDefault();
+
+    dispatch(
+      saveProject({
+        _id: id,
+        title: title,
+        description: description,
+        reactCode: reactCode,
+      })
+    );
+
     dispatch(
       saveProject({
         _id: id,
         title: title,
         description: description,
         code: { html: code?.html, css: code?.css, js: code?.js },
+        reactCode: reactCode,
       })
     );
 
@@ -94,6 +106,8 @@ function FullEditor() {
         title: title,
         description: description,
         code: { html: code?.html, css: code?.css, js: code?.js },
+        reactCode: reactCode,
+        type: type,
       })
     );
     setSaveMessage("Cloned ! ");
@@ -160,22 +174,28 @@ function FullEditor() {
           )}
         </div>
         <div className="fullEdit">
-          <div>
-            {resize ? (
-              <Resizable direction={"vertical-down"}>
-                <ThreeEditors />
-              </Resizable>
-            ) : (
-              <ThreeEditors />
-            )}
-          </div>
-          <div className="frame">
-            <Resizable direction={"vertical-up"}>
-              <div className="frameWrapper">
-                <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
+          {type !== "reactProject" ? (
+            <>
+              <div>
+                {resize ? (
+                  <Resizable direction={"vertical-down"}>
+                    <ThreeEditors />
+                  </Resizable>
+                ) : (
+                  <ThreeEditors />
+                )}
               </div>
-            </Resizable>
-          </div>
+              <div className="frame">
+                <Resizable direction={"vertical-up"}>
+                  <div className="frameWrapper">
+                    <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
+                  </div>
+                </Resizable>
+              </div>
+            </>
+          ) : (
+            <ReactProject />
+          )}
         </div>
       </div>
     </div>

@@ -81,6 +81,12 @@ const SideBar = ({ remove, save, clone }: any) => {
     dispatch(cleanState(projectInitialState));
   };
 
+  const handleAuthorsProfile = () => {
+    dispatch(cleanUpProjects([projectInitialState]));
+    dispatch(fetchAllProject(user));
+    alerted("/profile/" + user);
+  };
+
   return (
     <div className="sideBarContainer">
       <nav className="sideBar">
@@ -203,7 +209,7 @@ const SideBar = ({ remove, save, clone }: any) => {
                     className="side a but"
                     onMouseEnter={() => dispatch(barState({ edit: true }))}
                     onMouseLeave={() => dispatch(barState(sideBArInitialState))}
-                    onClick={() => alerted("/profile/" + user)}
+                    onClick={handleAuthorsProfile}
                   >
                     <div className="iconSide sizeIt">
                       <ImProfile />

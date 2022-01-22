@@ -21,6 +21,7 @@ const CreateProject: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { email } = useAppSelector(getAuthData);
+  const [type, setType] = useState("");
 
   const { _id, title, description, code } = useAppSelector(getProjectData);
 
@@ -44,7 +45,6 @@ const CreateProject: React.FC = () => {
           _id: _id,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
-          code: { html: code?.html, css: code?.css, js: code?.js },
         })
       );
       navigate("/editor/" + _id);
@@ -57,6 +57,8 @@ const CreateProject: React.FC = () => {
           username: username,
           title: nameRef.current?.value,
           description: descriptionRef.current?.value,
+          type: type,
+          // code: type === "reactProject" ? { html: "", css: "", js: "" } : "",
         })
       );
     }
@@ -102,6 +104,29 @@ const CreateProject: React.FC = () => {
                   )
                 }
               />
+              <div style={{ display: "flex" }}>
+                <div>
+                  <input
+                    type="radio"
+                    id="JavaScript"
+                    value="JavaScript"
+                    name="project"
+                    onClick={() => setType("javaScriptProject")}
+                  />
+                  <label htmlFor="JavaScript">JavaScript</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="React"
+                    value="React"
+                    name="project"
+                    onClick={() => setType("reactProject")}
+                  />
+                  <label htmlFor="React">React</label>
+                </div>
+              </div>
+
               <button className="createButton" type="submit">
                 {_id ? (
                   <p className="pbutton">Save project</p>
