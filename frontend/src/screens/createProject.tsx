@@ -31,7 +31,11 @@ const CreateProject: React.FC = () => {
 
   setTimeout(() => {
     if (!toUpdate) {
-      navigate("/editor/" + _id);
+      if (type !== "reactProject") {
+        navigate("/editor/" + _id);
+      } else {
+        navigate("/editor/react/" + _id);
+      }
     }
   }, 3000);
 

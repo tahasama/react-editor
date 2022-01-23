@@ -97,6 +97,10 @@ const SideBar = ({ remove, save, clone }: any) => {
     navigate("/editor/code-and-run");
     dispatch(cleanState(projectInitialState));
   };
+  const handleReactCodeAndRun = () => {
+    navigate("/editor/react/code-and-run");
+    dispatch(cleanState(projectInitialState));
+  };
 
   const handleAuthorsProfile = () => {
     dispatch(cleanUpProjects([projectInitialState]));
@@ -130,6 +134,17 @@ const SideBar = ({ remove, save, clone }: any) => {
                 <HiOutlineCode />
               </div>{" "}
               {bar.code && <div className="message">Code and Run</div>}
+            </button>
+            <button
+              className="side d but"
+              onMouseEnter={() => dispatch(barState({ code: true }))}
+              onMouseLeave={() => dispatch(barState(sideBArInitialState))}
+              onClick={handleReactCodeAndRun}
+            >
+              <div className="iconSide">
+                <HiOutlineCode />
+              </div>{" "}
+              {bar.code && <div className="message">React Code and Run</div>}
             </button>
           </>
         )}

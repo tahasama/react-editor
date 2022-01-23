@@ -2,13 +2,14 @@ import React from "react";
 import "./reactProject.css";
 import { useState, useEffect } from "react";
 import bundle from "../bundler";
-import Preview from "../components/preview";
-import ReactEditor from "../components/reactEditor";
-import Resizable from "../components/resizable";
-import SideBar from "../components/sideBar";
-import TopBar from "../components/topBar";
+import Preview from "./preview";
+import ReactEditor from "./reactEditor";
+import Resizable from "./resizable";
+import SideBar from "./sideBar";
+import TopBar from "./topBar";
 import { DeleteCells, getProjectData } from "../state";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { useLocation } from "react-router-dom";
 
 const ReactProject = ({ cell }: any) => {
   const [code, setCode] = useState("");
@@ -17,6 +18,13 @@ const ReactProject = ({ cell }: any) => {
   const { cells } = useAppSelector(getProjectData);
   const dispatch = useAppDispatch();
   const [allCode, setAllCode] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes("code-and-run")) {
+      dispatch(DeleteCells({ cellId: "" }));
+    }
+  }, []);
 
   useEffect(() => {
     if (cells) {

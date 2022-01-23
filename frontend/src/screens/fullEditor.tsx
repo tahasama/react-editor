@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CssEditor from "../components/cssEditor";
 import HtmlEditor from "../components/htmlEditor";
 import JsEditor from "../components/jsEditor";
@@ -29,7 +29,7 @@ import { getUserData } from "../state/reducers/userSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 import Resizable from "../components/resizable";
 import ThreeEditors from "../components/threeEditors";
-import ReactProject from "./reactProject";
+import ReactCells from "../components/reactCells";
 
 function FullEditor() {
   const [resize, setResize] = useState(true);
@@ -43,9 +43,12 @@ function FullEditor() {
     useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
   const iframe = useRef<any>();
+  const location = useLocation();
+  console.log("Location...", location.pathname.includes("react"));
 
   useEffect(() => {
-    iframe.current.srcdoc = srcDoc;
+    if (type !== "reactProject" && !location.pathname.includes("react"))
+      iframe.current.srcdoc = srcDoc;
     setTimeout(() => {
       iframe.current.contentWindow.postMessage(code, "*");
     }, 50);
@@ -64,7 +67,9 @@ function FullEditor() {
   }, [window.innerWidth]);
 
   useEffect(() => {
-    dispatch(fetchProject(id));
+    if (id !== "code-and-run") {
+      dispatch(fetchProject(id));
+    }
 
     window.onbeforeunload = function (e: any) {
       e.preventDefault();
@@ -181,7 +186,7 @@ function FullEditor() {
           )}
         </div>
         <div className="fullEdit">
-          {type !== "reactProject" ? (
+          {type !== "reactProject" && !location.pathname.includes("react") ? (
             <>
               <div>
                 {resize ? (
@@ -206,20 +211,7 @@ function FullEditor() {
               </div>
             </>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div>
-                {cells?.map((cell) => {
-                  return (
-                    <div className="cells" key={cell.cellId}>
-                      <ReactProject cell={cell} />
-                    </div>
-                  );
-                })}
-              </div>
-              <button onClick={handleAddCells} className="addCell">
-                Add Cell
-              </button>
-            </div>
+            <ReactCells />
           )}
         </div>
       </div>

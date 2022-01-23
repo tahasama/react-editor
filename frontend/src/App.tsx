@@ -13,7 +13,7 @@ import ResetPassword from "./screens/resetPassword";
 import Profile from "./screens/profile";
 import { saveUser } from "./state/reducers/authSlice";
 import ReactEditor from "./components/reactEditor";
-import ReactProject from "./screens/reactProject";
+import ReactProject from "./components/reactProject";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ function App() {
         <Route path="/projects" element={<ProjectList />} />
         <Route path="/create" element={<CreateProject />} />
         <Route path="/editor/:id" element={<FullEditor />} />
+        <Route path="/editor/react/:id" element={<FullEditor />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/react" element={<ReactProject />} />
