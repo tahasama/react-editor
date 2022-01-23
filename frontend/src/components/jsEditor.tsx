@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
 import prettier from "prettier";
 import jsParser from "prettier/parser-babel";
@@ -8,9 +8,12 @@ import { useDispatch } from "react-redux";
 import { getProjectData, updateCode, updateSaved } from "../state";
 import { useAppSelector } from "../state/hooks";
 import Resizable from "./resizable";
+import { getAuthData } from "../state/reducers/authSlice";
+import { javaScriptExample } from "../example";
 
 const JsEditor = () => {
   const editorRef = useRef<any>(null);
+  const { uid } = useAppSelector(getAuthData);
 
   const dispatch = useDispatch();
 
@@ -18,7 +21,14 @@ const JsEditor = () => {
   const handleEditorChange = () => {
     dispatch(updateCode({ code: { js: editorRef.current.getValue() || "" } }));
   };
+  const [codes, setCodes] = useState(code);
 
+  useEffect(() => {
+    if (!uid) {
+      dispatch(updateCode({ code: { js: javaScriptExample } }));
+      console.log();
+    }
+  }, []);
   const handleEditorDidMount = (editor: any) => {
     editorRef.current = editor;
   };

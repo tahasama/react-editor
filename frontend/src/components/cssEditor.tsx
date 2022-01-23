@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import prettier from "prettier";
 import cssParser from "prettier/parser-postcss";
@@ -12,9 +12,12 @@ import {
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
 import Resizable from "./resizable";
+import { cssExample } from "../example";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const CssEditor = () => {
   const editorRef = useRef<any>(null);
+  const { uid } = useAppSelector(getAuthData);
 
   const dispatch = useDispatch();
 
@@ -23,7 +26,12 @@ const CssEditor = () => {
   const handleEditorChange = () => {
     dispatch(updateCode({ code: { css: editorRef.current.getValue() || "" } }));
   };
-
+  useEffect(() => {
+    if (!uid) {
+      dispatch(updateCode({ code: { css: cssExample } }));
+      console.log();
+    }
+  }, []);
   const handleEditorDidMount = (editor: any) => {
     editorRef.current = editor;
   };

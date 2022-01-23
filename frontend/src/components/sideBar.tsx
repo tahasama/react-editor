@@ -9,6 +9,8 @@ import {
   AiTwotoneStar,
   AiOutlineStar,
 } from "react-icons/ai";
+import { DiReact } from "react-icons/di";
+
 import { HiOutlineCode } from "react-icons/hi";
 import { ImProfile } from "react-icons/im";
 import { FaRegClone } from "react-icons/fa";
@@ -136,15 +138,17 @@ const SideBar = ({ remove, save, clone }: any) => {
               {bar.code && <div className="message">Code and Run</div>}
             </button>
             <button
-              className="side d but"
-              onMouseEnter={() => dispatch(barState({ code: true }))}
+              className="but"
+              onMouseEnter={() => dispatch(barState({ react: true }))}
               onMouseLeave={() => dispatch(barState(sideBArInitialState))}
               onClick={handleReactCodeAndRun}
             >
-              <div className="iconSide">
-                <HiOutlineCode />
+              <div className="iconSide reacticon">
+                <DiReact />
               </div>{" "}
-              {bar.code && <div className="message">React Code and Run</div>}
+              {bar.react && (
+                <div className="message reactmessage">React and Run</div>
+              )}
             </button>
           </>
         )}

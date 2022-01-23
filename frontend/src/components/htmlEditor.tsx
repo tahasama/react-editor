@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import prettier from "prettier";
 import htmlParser from "prettier/parser-html";
@@ -12,10 +12,13 @@ import {
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../state/hooks";
 import Resizable from "./resizable";
+import { htmlExample } from "../example";
+import { getAuthData } from "../state/reducers/authSlice";
 
 const HtmlEditor = () => {
   const editorRef = useRef<any>(null);
   const dispatch = useDispatch();
+  const { uid } = useAppSelector(getAuthData);
 
   const { code } = useAppSelector(getProjectData);
 
@@ -24,6 +27,12 @@ const HtmlEditor = () => {
       updateCode({ code: { html: editorRef.current.getValue() || "" } })
     );
   };
+  useEffect(() => {
+    if (!uid) {
+      dispatch(updateCode({ code: { html: htmlExample } }));
+      console.log();
+    }
+  }, []);
 
   const handleEditorDidMount = (editor: any) => {
     editorRef.current = editor;

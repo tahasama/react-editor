@@ -25,9 +25,9 @@
   width: 40px;
   /* transition: all 1s ease-in; */
   animation: fadeIn 0.5s ease-out;
+  transition: color 0.8s ease-in;
 }
 .side:hover {
-  transition: color 1s ease-in;
   color: #baccd4;
 }
 .but {
@@ -278,6 +278,20 @@
 }
 .barbar:hover {
   color: rgba(148, 179, 172, 0.7);
+}
+.reacticon {
+  position: relative;
+  font-size: 40px;
+  right: 4px;
+  /* top: 7px; */
+  color: rgb(59, 28, 196);
+  transition: color 1s ease-in-out;
+}
+.reacticon:hover {
+  color: white;
+}
+.reactmessage {
+  margin-top: -50px;
 }
 
 @media only screen and (max-width: 640px) {

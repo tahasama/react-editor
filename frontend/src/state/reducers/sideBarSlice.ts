@@ -8,6 +8,7 @@ export const sideBArInitialState = {
   edit: false,
   code: false,
   star: false,
+  react: false,
 };
 export const sideBarSlice = createSlice({
   name: "bar-redux",

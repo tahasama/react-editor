@@ -135,9 +135,9 @@ function FullEditor() {
       navigate("");
     }
   };
-  const handleAddCells = () => {
-    dispatch(AddCells({ cellId: uuidv4(), cellCode: "" }));
-  };
+  // const handleAddCells = () => {
+  //   dispatch(AddCells({ cellId: uuidv4(), cellCode: "" }));
+  // };
 
   const srcDoc = `<html>
                     <body>${code?.html}</body>

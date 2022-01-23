@@ -61,3 +61,23 @@
     transform: rotate(0deg);
   }
 }
+.logos {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 45px;
+}
+.reactLogos {
+  font-size: 60px;
+}
+.logoName {
+  position: relative;
+  top: -18px;
+}
+
+.h {
+  color: rgb(255, 102, 0);
+}
+.i {
+  color: rgb(42, 42, 180);
+}
