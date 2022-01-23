@@ -14,12 +14,25 @@ const ReactProject = ({ cell }: any) => {
   const [code, setCode] = useState("");
   const [err, setErr] = useState("");
   const [input, setInput] = useState("");
-  const { reactCode } = useAppSelector(getProjectData);
+  const { cells } = useAppSelector(getProjectData);
   const dispatch = useAppDispatch();
+  const [allCode, setAllCode] = useState("");
+
+  useEffect(() => {
+    if (cells) {
+      let allcodes: string = "";
+      for (let index = 0; index < cells.length; index++) {
+        const element = cells[index].cellCode;
+        allcodes += element;
+        setAllCode(allcodes);
+      }
+    }
+    console.log("allcode...", allCode);
+  }, [cell.cellCode]);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
-      const output = await bundle(cell.cellCode);
+      const output = await bundle(allCode);
       setCode(output.code);
       setErr(output.err);
     }, 750);
@@ -27,7 +40,7 @@ const ReactProject = ({ cell }: any) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [cell]);
+  }, [allCode]);
 
   const handleDeleteCells = () => {
     dispatch(DeleteCells({ cellId: cell.cellId }));

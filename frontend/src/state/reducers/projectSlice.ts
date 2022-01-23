@@ -3,7 +3,8 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import {
   cssExample,
-  example,
+  example1,
+  example2,
   htmlExample,
   javaScriptExample,
 } from "../../example";
@@ -36,7 +37,13 @@ export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
     if (value.type === "reactProject") {
-      value = { ...value, cells: [{ cellId: uuidv4(), cellCode: example }] };
+      value = {
+        ...value,
+        cells: [
+          { cellId: uuidv4(), cellCode: example1 },
+          { cellId: uuidv4(), cellCode: example2 },
+        ],
+      };
     } else {
       value = {
         ...value,
