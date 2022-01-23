@@ -114,26 +114,36 @@ export const userSlice = createSlice({
       state.error.message = action.payload;
     },
     newUserImage: (state, action) => {
-      state.userimage = action.payload.userimage;
+      // state.userimage = action.payload.userimage;
+      Object.assign(state, action.payload);
     },
     newImage: (state, action) => {
-      state.image = action.payload.image;
+      // state.image = action.payload.image;
+      Object.assign(state, action.payload);
     },
-    newUsernme: (state, action) => {
-      state.username = action.payload.username;
-      state.useremail = action.payload.useremail;
-    },
+    // newUsernme: (state, action) => {
+    //   console.log("new username reducer...", action.payload.username);
+    //   state.username = action.payload.username;
+    //   // state.useremail = action.payload.useremail;
+    //   // Object.assign(state, action.payload);
+    //   // const { username } = action.payload;
+    //   // Object.assign(state, { username });
+
+    //   console.log("new username State reducer...", state.username);
+    // },
     resetUser: (state, action) => {
       Object.assign(state, action.payload);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(updateProfileUser.fulfilled, (state, action: any) => {
+      Object.assign(state, action.payload);
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;
     });
     builder.addCase(downloadImage.fulfilled, (state, action: any) => {
-      state.image = action.payload.image;
+      Object.assign(state, action.payload);
+
       state.error.code = action.payload.code;
       state.error.message = action.payload.message;
     });
@@ -145,11 +155,12 @@ export const userSlice = createSlice({
       state.userimage = action.payload.image;
       state.username = action.payload.username;
       state.user = action.payload.uid;
+      // Object.assign(state, action.payload);
     });
   },
 });
 
 export const getUserData = (state: userProps) => state.user;
-export const { updateError, resetUser, newUsernme, newImage, newUserImage } =
+export const { updateError, resetUser, newImage, newUserImage } =
   userSlice.actions;
 export default userSlice.reducer;

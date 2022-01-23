@@ -11,7 +11,7 @@ import { useAppSelector } from "../state/hooks";
 import {
   getUser,
   getUserData,
-  newUsernme,
+  // newUsernme,
   updateError,
   updateProfileUser,
 } from "../state/reducers/userSlice";
@@ -23,7 +23,7 @@ import { cancelState } from "../state/reducers/cancelSlice";
 import { getAuthData } from "../state/reducers/authSlice";
 
 const Profile = () => {
-  const { userimage, _id, username, useremail, usercreatedAt, error } =
+  const { userimage, _id, username, useremail, usercreatedAt, error, image } =
     useAppSelector(getUserData);
   const { email, uid, user } = useAppSelector(getAuthData);
   const dispatch = useDispatch();
@@ -38,9 +38,12 @@ const Profile = () => {
 
   const projects: any = all.flat().reverse();
   const nbProjects = projects.length;
+  console.log("MY UERNAME....", username);
+  console.log("MY error.code....", error.code);
 
   useEffect(() => {
     if (error.code === "auth/requires-recent-login") {
+      console.log("yep...");
       dispatch(updateError("please re-LogIn to update your email."));
     } else if (error.code === "storage/object-not-found") {
       dispatch(updateError(""));
@@ -65,6 +68,7 @@ const Profile = () => {
 
   const updateProfile = () => {
     if (emailRef.current && auth.currentUser) {
+      // dispatch(newUsernme({ username: "", useremail: "" }));
       dispatch(
         updateProfileUser({
           user: user,
@@ -74,13 +78,10 @@ const Profile = () => {
           username: usernameRef.current.value,
         })
       );
-      dispatch(
-        newUsernme({
-          username: usernameRef.current.value,
-          useremail: emailRef.current.value,
-        })
-      );
-      dispatch(cancelState({ cancelProfile: true }));
+
+      {
+        error !== undefined && dispatch(cancelState({ cancelProfile: true }));
+      }
     }
   };
 
@@ -93,8 +94,8 @@ const Profile = () => {
           {" "}
           <div>
             <div className="imageProfileContainer">
-              {userimage ? (
-                <img src={userimage} alt="" className="userProfileImage" />
+              {image ? (
+                <img src={image} alt="" className="userProfileImage" />
               ) : (
                 <div className="noUserImage">
                   <FiUser />
@@ -160,6 +161,14 @@ const Profile = () => {
               <div className="labelInput forUpdate">
                 <p className="labelUpate">Username:</p>
                 <input
+                  // onChange={() =>
+                  //   dispatch(
+                  //     newUsernme({
+                  //       username: usernameRef.current.value,
+                  //       useremail: emailRef.current.value,
+                  //     })
+                  //   )
+                  // }
                   defaultValue={username}
                   type="email"
                   name="email"
@@ -196,16 +205,19 @@ const Profile = () => {
                       Edit profile ?
                     </span>
                   </p>
+                  {error && (
+                    <p
+                      className="errorMessage"
+                      style={{ width: 500, marginTop: 60 }}
+                    >
+                      {error.message}
+                    </p>
+                  )}
                 </>
               )
             ) : (
               <>
                 {" "}
-                {error && (
-                  <p className="errorMessage" style={{ width: 500, margin: 0 }}>
-                    {error.message}
-                  </p>
-                )}
                 <button
                   disabled={loading}
                   type="submit"

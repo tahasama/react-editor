@@ -26,11 +26,11 @@ const UploadImage = () => {
       );
       const imgUrl = URL.createObjectURL(imageRef.current.files[0]);
 
-      dispatch(
-        newUserImage({
-          userimage: imgUrl,
-        })
-      );
+      // dispatch(
+      //   newUserImage({
+      //     userimage: imgUrl,
+      //   })
+      // );
       dispatch(
         newImage({
           image: imgUrl,

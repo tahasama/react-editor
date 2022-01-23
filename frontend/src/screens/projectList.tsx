@@ -22,14 +22,22 @@ const ProjectList = () => {
   const projects = (query !== undefined ? searchAll : all).flat();
 
   const [filtered, setFiltered] = useState("");
-  const sorted = projects.sort((a: any, b: any) => {
-    return b.star.length - a.star.length;
-  });
+
+  // console.log("mmmmmmmmmmmmmmm", onlyReact);
+
+  // useEffect(() => {
+  //   dispatch(fetchAllProject(uid));
+  // }, [uid]);
 
   useEffect(() => {
+    if (loading) {
+      dispatch(fetchAllProject(uid));
+    }
+
     if (!projects) {
       dispatch(updateLoading(true));
     }
+
     if (query !== undefined && query !== "") {
       dispatch(searchProject(query));
     }
@@ -38,7 +46,36 @@ const ProjectList = () => {
         dispatch(fetchAllProject(uid));
       }
     }, 100);
-  }, [query, projects, uid, dispatch]);
+  }, [query, projects, uid, dispatch, loading]);
+
+  // useEffect(() => {
+  //   dispatch(getUser(params.id));
+  //   if (loading) {
+  //     dispatch(fetchAllProject(params.id));
+  //   }
+
+  //   if (!projects) {
+  //     dispatch(updateLoading(true));
+  //   }
+  // }, [params.id, projects, loading, nbProjects, dispatch]);
+
+  const sorted = projects.sort((a: any, b: any) => {
+    return b.star.length - a.star.length;
+  });
+  const onlyReact =
+    projects[0] &&
+    projects.filter((proj: any) => {
+      return proj.type === "reactProject";
+    });
+
+  const onlyJs =
+    projects[0] &&
+    projects.filter((proj: any) => {
+      return proj.type !== "reactProject";
+    });
+
+  // console.log("onlyReact", onlyReact);
+  // const onlyJs = projects.filter((proj: any) => proj.type !== "reactProject");
 
   return (
     <div>
@@ -62,6 +99,18 @@ const ProjectList = () => {
               >
                 Stars
               </button>
+              <button
+                className="filterName"
+                onClick={() => setFiltered("byReact")}
+              >
+                React Projets
+              </button>
+              <button
+                className="filterName"
+                onClick={() => setFiltered("byJs")}
+              >
+                Js Projects
+              </button>
             </div>
 
             {projects[0] !== undefined &&
@@ -69,6 +118,10 @@ const ProjectList = () => {
                 ? projects.reverse()
                 : filtered === "byStars"
                 ? sorted
+                : filtered === "byReact"
+                ? onlyReact
+                : filtered === "byJs"
+                ? onlyJs
                 : projects
               ).map((proj: any) => (
                 <div key={proj._id}>

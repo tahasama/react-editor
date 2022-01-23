@@ -2,6 +2,7 @@ import React from "react";
 import { FcOpenedFolder } from "react-icons/fc";
 import { AiTwotoneStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { DiReact } from "react-icons/di";
 
 const Project = ({ proj }: any) => {
   const nbStars = proj.star.length;
@@ -10,7 +11,13 @@ const Project = ({ proj }: any) => {
     <div>
       <div className="project">
         <div className="projectHeader">
-          <FcOpenedFolder className="icon" />
+          {proj.type !== "reactProject" ? (
+            <FcOpenedFolder className="icon" />
+          ) : (
+            <span style={{ fontSize: 40, color: "blue", opacity: 0.7 }}>
+              <DiReact />
+            </span>
+          )}
           <p className="name">{proj.title}</p>
         </div>
         <div className="projectHeaderStar">
