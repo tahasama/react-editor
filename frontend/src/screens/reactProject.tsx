@@ -18,13 +18,6 @@ const ReactProject = ({ cell }: any) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //FOR DELETE
-    console.log("single cell", cell.cellId);
-    console.log("single cell code", cell.cellCode);
-  }, [cell.cellCode]);
-
-  useEffect(() => {
-    console.log("Bundlin....", cell.cellCode);
     const timer = setTimeout(async () => {
       const output = await bundle(cell.cellCode);
       setCode(output.code);

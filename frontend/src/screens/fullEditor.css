@@ -70,6 +70,7 @@ iframe {
   margin-top: -4px;
   margin-bottom: -4px;
   margin-right: 2px;
+  z-index: 1000000;
 }
 .frameWrapper {
   position: relative;

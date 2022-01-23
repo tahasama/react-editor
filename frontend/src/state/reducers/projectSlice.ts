@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import {
+  cssExample,
+  example,
+  htmlExample,
+  javaScriptExample,
+} from "../../example";
 
 export const fetchProject = createAsyncThunk(
   "fetchProject",
@@ -19,13 +25,23 @@ export interface valueProps {
   star?: string[];
   type: string;
   cells?: { cellId: string; cellCode: string }[];
+  code?: {
+    html: string | undefined;
+    css: string | undefined;
+    js: string | undefined;
+  };
 }
 
 export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
     if (value.type === "reactProject") {
-      value = { ...value, cells: [{ cellId: uuidv4(), cellCode: "" }] };
+      value = { ...value, cells: [{ cellId: uuidv4(), cellCode: example }] };
+    } else {
+      value = {
+        ...value,
+        code: { html: htmlExample, css: cssExample, js: javaScriptExample },
+      };
     }
     try {
       const res = await axios.post("http://localhost:5000/api/project/", value);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CssEditor from "../components/cssEditor";
 import HtmlEditor from "../components/htmlEditor";
@@ -42,10 +42,14 @@ function FullEditor() {
   const { title, description, code, updatedAt, saved, type, reactCode, cells } =
     useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
+  const iframe = useRef<any>();
 
   useEffect(() => {
-    console.log("all the cells...", cells);
-  }, [cells]);
+    iframe.current.srcdoc = srcDoc;
+    setTimeout(() => {
+      iframe.current.contentWindow.postMessage(code, "*");
+    }, 50);
+  }, [code]);
 
   useEffect(() => {
     function handleResize() {
@@ -190,8 +194,13 @@ function FullEditor() {
               </div>
               <div className="frame">
                 <Resizable direction={"vertical-up"}>
-                  <div className="frameWrapper">
-                    <iframe srcDoc={srcDoc} title="codeFrame"></iframe>
+                  <div className="preview-wrapper">
+                    <iframe
+                      title="preview"
+                      ref={iframe}
+                      sandbox="allow-scripts"
+                      srcDoc={srcDoc}
+                    />
                   </div>
                 </Resizable>
               </div>
