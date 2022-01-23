@@ -6,14 +6,15 @@ import "../screens/fullEditor.css";
 import { useDispatch } from "react-redux";
 import {
   getProjectData,
+  updateCellCode,
   updateCode,
-  updateReactCode,
+  // updateReactCode,
   updateSaved,
 } from "../state";
 import { useAppSelector } from "../state/hooks";
 import parser from "prettier/parser-babel";
 
-const ReactEditor = () => {
+const ReactEditor = ({ cell }: any) => {
   const editorRef = useRef<any>(null);
 
   const dispatch = useDispatch();
@@ -22,7 +23,10 @@ const ReactEditor = () => {
 
   const handleEditorChange = () => {
     dispatch(
-      updateReactCode({ reactCode: editorRef.current.getValue() || "" })
+      updateCellCode({
+        cellId: cell.cellId,
+        cellCode: editorRef.current.getValue() || "",
+      })
     );
   };
 
@@ -47,19 +51,16 @@ const ReactEditor = () => {
 
   return (
     <div className="oneEditor">
-      {/* <div className="header">
-        <p className="title">React</p>
-        <button onClick={onFormat} className="">
-          format
-        </button>
-      </div> */}
+      <button onClick={onFormat} className="abutton formatButton">
+        format
+      </button>
       <span onClick={() => dispatch(updateSaved(false))}>
         <div className="resizableReactEditor">
           <Editor
             className="thaReactEditor"
             height="100%"
             defaultLanguage="javascript"
-            value={reactCode}
+            value={cell.cellCode}
             // defaultValue={js}
             onChange={handleEditorChange}
             onMount={handleEditorDidMount}

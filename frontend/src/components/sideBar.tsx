@@ -27,6 +27,7 @@ import {
   updateStar,
 } from "../state";
 import { getAuthData } from "../state/reducers/authSlice";
+import { useState } from "react";
 
 const SideBar = ({ remove, save, clone }: any) => {
   const { id } = useParams();
@@ -37,10 +38,13 @@ const SideBar = ({ remove, save, clone }: any) => {
   const { saved, user, star } = useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
   const location = useLocation();
+  const [result, setResult] = useState(false);
 
   const alerted = (destination: string) => {
     if (!saved) {
       const result = window.confirm("are you sure you want to leave? ");
+      setResult(result);
+      console.log("DONT LEAVE....", result);
       if (result) {
         dispatch(updateSaved(true));
         navigate(destination);
@@ -73,9 +77,22 @@ const SideBar = ({ remove, save, clone }: any) => {
     alerted("/projects");
   };
   const handleNewProject = () => {
-    dispatch(cleanState(projectInitialState));
-    alerted("/create");
+    if (!saved) {
+      const result = window.confirm("are you sure you want to leave? ");
+
+      if (result) {
+        dispatch(updateSaved(true));
+        dispatch(cleanState(projectInitialState));
+        navigate("/create");
+      } else {
+        navigate("");
+      }
+    } else {
+      dispatch(cleanState(projectInitialState));
+      navigate("/create");
+    }
   };
+
   const handleCodeAndRun = () => {
     navigate("/editor/code-and-run");
     dispatch(cleanState(projectInitialState));

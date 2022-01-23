@@ -3,4 +3,33 @@
   width: 90%;
   top: 6em;
   left: 1em;
+  margin-bottom: 120px;
+}
+.abutton {
+  position: absolute;
+  color: aliceblue;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 14px;
+  top: -33px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.deleteButton {
+  left: 91.5em;
+  /* margin: 0;
+  padding: 0; */
+  background-color: rgb(173, 45, 45);
+}
+
+.formatButton {
+  right: 15px;
+  background-color: rgb(253, 141, 100);
+  color: rgb(16, 47, 73);
+  /* font-size: 15px; */
+}
+
+.reactProjectWrapper:hover .abutton {
+  opacity: 1;
 }

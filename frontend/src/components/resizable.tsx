@@ -38,8 +38,8 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
     resizableProps = {
       minConstraints: [Infinity, 24],
       maxConstraints: [Infinity, window.innerHeight * 0.9],
-      height: 300,
-      width: 1280,
+      height: 200,
+      width: 1287,
       resizeHandles: ["s"],
     };
   } else if (direction === "vertical-down") {

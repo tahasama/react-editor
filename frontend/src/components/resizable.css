@@ -17,7 +17,8 @@
 
 .react-resizable-handle-s {
   height: 10px;
-  width: 80.1em;
+  /* width: 80.1em; */
+  width: 80.7em;
 
   margin-top: -0.5px;
   cursor: row-resize;

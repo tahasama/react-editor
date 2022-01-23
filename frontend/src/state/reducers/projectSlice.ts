@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export const fetchProject = createAsyncThunk(
   "fetchProject",
@@ -17,13 +18,15 @@ export interface valueProps {
   username?: string;
   star?: string[];
   type: string;
-  // reactCode?: string;
-  // code: any;
+  cells?: { cellId: string; cellCode: string }[];
 }
 
 export const creatProject = createAsyncThunk(
   "creatProject",
   async (value: valueProps) => {
+    if (value.type === "reactProject") {
+      value = { ...value, cells: [{ cellId: uuidv4(), cellCode: "" }] };
+    }
     try {
       const res = await axios.post("http://localhost:5000/api/project/", value);
       return res.data;
@@ -43,6 +46,7 @@ interface cloneProps {
     css: string | undefined;
     js: string | undefined;
   };
+  cells?: { cellId: string; cellCode: string }[];
   type: string;
 }
 
@@ -50,13 +54,9 @@ export const cloneProject = createAsyncThunk(
   "cloneProject",
   async (val: cloneProps) => {
     const object: any = {
-      uid: val.uid,
+      ...val,
       email: val.user,
       title: val.title + " clone",
-      description: val.description,
-      code: { html: val.code?.html, css: val.code?.css, js: val.code?.js },
-      reactCode: val?.reactCode,
-      type: val.type,
     };
     const res = await axios.post("http://localhost:5000/api/project/", object);
     return res.data;
@@ -72,12 +72,13 @@ interface saveProps {
     css: string | undefined;
     js: string | undefined;
   };
-  reactCode?: string;
+  cells?: { cellId: string; cellCode: string }[];
 }
 
 export const saveProject = createAsyncThunk(
   "saveProject",
   async (value: saveProps) => {
+    console.log("full array....", value);
     const object = {
       _id: value._id,
     };
@@ -131,6 +132,7 @@ export interface projectProps {
     star: string[];
     reactCode: string;
     type: string;
+    cells?: { cellId: string; cellCode: string }[];
   };
 }
 
@@ -145,6 +147,7 @@ export const projectInitialState = {
   updatedAt: "",
   saved: true,
   star: [],
+  cells: [{ cellId: "", cellCode: "" }],
   reactCode: "",
   type: "",
 };
@@ -156,11 +159,24 @@ export const projectSlice = createSlice({
     updateCode: (state, action) => {
       Object.assign(state.code, action.payload.code);
     },
-    updateReactCode: (state, action) => {
-      // Object.assign(state.reactCode, action.payload.reactCode);
-      console.log("action.payload.reactCode...", action.payload.reactCode);
-      state.reactCode = action.payload.reactCode;
-      console.log("state.reactCode...", state.reactCode);
+    AddCells: (state, action) => {
+      state.cells.push(action.payload);
+    },
+
+    DeleteCells: (state, action) => {
+      state.cells = state.cells.filter(
+        (cell) => cell.cellId !== action.payload.cellId
+      );
+    },
+
+    updateCellCode: (state, action) => {
+      // console.log("action.payload.reactCode...", action.payload);
+      const cell = state.cells.find(
+        (cell) => cell.cellId === action.payload.cellId
+      );
+      if (cell) {
+        cell.cellCode = action.payload.cellCode;
+      }
     },
     updateProjectInfos: (state, action) => {
       Object.assign(state, action.payload);
@@ -210,7 +226,9 @@ export const {
   updateId,
   updateSaved,
   updateStar,
-  updateReactCode,
+  updateCellCode,
+  AddCells,
+  DeleteCells,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

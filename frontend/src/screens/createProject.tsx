@@ -27,6 +27,7 @@ const CreateProject: React.FC = () => {
 
   const { username } = useAppSelector(getUserData);
   const { uid } = useAppSelector(getAuthData);
+  const [error, setError] = useState("");
 
   setTimeout(() => {
     if (!toUpdate) {
@@ -49,18 +50,24 @@ const CreateProject: React.FC = () => {
       );
       navigate("/editor/" + _id);
     } else {
-      setToUpdate(false);
-      dispatch(
-        creatProject({
-          uid: uid,
-          email: email,
-          username: username,
-          title: nameRef.current?.value,
-          description: descriptionRef.current?.value,
-          type: type,
-          // code: type === "reactProject" ? { html: "", css: "", js: "" } : "",
-        })
-      );
+      if (title === "") {
+        setError("Please add a project name!");
+      } else if (type === "") {
+        setError("Please choose a project type!");
+      } else {
+        setToUpdate(false);
+        dispatch(
+          creatProject({
+            uid: uid,
+            email: email,
+            username: username,
+            title: nameRef.current?.value,
+            description: descriptionRef.current?.value,
+            type: type,
+            // code: type === "reactProject" ? { html: "", css: "", js: "" } : "",
+          })
+        );
+      }
     }
   };
 
@@ -104,26 +111,19 @@ const CreateProject: React.FC = () => {
                   )
                 }
               />
-              <div style={{ display: "flex" }}>
-                <div>
+              <div className="radioInput">
+                <div onClick={() => setType("reactProject")}>
+                  <input type="radio" id="React" value="React" name="project" />
+                  <label htmlFor="React"> React Js</label>
+                </div>
+                <div onClick={() => setType("javaScriptProject")}>
                   <input
                     type="radio"
                     id="JavaScript"
                     value="JavaScript"
                     name="project"
-                    onClick={() => setType("javaScriptProject")}
                   />
-                  <label htmlFor="JavaScript">JavaScript</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="React"
-                    value="React"
-                    name="project"
-                    onClick={() => setType("reactProject")}
-                  />
-                  <label htmlFor="React">React</label>
+                  <label htmlFor="JavaScript"> Js/Html/Css</label>
                 </div>
               </div>
 
@@ -137,6 +137,9 @@ const CreateProject: React.FC = () => {
             </footer>
           </form>
           {!toUpdate && <p className="creating">Creating project ...</p>}
+          {(title === "" || type === "") && (
+            <p className="errorMessage titleError">{error}</p>
+          )}
         </div>
       </div>
     </div>

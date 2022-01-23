@@ -7,7 +7,7 @@
 
 .modal {
   width: 50vw;
-  height: 68.5vh;
+  height: 74.5vh;
   padding: 5px;
   border-radius: 20px;
   background-color: rgba(96, 48, 150, 0.35);
@@ -87,4 +87,22 @@
   100% {
     opacity: 0.2;
   }
+}
+input[type="radio"] {
+  transform: scale(1.3);
+  margin: 2px;
+}
+.radioInput {
+  display: flex;
+  margin: 15px 0 10px -2px;
+  justify-content: space-evenly;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+.titleError {
+  position: relative;
+  font-size: 18px;
+  left: 16.5vw;
+  top: -10px;
 }

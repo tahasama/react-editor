@@ -3,19 +3,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import CssEditor from "../components/cssEditor";
 import HtmlEditor from "../components/htmlEditor";
 import JsEditor from "../components/jsEditor";
+import { v4 as uuidv4 } from "uuid";
 
 import "./fullEditor.css";
 import SideBar from "../components/sideBar";
 import { useAppDispatch, useAppSelector } from "../state/hooks";
 import {
+  AddCells,
   cleanState,
   cloneProject,
+  DeleteCells,
   deleteProject,
   fetchProject,
   getProjectData,
   projectInitialState,
   saveProject,
   StarProject,
+  // updateCells,
   updateCode,
   updateSaved,
 } from "../state/";
@@ -35,9 +39,13 @@ function FullEditor() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { email } = useAppSelector(getAuthData);
-  const { title, description, code, updatedAt, saved, type, reactCode } =
+  const { title, description, code, updatedAt, saved, type, reactCode, cells } =
     useAppSelector(getProjectData);
   const { uid } = useAppSelector(getAuthData);
+
+  useEffect(() => {
+    console.log("all the cells...", cells);
+  }, [cells]);
 
   useEffect(() => {
     function handleResize() {
@@ -55,6 +63,7 @@ function FullEditor() {
     dispatch(fetchProject(id));
 
     window.onbeforeunload = function (e: any) {
+      e.preventDefault();
       var e = e || window.event;
       if (e && !saved) {
         e.returnValue = "Any string";
@@ -74,17 +83,8 @@ function FullEditor() {
         _id: id,
         title: title,
         description: description,
-        reactCode: reactCode,
-      })
-    );
-
-    dispatch(
-      saveProject({
-        _id: id,
-        title: title,
-        description: description,
         code: { html: code?.html, css: code?.css, js: code?.js },
-        reactCode: reactCode,
+        cells: cells,
       })
     );
 
@@ -106,7 +106,7 @@ function FullEditor() {
         title: title,
         description: description,
         code: { html: code?.html, css: code?.css, js: code?.js },
-        reactCode: reactCode,
+        cells: cells,
         type: type,
       })
     );
@@ -125,6 +125,9 @@ function FullEditor() {
     } else {
       navigate("");
     }
+  };
+  const handleAddCells = () => {
+    dispatch(AddCells({ cellId: uuidv4(), cellCode: "" }));
   };
 
   const srcDoc = `<html>
@@ -194,7 +197,20 @@ function FullEditor() {
               </div>
             </>
           ) : (
-            <ReactProject />
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div>
+                {cells?.map((cell) => {
+                  return (
+                    <div className="cells" key={cell.cellId}>
+                      <ReactProject cell={cell} />
+                    </div>
+                  );
+                })}
+              </div>
+              <button onClick={handleAddCells} className="addCell">
+                Add Cell
+              </button>
+            </div>
           )}
         </div>
       </div>

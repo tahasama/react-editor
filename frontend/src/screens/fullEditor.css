@@ -64,9 +64,9 @@
 iframe {
   background-color: white;
   border: 0;
-  width: 99%;
+  width: 99.3%;
   height: 99%;
-  margin-left: 2px;
+  margin-left: 4px;
   margin-top: -4px;
   margin-bottom: -4px;
   margin-right: 2px;
@@ -161,6 +161,28 @@ iframe {
     opacity: 0.2;
   }
 }
+.cells {
+  margin-left: -14px;
+  margin-top: -50px;
+  margin-bottom: 50px;
+}
+.addCell {
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 10px;
+  opacity: 1;
+  width: 50%;
+  margin-left: 24vw;
+  border-radius: 35px;
+  border: none;
+  /* transition: opacity 0.2s ease-in; */
+  background-color: rgb(102, 190, 161);
+}
+.addCell:active {
+  opacity: 0.7;
+}
+
 @media only screen and (max-width: 820px) {
   .full {
     opacity: 0;
