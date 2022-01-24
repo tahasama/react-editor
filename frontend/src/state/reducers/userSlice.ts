@@ -4,6 +4,8 @@ import { updateEmail } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
 
+const USER_URL: any = process.env.REACT_APP_USER_URL;
+
 export const updateProfileUser = createAsyncThunk(
   "updateProfileUser",
   async ({ user, email, uid, username, _id }: any) => {
@@ -12,13 +14,10 @@ export const updateProfileUser = createAsyncThunk(
       const res = await updateEmail(user, email);
 
       try {
-        const res2 = await axios.put(
-          "http://localhost:5000/api/user/" + newId,
-          {
-            email: email,
-            username: username,
-          }
-        );
+        const res2 = await axios.put(USER_URL + newId, {
+          email: email,
+          username: username,
+        });
         return res2;
       } catch (error) {}
       return res;
@@ -32,7 +31,7 @@ export const getUser = createAsyncThunk(
   "getUser",
   async (uid: string | undefined) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/user/" + uid);
+      const res = await axios.get(USER_URL + uid);
       return res.data[0];
     } catch (error: any) {
       return error;
@@ -54,7 +53,7 @@ export const uploadImage = createAsyncThunk(
       await uploadBytesResumable(storageRef, image);
       try {
         const res = await getDownloadURL(storageRef);
-        await axios.put("http://localhost:5000/api/user/" + _id, {
+        await axios.put(USER_URL + _id, {
           image: res,
         });
       } catch (error) {}

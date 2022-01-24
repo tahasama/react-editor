@@ -9,20 +9,26 @@ import {
   javaScriptExample,
 } from "../../example";
 
+const POJECT_URL: any = process.env.REACT_APP_PROJECT_URL;
+
 export const fetchProject = createAsyncThunk(
   "fetchProject",
-  async (_id: string | undefined) => {
-    const res = await axios.get("http://localhost:5000/api/project/" + _id);
-    return res.data;
+  async (_id: any) => {
+    try {
+      const res = await axios.get(POJECT_URL + _id);
+      return res.data;
+    } catch (error) {
+      return error;
+    }
   }
 );
 
 export interface valueProps {
-  uid: string;
-  email: string;
-  title: string;
-  description: string;
-  username?: string;
+  uid: string | undefined;
+  email: string | undefined;
+  title: string | undefined;
+  description: string | undefined;
+  username?: string | undefined;
   star?: string[];
   type: string;
   cells?: { cellId: string; cellCode: string }[];
@@ -51,7 +57,7 @@ export const creatProject = createAsyncThunk(
       };
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/project/", value);
+      const res = await axios.post(POJECT_URL, value);
       return res.data;
     } catch (error) {
       console.log("creratng error....", error);
@@ -81,7 +87,7 @@ export const cloneProject = createAsyncThunk(
       email: val.user,
       title: val.title + "  " + uuidv4(),
     };
-    const res = await axios.post("http://localhost:5000/api/project/", object);
+    const res = await axios.post(POJECT_URL, object);
     return res.data;
   }
 );
@@ -105,10 +111,7 @@ export const saveProject = createAsyncThunk(
     const object = {
       _id: value._id,
     };
-    const res = await axios.put(
-      "http://localhost:5000/api/project/" + object._id,
-      value
-    );
+    const res = await axios.put(POJECT_URL + object._id, value);
     return res.data;
   }
 );
@@ -124,10 +127,7 @@ export const StarProject = createAsyncThunk(
       star: value.star,
     };
     try {
-      const res = await axios.put(
-        "http://localhost:5000/api/project/star/" + object._id,
-        value
-      );
+      const res = await axios.put(POJECT_URL + "star/" + object._id, value);
       return res.data;
     } catch (error) {
       console.log("NO UPDATE", error);
@@ -138,7 +138,7 @@ export const StarProject = createAsyncThunk(
 export const deleteProject = createAsyncThunk(
   "deleteProject",
   async (id: string | undefined) => {
-    await axios.delete("http://localhost:5000/api/project/" + id);
+    await axios.delete(POJECT_URL + id);
   }
 );
 export interface projectProps {

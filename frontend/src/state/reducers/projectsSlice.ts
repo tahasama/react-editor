@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const POJECT_URL = process.env.REACT_APP_PROJECT_URL;
+
 export const fetchAllProject = createAsyncThunk(
   "fetchAllProject",
   async (uid: string | undefined) => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/project/all/" + uid
-      );
+      const res = await axios.get(POJECT_URL + "all/" + uid);
       return res.data;
     } catch (error) {
-      console.log("fetchAllProject error...", error);
+      return error;
     }
   }
 );
@@ -19,12 +19,10 @@ export const searchProject = createAsyncThunk(
   "searchProject",
   async (projectTitle: string | undefined) => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/project/search/q=" + projectTitle
-      );
+      const res = await axios.get(POJECT_URL + "search/q=" + projectTitle);
       return res.data;
     } catch (error) {
-      console.log("searchProject error...", error);
+      return error;
     }
   }
 );
@@ -46,9 +44,7 @@ export const projectsSlice = createSlice({
       state.loading = action.payload;
     },
     filteredProjects: (state, action) => {
-      console.log("filtering zooooooooone", action.payload);
       state.all = action.payload;
-      console.log("filtering staaaaaaaaaaaate", state.all);
     },
     cleanUpProjects: (state, action) => {
       // console.log("cleaning zooooooooone", action.payload);

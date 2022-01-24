@@ -10,6 +10,8 @@ import {
 
 import { auth } from "../../firebase";
 
+const USER_URL: any = process.env.REACT_APP_USER_URL;
+
 interface valueProps {
   email: string;
   password: string;
@@ -30,7 +32,7 @@ export const registerUser = createAsyncThunk(
         name: "",
         image: "",
       };
-      await axios.post("http://localhost:5000/api/user/", object);
+      await axios.post(USER_URL, object);
 
       return res.user;
     } catch (error: any) {
@@ -46,7 +48,7 @@ export const loginUser = createAsyncThunk(
       try {
         const res = await signInWithPopup(auth, provider);
         try {
-          await axios.post("http://localhost:5000/api/user/", {
+          await axios.post(USER_URL, {
             email: res.user.email,
             uid: res.user.uid,
           });
