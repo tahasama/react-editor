@@ -15,6 +15,7 @@ import { useAppSelector } from "../state/hooks";
 import parser from "prettier/parser-babel";
 
 const ReactEditor = ({ cell }: any) => {
+  console.log("MY REACT CODE", cell.cellCode);
   const editorRef = useRef<any>(null);
 
   const dispatch = useDispatch();

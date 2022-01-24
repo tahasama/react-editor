@@ -60,7 +60,7 @@ export const creatProject = createAsyncThunk(
       const res = await axios.post(POJECT_URL, value);
       return res.data;
     } catch (error) {
-      console.log("creratng error....", error);
+      return error;
     }
   }
 );
@@ -107,7 +107,6 @@ interface saveProps {
 export const saveProject = createAsyncThunk(
   "saveProject",
   async (value: saveProps) => {
-    console.log("full array....", value);
     const object = {
       _id: value._id,
     };
@@ -130,7 +129,7 @@ export const StarProject = createAsyncThunk(
       const res = await axios.put(POJECT_URL + "star/" + object._id, value);
       return res.data;
     } catch (error) {
-      console.log("NO UPDATE", error);
+      return error;
     }
   }
 );
@@ -194,13 +193,14 @@ export const projectSlice = createSlice({
     },
 
     updateCellCode: (state, action) => {
-      // console.log("action.payload.reactCode...", action.payload);
+      console.log("action.payload.reactCode...", action.payload);
       const cell = state.cells.find(
         (cell) => cell.cellId === action.payload.cellId
       );
       if (cell) {
         cell.cellCode = action.payload.cellCode;
       }
+      console.log("cell...", cell?.cellCode);
     },
     updateProjectInfos: (state, action) => {
       Object.assign(state, action.payload);
@@ -215,7 +215,6 @@ export const projectSlice = createSlice({
       state.saved = action.payload;
     },
     updateStar: (state, action) => {
-      console.log("MY STARS", action.payload.star);
       state.star = action.payload.star;
       // state.star.push(action.payload);
     },
@@ -231,6 +230,8 @@ export const projectSlice = createSlice({
     });
     builder.addCase(saveProject.fulfilled, (state, action) => {
       state.updatedAt = action.payload.updatedAt;
+      state.cells = action.payload.cells;
+      state.code = action.payload.code;
     });
 
     builder.addCase(creatProject.fulfilled, (state, action) => {

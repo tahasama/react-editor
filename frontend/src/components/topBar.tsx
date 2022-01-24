@@ -28,7 +28,6 @@ const TopBar = () => {
   const { uid, err } = useAppSelector(getAuthData);
 
   const [profile, setprofile] = useState(false);
-  console.log("image...errrrrror...", error);
 
   useEffect(() => {
     if (uid && err.code !== "storage/object-not-found") {

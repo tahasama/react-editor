@@ -20,8 +20,8 @@ const ReactCells = () => {
 
   useEffect(() => {
     if (location.pathname.includes("code-and-run")) {
-      dispatch(AddCells({ cellId: uuidv4(), cellCode: example1 }));
       dispatch(AddCells({ cellId: uuidv4(), cellCode: example2 }));
+      dispatch(AddCells({ cellId: uuidv4(), cellCode: example1 }));
     }
   }, []);
 

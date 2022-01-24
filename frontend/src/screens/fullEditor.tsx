@@ -19,6 +19,7 @@ import {
   projectInitialState,
   saveProject,
   StarProject,
+  updateCellCode,
   // updateCells,
   updateCode,
   updateSaved,
@@ -44,7 +45,6 @@ function FullEditor() {
   const { uid } = useAppSelector(getAuthData);
   const iframe = useRef<any>();
   const location = useLocation();
-  console.log("Location...", location.pathname.includes("react"));
 
   useEffect(() => {
     if (type !== "reactProject" && !location.pathname.includes("react"))
@@ -100,6 +100,7 @@ function FullEditor() {
     dispatch(
       updateCode({ code: { html: code?.html, css: code?.css, js: code?.js } })
     );
+    dispatch(updateCellCode(cells));
     dispatch(updateSaved(true));
     setSaveMessage("Saved !");
     setTimeout(() => {

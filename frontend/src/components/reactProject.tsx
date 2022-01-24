@@ -35,7 +35,6 @@ const ReactProject = ({ cell }: any) => {
         setAllCode(allcodes);
       }
     }
-    console.log("allcode...", allCode);
   }, [cell.cellCode]);
 
   useEffect(() => {
