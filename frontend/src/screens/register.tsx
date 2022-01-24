@@ -41,7 +41,7 @@ const Register: React.FC = () => {
       navigate("/");
     }
     dispatch(updateError(""));
-  }, [email]);
+  }, [email, dispatch, navigate]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

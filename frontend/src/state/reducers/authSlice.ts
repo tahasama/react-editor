@@ -70,7 +70,7 @@ export const resetPassword = createAsyncThunk(
   "resetPassword",
   async (email: string) => {
     try {
-      const res = await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, email);
     } catch (error: any) {
       return error;
     }

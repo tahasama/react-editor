@@ -11,7 +11,8 @@ export const example1 = `const App = () => {
  
                          export default App;
                         `;
-export const example2 = `import React, { useState } from 'react';
+export const example2 = `// This cell must be the last one to execute code / cumulated code
+                         import React, { useState } from 'react';
                          import ReactDOM from 'react-dom';
 
                          ReactDOM.render(

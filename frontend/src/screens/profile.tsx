@@ -81,9 +81,7 @@ const Profile = () => {
         })
       );
 
-      {
-        error !== undefined && dispatch(cancelState({ cancelProfile: true }));
-      }
+      error !== undefined && dispatch(cancelState({ cancelProfile: true }));
     }
   };
 

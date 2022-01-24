@@ -16,7 +16,6 @@ import "./home.css";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { email } = useAppSelector(getAuthData);
   const { uid } = useAppSelector(getAuthData);
 
   const handleNewProjectClick: React.MouseEventHandler<

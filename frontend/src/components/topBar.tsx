@@ -14,11 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch, AiOutlineBars } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
 import { useAppSelector } from "../state/hooks";
-import {
-  downloadImage,
-  getUserData,
-  resetUser,
-} from "../state/reducers/userSlice";
+import { downloadImage, getUserData } from "../state/reducers/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { getAuthData } from "../state/reducers/authSlice";

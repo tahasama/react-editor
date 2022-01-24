@@ -5,7 +5,7 @@ import SideBar from "../components/sideBar";
 import TopBar from "../components/topBar";
 import { useAppSelector } from "../state/hooks";
 import { getAuthData, resetPassword } from "../state/reducers/authSlice";
-import { getUserData, updateError } from "../state/reducers/userSlice";
+import { updateError } from "../state/reducers/userSlice";
 
 const ResetPassword = () => {
   const emailRef = useRef<any>(null);
@@ -25,7 +25,7 @@ const ResetPassword = () => {
     return () => {
       dispatch(updateError(""));
     };
-  }, [err.code]);
+  }, [err.code, dispatch]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -33,9 +33,7 @@ const ResetPassword = () => {
       dispatch(updateError(""));
       dispatch(resetPassword(emailRef.current.value));
 
-      {
-        !err && navigate(-1);
-      }
+      !err && navigate(-1);
     } catch (err) {
       dispatch(updateError("failed to reset password, please try again"));
     }

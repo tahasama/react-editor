@@ -183,7 +183,8 @@ export const projectSlice = createSlice({
       Object.assign(state.code, action.payload.code);
     },
     AddCells: (state, action) => {
-      state.cells.push(action.payload);
+      // state.cells.push(action.payload);
+      state.cells.splice(-1, 0, action.payload);
     },
 
     DeleteCells: (state, action) => {
