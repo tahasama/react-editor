@@ -112,6 +112,11 @@ export const userSlice = createSlice({
     updateError: (state, action) => {
       state.error.message = action.payload;
     },
+    clearImage: (state, action) => {
+      console.log("deal with image....", action.payload.image);
+      state.image = action.payload.image;
+      state.userimage = action.payload.image;
+    },
     newUserImage: (state, action) => {
       // state.userimage = action.payload.userimage;
       Object.assign(state, action.payload);
@@ -161,6 +166,6 @@ export const userSlice = createSlice({
 });
 
 export const getUserData = (state: userProps) => state.user;
-export const { updateError, resetUser, newImage, newUserImage } =
+export const { updateError, resetUser, newImage, newUserImage, clearImage } =
   userSlice.actions;
 export default userSlice.reducer;

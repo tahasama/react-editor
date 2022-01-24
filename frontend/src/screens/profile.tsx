@@ -9,6 +9,7 @@ import UploadImage from "../components/uploadImage";
 import { fetchAllProject, getProjectsData, updateLoading } from "../state";
 import { useAppSelector } from "../state/hooks";
 import {
+  clearImage,
   getUser,
   getUserData,
   // newUsernme,
@@ -48,7 +49,12 @@ const Profile = () => {
       console.log("yep...");
       dispatch(updateError("please re-LogIn to update your email."));
     } else if (error.code === "storage/object-not-found") {
+      dispatch(clearImage({ image: "", userimage: "" }));
       dispatch(updateError(""));
+    } else if (error.code === "auth/email-already-in-use") {
+      dispatch(
+        updateError("this email is already used, please add a different one")
+      );
     }
   }, [error, dispatch]);
 
