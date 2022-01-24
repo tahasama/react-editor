@@ -55,7 +55,7 @@ const Home = () => {
             {uid ? (
               <p> New Project</p>
             ) : (
-              <p>
+              <p style={{ position: "relative" }}>
                 <span className="reactLogos">
                   <DiReact />
                 </span>{" "}

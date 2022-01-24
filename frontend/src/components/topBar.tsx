@@ -14,7 +14,11 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineSearch, AiOutlineBars } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
 import { useAppSelector } from "../state/hooks";
-import { downloadImage, getUserData } from "../state/reducers/userSlice";
+import {
+  downloadImage,
+  getUserData,
+  resetUser,
+} from "../state/reducers/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { getAuthData } from "../state/reducers/authSlice";
@@ -24,16 +28,17 @@ const TopBar = () => {
   const navigate = useNavigate();
   const searchRef = useRef<any>(null);
   const { saved } = useAppSelector(getProjectData);
-  const { image } = useAppSelector(getUserData);
-  const { uid, error } = useAppSelector(getAuthData);
+  const { image, error } = useAppSelector(getUserData);
+  const { uid, err } = useAppSelector(getAuthData);
 
   const [profile, setprofile] = useState(false);
+  console.log("image...errrrrror...", error);
 
   useEffect(() => {
-    if (uid && error.code !== "storage/object-not-found") {
+    if (uid && err.code !== "storage/object-not-found") {
       dispatch(downloadImage({ uid: uid }));
     }
-  }, [error, uid, dispatch]);
+  }, [err, uid, dispatch]);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
@@ -69,8 +74,8 @@ const TopBar = () => {
   };
   const handleLogout = () => {
     signOut(auth);
-    alerted("/");
     dispatch(cleanUpProjects([projectInitialState]));
+    alerted("/");
   };
   const handleLogin = () => {
     alerted("/login");
@@ -110,7 +115,9 @@ const TopBar = () => {
           <>
             {" "}
             <div className="imageContainerbar" onClick={onProfile}>
-              {image ? (
+              {image &&
+              error !== undefined &&
+              error.code !== "storage/object-not-found" ? (
                 <img src={image} alt="" className="userImageBar" />
               ) : (
                 <>

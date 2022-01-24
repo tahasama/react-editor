@@ -149,6 +149,7 @@ export const userSlice = createSlice({
     });
 
     builder.addCase(getUser.fulfilled, (state, action: any) => {
+      console.log("this user pfrofile...", action.payload);
       state.useremail = action.payload.email;
       state.usercreatedAt = action.payload.createdAt;
       state._id = action.payload._id;

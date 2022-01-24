@@ -11,21 +11,21 @@ const ResetPassword = () => {
   const emailRef = useRef<any>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error } = useAppSelector(getAuthData);
+  const { err } = useAppSelector(getAuthData);
 
   useEffect(() => {
-    if (error.code === "auth/missing-email") {
+    if (err.code === "auth/missing-email") {
       dispatch(updateError("please add an email."));
     }
-    if (error.code === "auth/user-not-found") {
+    if (err.code === "auth/user-not-found") {
       dispatch(updateError("Wrong email, please try again"));
-    } else if (error.code === "storage/object-not-found") {
+    } else if (err.code === "storage/object-not-found") {
       dispatch(updateError(""));
     }
     return () => {
       dispatch(updateError(""));
     };
-  }, [error.code]);
+  }, [err.code]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const ResetPassword = () => {
       dispatch(resetPassword(emailRef.current.value));
 
       {
-        !error && navigate(-1);
+        !err && navigate(-1);
       }
     } catch (err) {
       dispatch(updateError("failed to reset password, please try again"));
@@ -76,7 +76,7 @@ const ResetPassword = () => {
               SignUp
             </Link>
           </p>
-          {error && <p className="errorMessage">{error.message}</p>}
+          {err && <p className="errorMessage">{err.message}</p>}
         </form>
       </div>
     </div>

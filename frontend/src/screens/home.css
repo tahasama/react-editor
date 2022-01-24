@@ -23,21 +23,24 @@
   font-size: 34px;
 }
 .buttonWrapper {
+  position: relative;
   display: flex;
   height: 14vh;
   padding: 10px;
+  top: 6vh;
 }
 .buttona {
+  position: relative;
   font-size: 30px;
   width: 30vw;
-  height: 15vw;
+  height: 1vw;
   cursor: pointer;
   margin: 0px 20px;
   border-radius: 10px;
   border: none;
   margin-left: 20px;
   background-color: rgb(67, 69, 92, 0.1);
-  box-shadow: 10px 5px 15px rgb(100, 90, 0);
+  box-shadow: 10px 6px 15px rgb(100, 90, 0);
 }
 .buttona:hover {
   animation: shake 1s linear;

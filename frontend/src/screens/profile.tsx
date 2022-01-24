@@ -38,7 +38,9 @@ const Profile = () => {
 
   const projects: any = all.flat().reverse();
   const nbProjects = projects.length;
-  console.log("MY UERNAME....", username);
+  console.log("MY UERNAME....", uid);
+  console.log("MY params.id....", params.id);
+
   console.log("MY error.code....", error.code);
 
   useEffect(() => {
@@ -94,7 +96,9 @@ const Profile = () => {
           {" "}
           <div>
             <div className="imageProfileContainer">
-              {image ? (
+              {uid !== params.id ? (
+                <img src={userimage} alt="" className="userProfileImage" />
+              ) : image && error.code !== "storage/object-not-found" ? (
                 <img src={image} alt="" className="userProfileImage" />
               ) : (
                 <div className="noUserImage">

@@ -15,22 +15,22 @@ const Login = () => {
   const passwordRef = useRef<any>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { email, error } = useAppSelector(getAuthData);
+  const { email, err } = useAppSelector(getAuthData);
   const { uid } = useAppSelector(getAuthData);
 
-  if (error.code === "auth/user-not-found") {
+  if (err.code === "auth/user-not-found") {
     dispatch(updateError("wrong email, please try again"));
-  } else if (error.code === "auth/wrong-password") {
+  } else if (err.code === "auth/wrong-password") {
     dispatch(updateError("Wrong password, please try again"));
-  } else if (error.code === "auth/invalid-email") {
+  } else if (err.code === "auth/invalid-email") {
     dispatch(updateError("Please provide a valid email"));
-  } else if (error.code === "auth/internal-error") {
+  } else if (err.code === "auth/internal-error") {
     dispatch(updateError("Please provide a valid password"));
-  } else if (error.code === "auth/network-request-failed") {
+  } else if (err.code === "auth/network-request-failed") {
     dispatch(updateError("Failed to login, please try again"));
   } else if (
-    error.code === "storage/object-not-found" ||
-    error.code === "auth/popup-closed-by-user"
+    err.code === "storage/object-not-found" ||
+    err.code === "auth/popup-closed-by-user"
   ) {
     dispatch(updateError(""));
   }
@@ -125,7 +125,7 @@ const Login = () => {
             </Link>
           </p>
         </form>{" "}
-        {error && <p className="errorMessage">{error.message}</p>}
+        {err && <p className="errorMessage">{err.message}</p>}
       </div>
     </div>
   );

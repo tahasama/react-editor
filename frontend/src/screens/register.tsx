@@ -20,19 +20,19 @@ const Register: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { email, error } = useAppSelector(getAuthData);
+  const { email, err } = useAppSelector(getAuthData);
 
-  if (error.code === "auth/weak-password") {
+  if (err.code === "auth/weak-password") {
     dispatch(updateError("Password should be at least 6 characters"));
-  } else if (error.code === "auth/email-already-in-use") {
+  } else if (err.code === "auth/email-already-in-use") {
     dispatch(updateError("Email already taken, please add a different one"));
-  } else if (error.code === "auth/invalid-email") {
+  } else if (err.code === "auth/invalid-email") {
     dispatch(updateError("Please provide a valid email"));
-  } else if (error.code === "auth/internal-error") {
+  } else if (err.code === "auth/internal-error") {
     dispatch(updateError("Please provide a valid passwords"));
   } else if (
-    error.code === "storage/object-not-found" ||
-    error.code === "auth/popup-closed-by-user"
+    err.code === "storage/object-not-found" ||
+    err.code === "auth/popup-closed-by-user"
   ) {
     dispatch(updateError(""));
   }
@@ -129,7 +129,7 @@ const Register: React.FC = () => {
             </Link>
           </p>
         </form>
-        {error && <p className="errorMessage">{error.message}</p>}
+        {err && <p className="errorMessage">{err.message}</p>}
       </div>
     </div>
   );

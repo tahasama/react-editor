@@ -83,7 +83,7 @@ export interface userProps {
     email: string;
     password: string;
     confirmPassword: string;
-    error: { code: string; message: string };
+    err: { code: string; message: string };
     user: any;
   };
 }
@@ -93,7 +93,7 @@ export const userInitialState = {
   email: "",
   password: "",
   confirmPassword: "",
-  error: { code: "", message: "" },
+  err: { code: "", message: "" },
   user: "",
 };
 
@@ -102,7 +102,7 @@ export const authSlice = createSlice({
   initialState: userInitialState,
   reducers: {
     updateError: (state, action) => {
-      state.error.message = action.payload;
+      state.err.message = action.payload;
       //   state.error.code = action.payload;
     },
     saveUser: (state, action) => {
@@ -117,15 +117,15 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action: any) => {
       state.email = action.payload.email;
-      state.error.code = action.payload.code;
-      state.error.message = action.payload.message;
+      state.err.code = action.payload.code;
+      state.err.message = action.payload.message;
     });
 
     builder.addCase(loginUser.fulfilled, (state, action: any) => {
       state.uid = action.payload.uid;
       state.email = action.payload.email;
-      state.error.code = action.payload.code;
-      state.error.message = action.payload.message;
+      state.err.code = action.payload.code;
+      state.err.message = action.payload.message;
     });
   },
 });
