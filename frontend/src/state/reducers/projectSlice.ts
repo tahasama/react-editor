@@ -79,7 +79,7 @@ export const cloneProject = createAsyncThunk(
     const object: any = {
       ...val,
       email: val.user,
-      title: val.title + " clone",
+      title: val.title + "  " + uuidv4(),
     };
     const res = await axios.post("http://localhost:5000/api/project/", object);
     return res.data;
