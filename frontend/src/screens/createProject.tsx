@@ -115,21 +115,28 @@ const CreateProject: React.FC = () => {
                   )
                 }
               />
-              <div className="radioInput">
-                <div onClick={() => setType("reactProject")}>
-                  <input type="radio" id="React" value="React" name="project" />
-                  <label htmlFor="React"> React Js</label>
+              {!_id && (
+                <div className="radioInput">
+                  <div onClick={() => setType("reactProject")}>
+                    <input
+                      type="radio"
+                      id="React"
+                      value="React"
+                      name="project"
+                    />
+                    <label htmlFor="React"> React Js</label>
+                  </div>
+                  <div onClick={() => setType("javaScriptProject")}>
+                    <input
+                      type="radio"
+                      id="JavaScript"
+                      value="JavaScript"
+                      name="project"
+                    />
+                    <label htmlFor="JavaScript"> Js/Html/Css</label>
+                  </div>
                 </div>
-                <div onClick={() => setType("javaScriptProject")}>
-                  <input
-                    type="radio"
-                    id="JavaScript"
-                    value="JavaScript"
-                    name="project"
-                  />
-                  <label htmlFor="JavaScript"> Js/Html/Css</label>
-                </div>
-              </div>
+              )}
 
               <button className="createButton" type="submit">
                 {_id ? (
