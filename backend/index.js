@@ -1,3 +1,4 @@
+const path = require("path");
 require("dotenv").config();
 const productRoute = require("./routes/product");
 const userRoute = require("./routes/userRoute");
