@@ -14,6 +14,7 @@ import Profile from "./screens/profile";
 import { saveUser } from "./state/reducers/authSlice";
 import ReactEditor from "./components/reactEditor";
 import ReactProject from "./components/reactProject";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,21 +28,26 @@ function App() {
     });
   }, [dispatch]);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/search/q=:title" element={<ProjectList />} />
-        <Route path="/projects" element={<ProjectList />} />
-        <Route path="/create" element={<CreateProject />} />
-        <Route path="/editor/:id" element={<FullEditor />} />
-        <Route path="/editor/react/:id" element={<FullEditor />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/react" element={<ReactProject />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <div className="smallScreen">
+        ! For better experience, please use This App on big Screens
+      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/search/q=:title" element={<ProjectList />} />
+          <Route path="/projects" element={<ProjectList />} />
+          <Route path="/create" element={<CreateProject />} />
+          <Route path="/editor/:id" element={<FullEditor />} />
+          <Route path="/editor/react/:id" element={<FullEditor />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/react" element={<ReactProject />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

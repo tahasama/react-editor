@@ -1,0 +1,19 @@
+.smallScreen {
+ height: 0;
+    opacity: 0;
+  }
+  @media only screen and (max-width: 500px) {
+    .App {
+      display: none;
+    }
+    .smallScreen {
+      margin-top: 200px;
+      margin-left: 50px;
+      text-align: center;
+      font-family: Calibri, sans-serif;
+      font-weight: 700;
+      font-size: larger;
+      opacity: 1;
+      color: rgb(255, 0, 157);
+    }
+  }

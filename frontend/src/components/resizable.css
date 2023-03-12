@@ -63,3 +63,11 @@
     width: 99%;
   }
 }
+
+
+@media only screen and (max-width: 1320px) {
+  .react-resizable-handle-s{
+    width: 20em;
+  }
+
+}

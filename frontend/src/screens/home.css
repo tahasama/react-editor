@@ -84,3 +84,20 @@
 .i {
   color: rgb(42, 42, 180);
 }
+
+@media only screen and (max-width: 500px) {
+  .intro{
+    font-size: 24px;
+  }
+  .f{
+    font-size: 38px;
+  }
+  .logoName{
+    opacity: 0;
+    width: 0;
+  }
+  .reactLogos{
+    position: relative;
+    top: 9px;
+  }
+}

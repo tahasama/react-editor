@@ -112,14 +112,17 @@
 
 .topBar {
   display: flex;
-  position: fixed;
-  top: 0;
+  position: fixed; 
+   top: 0;
   left: 0;
   background-color: #363842;
+  /* background-color: red; */
+
   width: 100%;
-  justify-content: flex-end;
+  justify-content: space-between;
   z-index: 99;
   height: 45px;
+  /* margin: "0 20px"; */
 }
 .thacoder {
   /* margin: 1px 10px; */
@@ -137,7 +140,7 @@
   position: relative;
   margin: 3px 0;
   padding: 0;
-  width: 100vw;
+  /* width: 100vw; */
   height: 36px;
   background-color: #363842;
 }
@@ -173,6 +176,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+
 }
 .userlink {
   margin-right: 10px;
@@ -317,5 +321,18 @@
   }
   .logIn {
     margin: 1px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .search {
+    opacity: 0;
+    width: 0;
+  }
+  .user{
+    margin: 0 10px  ;
+  }
+  .userlink{
+    margin: 0 5px  ;
   }
 }

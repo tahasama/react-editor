@@ -22,6 +22,10 @@ code {
     monospace;
 }
 
+/* @media only screen and (max-width: 800px) {
+  body{ opacity: 0;
+  }
+} */
 /* 
 .App {
   text-align: center;
