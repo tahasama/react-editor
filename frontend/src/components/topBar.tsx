@@ -85,7 +85,7 @@ const TopBar = () => {
           <input
             className="searchInput"
             type="text"
-            placeholder="Search..."
+            placeholder="ex: proj"
             ref={searchRef}
           />
           <button className="searchButton" type="submit">
