@@ -38,7 +38,11 @@ Write Code Online And See Results Immedialtely.
 
 
 techs:
-
+- Bundler
+  - esbuild-wasm for creating the bundler
+  - https://unpkg.com for replacing the install of npm packages
+  - localForage for sotiring the packages locally;
+- editor with Monaco Editor
 - FireBase Storage for Images
 - FireBase authentication with email/password and Google auth
 - Mongodb as database
